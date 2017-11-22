@@ -1,0 +1,21 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="AWstreams_Marketplace::menu" title="Marketplace Management" sortOrder="10">
+                    <resource id="AWstreams_Marketplace::products" title="Manage Products" sortOrder="10">
+                    </resource>
+                    <resource id="AWstreams_Marketplace::sellers" title="Manage Sellers" sortOrder="20">
+                    </resource>
+                    <resource id="AWstreams_Marketplace::commission" title="Manage Commission" sortOrder="30">
+                    </resource>
+                    <resource id="AWstreams_Marketplace::transaction" title="Sellers Transaction" sortOrder="40">
+                    </resource>
+                    <resource id="AWstreams_Marketplace::feedback" title="Manage Feedback" sortOrder="50">
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

@@ -1,0 +1,119 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: ahmed
+ * Date: 19/11/17
+ * Time: 01:06 م
+ */
+?>
+<?php
+$_productCollection = $block->getLoadedProductCollection();
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+?>
+<?php if (!$_productCollection->count()): ?>
+    <div class="message info empty">
+        <div><?= /* @escapeNotVerified */
+            __('We can\'t find products matching the selection.') ?></div>
+    </div>
+<?php else: ?>
+
+    <table id="products_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>
+                <input name="mpselecctall" value="all" id="mpselecctall"type="checkbox">
+            </th>
+            <th></th>
+            <th>Product</th>
+            <th>Type</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Qty. Sold</th>
+            <th>Qty. Pending</th>
+            <th>Earned Amount</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($_productCollection as $_product): ?>
+            <tr>
+                <td>
+                    <input name="product_mass_delete[]" class="mpcheckbox"
+                                               value="<?= $_product->getId(); ?>" type="checkbox">
+                </td>
+                <td>
+                    <img src="<?= $block->getUrl('pub/media/catalog') . 'product' . $_product->getImage(); ?>"
+                         class="image">
+                </td>
+                <td>
+
+                    <div class="label name" title="<?= /* @escapeNotVerified */
+                    $_helper->productAttribute($_product, $_product->getName(), 'name') ?>">
+                        <a href="<?= /* @escapeNotVerified */
+                                        $_product->getProductUrl() ?>"
+                                        target="blank"><?= /* @escapeNotVerified */
+                                    $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a>
+
+                        </div>
+                </td>
+                <td>
+                    <span>
+                        <?= /* @escapeNotVerified */
+                        $block->getProductPrice($_product) ?>
+                    </span>
+                </td>
+                <td>
+                    <span>
+                        <?= /* @escapeNotVerified */  $_product->getTypeId(); ?>
+                    </span>
+                </td>
+                <td><span class="label pro-status">Enabled</span></td>
+                <td ><span class="label qty">7</span></td>
+                <td ><span class="label qty"><a
+                                href="<?= $block->getSalesDetails($_product->getId()); ?>">10</a></span>
+                </td>
+                <td ><span class="label price"><span
+                                class="price">$1,932.00</span></span></td>
+                <td><span class="label aw-action"><img
+                                src="https://magento-marketplace-demo15622285169.webkul.com/pub/static/frontend/Magento/luma/en_US/Webkul_Marketplace/images/icon-edit.png"
+                                data-url="https://magento-marketplace-demo15622285169.webkul.com/marketplace/product/edit/id/2/"
+                                alt="Edit" title="Edit" class="mp-edit"><img
+                                src="https://magento-marketplace-demo15622285169.webkul.com/pub/static/frontend/Magento/luma/en_US/Webkul_Marketplace/images/icon-trash.png"
+                                alt="Delete" title="Delete" class="mp-delete"
+                                data-url="https://magento-marketplace-demo15622285169.webkul.com/marketplace/product/delete/id/2/"></span>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+
+<?php endif; ?>
+<script>
+    require(['Tether'], function (Tether) {
+        window.Tether = Tether;
+    });
+require([
+        'jquery',
+        'jquery.bootstrap',
+        'datatables.net',
+        'datatables.net-bs4',
+        'datatables.net-buttons',
+        'JSZip',
+        'pdfMake'
+], function (jQuery, jQueryBootstrap) {
+    jQuery(document).ready(function () {
+            var table = jQuery('#products_table').DataTable({
+                lengthChange: false,
+                buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+
+        });
+
+        table.buttons().container().appendTo( '#products_table_wrapper .col-md-6:eq(0)' );
+        });
+    })
+</script>

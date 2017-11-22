@@ -1,0 +1,608 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="marketplace" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <class>separator-top</class>
+            <label>Marketplace</label>
+            <tab>awstreams</tab>
+            <resource>AWstreams_Marketplace::configuration</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>General Setting</label>
+                <!-- Fields -->
+                <field id="admin_email" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Admin Email</label>
+                </field>
+                <field id="global_commission_rate" translate="label" type="text" sortOrder="2" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Global Commission Rate</label>
+                    <comment><![CDATA[Percentage of general commission rate]]></comment>
+                </field>
+                <field id="allow_sellers_manage_orders" translate="label" type="select" sortOrder="3" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Allow sellers to manage orders</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="move_products_tax_to_seller" translate="label" type="select" sortOrder="4" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Move Product Tax to Seller Account</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="seller_approval_required" translate="label" type="select" sortOrder="5" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Seller Approval Required</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="seller_products_setting" translate="label" type="text" sortOrder="2" showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+                <label>Seller Product's Settings</label>
+                <field id="attribute_set_id" translate="true" showInDefault="1" showInStore="1" showInWebsite="1"
+                       sortOrder="1" type="multiselect">
+                    <label>Attribute Set ID</label>
+                    <source_model>\Magento\Catalog\Model\Product\AttributeSet\Options</source_model>
+                </field>
+                <field id="product_approval_required" translate="label" type="select" sortOrder="2" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Product Approval Required</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="product_update_approval_required" translate="label" type="select" sortOrder="3"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Update Approval Required</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allowed_categories_add_product" translate="label" type="select" sortOrder="4"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allowed Categories for seller to add products</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="product_type_for_seller" translate="true" showInDefault="1" showInStore="1" showInWebsite="1"
+                       sortOrder="5" type="multiselect">
+                    <label>Product Type For Seller</label>
+                    <source_model>\Magento\Catalog\Model\Product\Type</source_model>
+                </field>
+                <field id="static_dynamic_sku" translate="true" showInDefault="1" showInStore="1" showInWebsite="1"
+                       sortOrder="6" type="select">
+                    <label>Allow seller to add products with sku type</label>
+                    <source_model>AWstreams\Marketplace\Model\Source\Sku</source_model>
+                </field>
+                <field id="product_sku_prefix" translate="label" type="text" sortOrder="7" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Product Sku prefix</label>
+                    <comment>
+                        <![CDATA[e.g if sku prefix = "xyz" then your product sku will be as xyz-product sku]]></comment>
+                    <depends>
+                        <field id="static_dynamic_sku">2</field>
+                    </depends>
+                </field>
+                <field id="allow_seller_to_add_related_product" translate="label" type="select" sortOrder="8"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow Seller to Add Related Products</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allow_seller_to_add_upsell_product" translate="label" type="select" sortOrder="9"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow Seller to Add Up-Sell Products</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allow_seller_to_add_cross_sell_product" translate="label" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow Seller to Add Cross-Sell Products</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allow_seller_to_add_limit_on_product_purchase_for_cutomer" translate="label" type="select"
+                       sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow Seller to Add Limit on Product Purchase for Customer</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allowed_product_qty_on_product_purchase_for_customer" translate="label" type="text"
+                       sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allowed Product Qty on Product Purchase for Customer</label>
+                    <comment>
+                        <![CDATA[e.g if set 5 then customer will allowed to add maximum 5 qty of the products in cart.]]></comment>
+
+                </field>
+            </group>
+            <group id="seller_order_setting" translate="label" type="text" sortOrder="3" showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+                <label>Seller Order's Settings</label>
+                <field id="order_approval_required" translate="label" type="select" sortOrder="1" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Order Approval Required</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="inventory_setting" translate="label" type="text" sortOrder="4" showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+                <label>Inventory Settings</label>
+                <field id="enable_low_notification" translate="label" type="select" sortOrder="1" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable Low Notification</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Allow to send low stock notification mail to sellers]]></comment>
+                </field>
+                <field id="low_stock_quantity" type="text" sortOrder="2" showInWebsite="1" showInStore="1"
+                       showInDefault="1" translate="label">
+                    <label>Low Stock Quantity</label>
+                    <comment>
+                        <![CDATA[Allow to send low stock notification mail to sellers when product quantity will be equal or less then this quantity]]></comment>
+                </field>
+            </group>
+            <group id="seller_profile_page_settings" translate="label" type="text" sortOrder="5" showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+                <label>Seller Profile Page Settings</label>
+                <field id="display_seller_profile" translate="label" type="select" sortOrder="1" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Display Seller Profile</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_color_picker" translate="label" type="select" sortOrder="1" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable Color Picker</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Allow sellers to change their profile page background color]]></comment>
+                </field>
+                <field id="seller_policies_enabled_at_frontend" translate="label" type="select" sortOrder="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Seller Policies Enable at frontend</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="rewrite_seller_shop_url" translate="label" type="select" sortOrder="1" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Rewrite Seller's Shop URL]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Allow sellers to manage their shop URL]]></comment>
+                </field>
+                <field id="automatic_seller_public_url" translate="label" type="select" sortOrder="1" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Allow to automatic create seller public url on seller registration</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[Automatic create seller public url as profile url - yourwebsite.com/seller-shop-url, collection url - yourwebsite.com/seller-shop-url/collection, location url - yourwebsite.com/seller-shop-url/location, feedback url - yourwebsite.com/seller-shop-url/feedback on seller registration]]></comment>
+                </field>
+            </group>
+            <group id="marketplace_seller_review_settings" translate="label" type="text" sortOrder="6" showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+                <label>Marketplace Seller Review Settings</label>
+                <field id="authorized_customer_review_only" translate="label" type="select" sortOrder="1"
+                       showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Make a Review on only Order Purchase</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Allow only authorize buyers to review for seller]]></comment>
+                </field>
+            </group>
+            <group id="landing_page_settings" translate="label" type="text" sortOrder="7" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Landing Page Settings</label>
+                <!-- Fields -->
+
+
+                <field id="display_seller_registration_block_on_customer_registration_page" translate="label"
+                       type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Seller registration block on customer registration page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="marketplace_landing_page_layout" translate="label comment" type="select" sortOrder="2"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Marketplace Landing Page Layout</label>
+                    <source_model>AWstreams\Marketplace\Model\Source\MarketplaceLandingPageLayout</source_model>
+                    <comment><![CDATA[e.g Select Layout Which will be seen at frontend]]></comment>
+                </field>
+
+                <field id="marketplace_landing_page_head_title" translate="label comment" type="text" sortOrder="3"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Marketplace Landing Page Head Title</label>
+                    <comment>e.g Turn Your Passion Into a Business</comment>
+                </field>
+
+                <field id="display_banner" translate="label" type="select" sortOrder="4" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Display Banner</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="banner_image" translate="label comment" sortOrder="5" showInDefault="1" showInWebsite="1"
+                       type="image">
+                    <label>Banner Image</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system" scope_info="1">marketplace</upload_dir>
+                    <base_url type="media" scope_info="1">marketplace</base_url>
+                    <comment>Allowed file types: jpg, jpeg, gif, png</comment>
+
+                </field>
+
+                <field id="banner_content" translate="label comment" type="textarea" sortOrder="6" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Banner Content</label>
+                    <comment><![CDATA[This content will be display over the banner image in the marketplace landing page
+                        url-www.yourwebsite.com/marketplace"]]>
+                    </comment>
+
+                </field>
+
+                <field id="marketplace_landing_page_label1" translate="label comment" type="text" sortOrder="7"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Marketplace Landing Page Label1</label>
+                    <comment><![CDATA[e.g Turn Your Passion Into a Business (will be display above all feature's icons)]]></comment>
+                </field>
+
+                <field id="marketplace_landing_page_label2" translate="label comment" type="text" sortOrder="8"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Marketplace Landing Page Label2</label>
+                    <comment><![CDATA[e.g Sellers with Taste (will be display above top 4 seller's block)]]></comment>
+
+                </field>
+
+                <field id="marketplace_landing_page_label3" translate="label comment" type="text" sortOrder="9"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Marketplace Landing Page Label3</label>
+                    <comment><![CDATA[e.g More than 500 shop owners have joined us last month (will be display above "View All
+                        Sellers" button)]]>
+                    </comment>
+
+                </field>
+
+                <field id="marketplace_landing_page_label4" translate="label comment" type="text" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Marketplace Landing Page Label4</label>
+                    <comment><![CDATA[e.g Why to sell with us (will be display above marketplace content)]]></comment>
+
+                </field>
+
+                <field id="marketplace_landing_page_button_label" translate="label comment" type="text" sortOrder="11"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Marketplace Landing Page Button Label</label>
+                    <comment><![CDATA[e.g Open a Marketplace Shop - this will also display over banner]]></comment>
+                </field>
+
+
+                <field id="display_icons" translate="label " type="select" sortOrder="12" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Display Icons</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+
+                <field id="feature1_icon" translate="label comment" sortOrder="13" showInDefault="1" showInWebsite="1"
+                       type="Magento\Config\Block\System\Config\Form\Field\Image">
+                    <label>Feature:1 Icon</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\File</backend_model>
+                    <upload_dir config="system">marketplace</upload_dir>
+                    <base_url type="media" scope_info="1">marketplace</base_url>
+                    <comment><![CDATA[Allowed file types: jpg, jpeg, gif, png]]></comment>
+
+                </field>
+
+                <field id="Feature1_icon_label" translate="label comment" type="text" sortOrder="14" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Feature:1 Icon Label</label>
+                    <comment><![CDATA[e.g Register Yourself]]></comment>
+                </field>
+
+                <field id="feature2_icon" translate="label comment" sortOrder="15" showInDefault="1" showInWebsite="1"
+                       type="image">
+                    <label>Feature:2 Icon</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system" scope_info="1">marketplace</upload_dir>
+                    <base_url type="media" scope_info="1">marketplace</base_url>
+                    <comment><![CDATA[Allowed file types: jpg, jpeg, gif, png]]></comment>
+                </field>
+
+
+                <field id="Feature2_icon_label" translate="label comment" type="text" sortOrder="16" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Feature:2 Icon Label</label>
+                    <comment><![CDATA[e.g Add Products]]></comment>
+                </field>
+
+                <field id="feature3_icon" translate="label comment" sortOrder="17" showInDefault="1" showInWebsite="1"
+                       type="image">
+                    <label>Feature:3 Icon</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system" scope_info="1">marketplace</upload_dir>
+                    <base_url type="media" scope_info="1">marketplace</base_url>
+                    <comment><![CDATA[Allowed file types: jpg, jpeg, gif, png]]></comment>
+
+                </field>
+
+                <field id="Feature3_icon_label" translate="label comment" type="text" sortOrder="18" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Feature:3 Icon Label</label>
+                    <comment><![CDATA[e.g Start Selling]]></comment>
+                </field>
+
+                <field id="feature4_icon" translate="label comment" sortOrder="19" showInDefault="1" showInWebsite="1"
+                       type="image">
+                    <label>Feature:4 Icon</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system" scope_info="1">marketplace</upload_dir>
+                    <base_url type="media" scope_info="1">marketplace</base_url>
+                    <comment><![CDATA[Allowed file types: jpg, jpeg, gif, png]]></comment>
+
+                </field>
+
+                <field id="Feature4_icon_label" translate="label comment" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Feature:4 Icon Label</label>
+                    <comment><![CDATA[e.g Generate Revenues]]></comment>
+                </field>
+
+
+                <field id="about_marketplace" translate="label comment" type="textarea" sortOrder="21" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>About Marketplace</label>
+                    <comment><![CDATA[e.g AWstreams Marketplace]]></comment>
+                </field>
+
+                <field id="marketplace_seller_list_page_top_label" translate="label comment" type="text" sortOrder="22"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Marketplace Seller List Page Top Label</label>
+                    <comment><![CDATA[e.g AWstreams Marketplace]]></comment>
+                </field>
+
+                <field id="marketplace_seller_list_page_bottom_label" translate="label comment" type="text"
+                       sortOrder="23" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Marketplace Seller List Page Bottom Label</label>
+                    <comment><![CDATA[e.g AWstreams Marketplace]]></comment>
+                </field>
+
+            </group>
+            <group id="marketplace_product_page_fields_hints" translate="label" type="text" sortOrder="8" showInDefault="1" >
+                <label>Marketplace Product Page Fields Hints</label>
+                <!-- Fields -->
+
+
+                <field id="enable_product_hints" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Product Hints</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+
+                <field id="product_category" translate="label" type="textarea" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Category</label>
+                </field>
+
+                <field id="product_name" translate="label" type="textarea" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Name</label>
+                </field>
+
+                <field id="product_description" translate="label" type="textarea" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Description</label>
+                </field>
+
+                <field id="product_short_description" translate="label" type="textarea" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Short Description</label>
+                </field>
+
+                <field id="product_sku" translate="label" type="textarea" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product SKU</label>
+                </field>
+
+                <field id="product_price" translate="label" type="textarea" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Price</label>
+                </field>
+
+
+                <field id="product_special_price" translate="label" type="textarea" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Special Price</label>
+                </field>
+
+
+                <field id="product_special_price_start_date" translate="label" type="textarea" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Special Price Start Date</label>
+                </field>
+
+
+                <field id="product_special_price_end_date" translate="label" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Special Price End Date</label>
+                </field>
+
+                <field id="product_quantity" translate="label" type="textarea" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Quantity</label>
+                </field>
+
+                <field id="product_stock_availability" translate="label" type="textarea" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Stock Availability</label>
+                </field>
+
+                <field id="product_tax_types" translate="label" type="textarea" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Tax Types</label>
+                </field>
+
+                <field id="product_weight" translate="label" type="textarea" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Weight</label>
+                </field>
+
+                <field id="product_image" translate="label" type="textarea" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Image</label>
+                </field>
+
+                <field id="product_enable" translate="label" type="textarea" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Enable</label>
+                </field>
+
+
+            </group>
+            <group id="marketplace_profile_page_fields_hints" translate="label" type="text" sortOrder="9" showInDefault="1">
+                <label>Marketplace Profile Page Fields Hints</label>
+                <!-- Fields -->
+
+
+                <field id="enable_profile_hints" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Profile Hints</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+
+                <field id="do_you_want_to_becime_seller_vender" translate="label" type="textarea" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Do You Want To Become Seller/Vendor?</label>
+                </field>
+
+                <field id="shop_url" translate="label" type="textarea" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shop URL</label>
+                </field>
+
+
+                <field id="profile_twitter_id" translate="label" type="textarea" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Profile Twitter id  </label>
+                </field>
+
+                <field id="profile_facebook_id" translate="label" type="textarea" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Profile Facebook id</label>
+                </field>
+
+                <field id="profile_contact_number" translate="label" type="textarea" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Profile Contact Number</label>
+                </field>
+
+                <field id="profile_background_color" translate="label" type="textarea" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Profile Background Color</label>
+                </field>
+
+                <field id="profile_shop_name" translate="label" type="textarea" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Profile Shop Name</label>
+                </field>
+
+                <field id="profile_shop_banner_image" translate="label" type="textarea" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Profile Shop Banner Image</label>
+                </field>
+
+                <field id="profile_company_logo" translate="label" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Profile Company Logo</label>
+                </field>
+
+                <field id="profile_company_locality" translate="label" type="textarea" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Profile Company Locality</label>
+                </field>
+
+                <field id="profile_company_description" translate="label" type="textarea" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Profile Company Description</label>
+                </field>
+
+                <field id="return_policy" translate="label" type="textarea" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Return Policy</label>
+                </field>
+
+                <field id="shipping_policy" translate="label" type="textarea" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shipping Policy</label>
+                </field>
+
+
+                <field id="profile_country" translate="label" type="textarea" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Profile Country</label>
+                </field>
+
+                <field id="profile_meta_keywords" translate="label" type="textarea" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Profile Meta Keywords</label>
+                </field>
+
+                <field id="profile_meta_description" translate="label" type="textarea" sortOrder="17" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Profile Meta Description</label>
+                </field>
+
+                <field id="profile_payment_information" translate="label" type="textarea" sortOrder="18" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Profile Payment Information</label>
+                </field>
+
+            </group>
+            <group id="marketplace_transactional_emails" translate="label" type="text" sortOrder="10"       showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Marketplace Transactional Emails</label>
+                <!-- Fields -->
+
+                <field id="seller_approved_template" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Seller Approved Template</label>
+                    <source_model>AWstreams\Marketplace\Model\Source\SellerApproved</source_model>
+                </field>
+
+                <field id="seller_request_template" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Seller Request Template</label>
+                    <source_model>AWstreams\Marketplace\Model\Source\SellerRequest</source_model>
+                </field>
+
+                <field id="seller_unsubscribe_template" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Seller Unsubscribe Template</label>
+                    <source_model>AWstreams\Marketplace\Model\Source\SellerUnsubcribe</source_model>
+                </field>
+
+
+                <field id="seller_deny_by_admin_template" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Seller Deny by Admin  Template</label>
+                    <source_model>AWstreams\Marketplace\Model\Source\SellerDenyByAdmin</source_model>
+                </field>
+
+                <field id="product_deny_by_admin_template" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Deny by Admin Template</label>
+                    <source_model>AWstreams\Marketplace\Model\Source\ProductDenyByAdmin</source_model>
+                </field>
+
+                <field id="product_approval_request_to_admin_template" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Approval Request to Admin Template</label>
+                    <source_model>AWstreams\Marketplace\Model\Source\ProductApprovalRequestToAdmin</source_model>
+                </field>
+                <field id="product_edit_approval_request_to_admin_template" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Edit Approval Request to Admin Template</label>
+                    <source_model>AWstreams\Marketplace\Model\Source\ProductEditApprovalRequestToAdmin</source_model>
+                </field>
+
+                <field id="ask_question_to_seller_regarding_product_template" translate="label" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ask Question to Seller Regarding Product Template</label>
+                    <source_model>AWstreams\Marketplace\Model\Source\AskQuestionToSellerRegardingProduct</source_model>
+                </field>
+
+                <field id="ask_question_to_seller_template" translate="label" type="select" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ask Question to Seller Template</label>
+                    <source_model>AWstreams\Marketplace\Model\Source\AskQuestionToSeller</source_model>
+                </field>
+
+                <field id="ask_question_to_admin_by_seller_template" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ask Question to Admin By Seller Template</label>
+                    <source_model>AWstreams\Marketplace\Model\Source\AskQuestionToAdminBySeller</source_model>
+                </field>
+
+                <field id="product_approval_mail_to_seller_template" translate="label" type="select" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product approval Mail to Seller Template</label>
+                    <source_model>AWstreams\Marketplace\Model\Source\ProductApprovalMailToSeller</source_model>
+                </field>
+
+                <field id="product_disapproval_mail_to_seller_template" translate="label" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product disapproval Mail to Seller Template</label>
+                    <source_model>AWstreams\Marketplace\Model\Source\ProductDisapprovalMailToSeller</source_model>
+                </field>
+
+                <field id="seller_order_placed_notification_mail_template" translate="label" type="select" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Seller Order Placed Notification Mail Template</label>
+                    <source_model>AWstreams\Marketplace\Model\Source\SellerOderPlacedNotificationMail</source_model>
+                </field>
+
+                <field id="seller_order_invoiced_notification_mail_template" translate="label" type="select" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Seller Order Invoiced Notification Mail  Template</label>
+                    <source_model>AWstreams\Marketplace\Model\Source\SellerOrderInvoicedNotificationMail</source_model>
+                </field>
+
+                <field id="seller_transaction_mail_template" translate="label" type="select" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Seller Transaction Mail Template</label>
+                    <source_model>AWstreams\Marketplace\Model\Source\SellerTransactionMail</source_model>
+                </field>
+
+                <field id="seller_low_stock_notification_template" translate="label" type="select" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Seller Low Stock Notification Template</label>
+                    <source_model>AWstreams\Marketplace\Model\Source\SellerLowStockNotification</source_model>
+                </field>
+
+            </group>
+
+
+        </section>
+
+    </system>
+</config>

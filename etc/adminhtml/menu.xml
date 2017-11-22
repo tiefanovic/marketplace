@@ -1,0 +1,58 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add
+                id="AWstreams_Marketplace::menu"
+                title="MARKETPLACE MANAGEMENT"
+                module="AWstreams_Marketplace"
+                sortOrder="30"
+                resource="AWstreams_Marketplace::menu"
+        />
+        <add
+                id="AWstreams_Marketplace::products"
+                title="Manage Products"
+                module="AWstreams_Marketplace"
+                sortOrder="10"
+                action="marketplace/product/index"
+                resource="AWstreams_Marketplace::products"
+                parent="AWstreams_Marketplace::menu"
+        />
+        <add
+                id="AWstreams_Marketplace::sellers"
+                title="Manage Sellers"
+                module="AWstreams_Marketplace"
+                sortOrder="20"
+                action="marketplace/seller/index"
+                resource="AWstreams_Marketplace::sellers"
+                parent="AWstreams_Marketplace::menu"
+        />
+        <add
+                id="AWstreams_Marketplace::commission"
+                title="Manage Commission"
+                module="AWstreams_Marketplace"
+                sortOrder="30"
+                action="marketplace/commission/index"
+                resource="AWstreams_Marketplace::commission"
+                parent="AWstreams_Marketplace::menu"
+        />
+        <add
+                id="AWstreams_Marketplace::transaction"
+                title="Sellers Transaction"
+                module="AWstreams_Marketplace"
+                sortOrder="30"
+                action="marketplace/transaction/index"
+                resource="AWstreams_Marketplace::transaction"
+                parent="AWstreams_Marketplace::menu"
+        />
+        <add
+                id="AWstreams_Marketplace::feedback"
+                title="Manage Feedback"
+                module="AWstreams_Marketplace"
+                sortOrder="30"
+                action="marketplace/feedback/index"
+                resource="AWstreams_Marketplace::commission"
+                parent="AWstreams_Marketplace::menu"
+        />
+
+    </menu>
+</config>

@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="MarketPlace" design_abstraction="custom">
+    <body>
+        <referenceContainer name="sidebar.main">
+            <block class="Magento\Framework\View\Element\Template" template="Magento_Theme::html/collapsible.phtml" before="-">
+                <arguments>
+                    <argument name="block_css" xsi:type="string">block-collapsible-nav</argument>
+                </arguments>
+                <block class="Magento\Customer\Block\Account\Navigation" name="marketplace_seller_navigation" before="-">
+                    <arguments>
+                        <argument name="css_class" xsi:type="string">nav items</argument>
+                    </arguments>
+                    <block class="Magento\Customer\Block\Account\SortLinkInterface" name="marketplace_seller_navigation-dashboard-link">
+                        <arguments>
+                            <argument name="label" xsi:type="string" translate="true">Marketplace Dashboard</argument>
+                            <argument name="path" xsi:type="string">marketplace/seller/dashboard</argument>
+                            <argument name="sortOrder" xsi:type="number">100</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Customer\Block\Account\SortLinkInterface" name="marketplace_seller_navigation-profile-link">
+                        <arguments>
+                            <argument name="label" xsi:type="string" translate="true">Seller Profile</argument>
+                            <argument name="path" xsi:type="string">marketplace/seller/profile</argument>
+                            <argument name="sortOrder" xsi:type="number">200</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Customer\Block\Account\SortLinkInterface" name="marketplace_seller_navigation-attribute-create-link">
+                        <arguments>
+                            <argument name="label" xsi:type="string" translate="true">Create Attribute</argument>
+                            <argument name="path" xsi:type="string">marketplace/attributes/create</argument>
+                            <argument name="sortOrder" xsi:type="number">300</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Customer\Block\Account\SortLinkInterface" name="marketplace_seller_navigation-new-product-link">
+                        <arguments>
+                            <argument name="label" xsi:type="string" translate="true">New Product</argument>
+                            <argument name="path" xsi:type="string">marketplace/products/create</argument>
+                            <argument name="sortOrder" xsi:type="number">400</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Customer\Block\Account\SortLinkInterface" name="marketplace_seller_navigation-products-list-link">
+                        <arguments>
+                            <argument name="label" xsi:type="string" translate="true">My Products List</argument>
+                            <argument name="path" xsi:type="string">marketplace/products</argument>
+                            <argument name="sortOrder" xsi:type="number">500</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Customer\Block\Account\SortLinkInterface" name="marketplace_seller_navigation-transactions-list-link">
+                        <arguments>
+                            <argument name="label" xsi:type="string" translate="true">My Transactions List</argument>
+                            <argument name="path" xsi:type="string">marketplace/transactions</argument>
+                            <argument name="sortOrder" xsi:type="number">600</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Customer\Block\Account\SortLinkInterface" name="marketplace_seller_navigation-pdf-header-link">
+                        <arguments>
+                            <argument name="label" xsi:type="string" translate="true">Manage Print PDF Header Info</argument>
+                            <argument name="path" xsi:type="string">marketplace/transactions/pdf</argument>
+                            <argument name="sortOrder" xsi:type="number">700</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Customer\Block\Account\SortLinkInterface" name="marketplace_seller_navigation-orders-list-link">
+                        <arguments>
+                            <argument name="label" xsi:type="string" translate="true">My Orders History</argument>
+                            <argument name="path" xsi:type="string">marketplace/transactions/orders</argument>
+                            <argument name="sortOrder" xsi:type="number">800</argument>
+                        </arguments>
+                    </block>
+
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

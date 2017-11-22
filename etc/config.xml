@@ -1,0 +1,239 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <marketplace>
+            <general>
+                <admin_email>admin@email.com</admin_email>
+                <global_commission_rate>20</global_commission_rate>
+                <allow_sellers_manage_orders>1</allow_sellers_manage_orders>
+                <allow_sellers_manage_orders>1</allow_sellers_manage_orders>
+                <move_products_tax_to_seller>0</move_products_tax_to_seller>
+                <seller_approval_required>0</seller_approval_required>
+            </general>
+            <seller_products_setting>
+                <attribute_set_id>1</attribute_set_id>
+                <product_approval_required>1</product_approval_required>
+                <product_update_approval_required>1</product_update_approval_required>
+                <allowed_categories_add_product>1</allowed_categories_add_product>
+                <product_type_for_seller>1</product_type_for_seller>
+                <static_dynamic_sku>1</static_dynamic_sku>
+                <product_sku_prefix>awstreams</product_sku_prefix>
+                <allow_seller_to_add_related_product>1</allow_seller_to_add_related_product>
+                <allow_seller_to_add_upsell_product>1</allow_seller_to_add_upsell_product>
+                <allow_seller_to_add_cross_sell_product>1</allow_seller_to_add_cross_sell_product>
+                <allow_seller_to_add_limit_on_product_purchase_for_cutomer>1
+                </allow_seller_to_add_limit_on_product_purchase_for_cutomer>
+                <allowed_product_qty_on_product_purchase_for_customer>5
+                </allowed_product_qty_on_product_purchase_for_customer>
+
+            </seller_products_setting>
+            <seller_order_setting>
+                <order_approval_required>1</order_approval_required>
+            </seller_order_setting>
+            <inventory_setting>
+                <enable_low_notification>1</enable_low_notification>
+                <low_stock_quantity>5</low_stock_quantity>
+            </inventory_setting>
+            <seller_profile_page_settings>
+                <display_seller_profile>1</display_seller_profile>
+                <enable_color_picker>1</enable_color_picker>
+                <seller_policies_enabled_at_frontend>1</seller_policies_enabled_at_frontend>
+                <rewrite_seller_shop_url>1</rewrite_seller_shop_url>
+                <automatic_seller_public_url>1</automatic_seller_public_url>
+            </seller_profile_page_settings>
+            <marketplace_seller_review_settings>
+                <authorized_customer_review_only>0</authorized_customer_review_only>
+            </marketplace_seller_review_settings>
+            <landing_page_settings>
+                <display_seller_registration_block_on_customer_registration_page>1
+                </display_seller_registration_block_on_customer_registration_page>
+
+                <marketplace_landing_page_layout>0</marketplace_landing_page_layout>
+
+                <marketplace_landing_page_head_title>
+                    <![CDATA[Turn Your Passion Into a Business]]></marketplace_landing_page_head_title>
+
+                <display_banner>1</display_banner>
+
+                <banner_image></banner_image>
+
+                <banner_content>
+                    <![CDATA[<h2><p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</span></p><p>Ut enim ad minim veniam, quis nostrud exercitation ullamco</p><p>Duis aute irure dolor in reprehenderit in voluptate.</p></h2>]]></banner_content>
+
+                <marketplace_landing_page_label1>Turn Your Passion Into a Business</marketplace_landing_page_label1>
+
+                <marketplace_landing_page_label2>Sellers with Taste</marketplace_landing_page_label2>
+
+                <marketplace_landing_page_label3>More than 500 shop owners have joined us last month
+                </marketplace_landing_page_label3>
+
+                <marketplace_landing_page_label4>Why to sell with us</marketplace_landing_page_label4>
+
+                <marketplace_landing_page_button_label>Open a Marketplace Shop</marketplace_landing_page_button_label>
+
+                <display_icons>1</display_icons>
+
+                <feature1_icon></feature1_icon>
+
+                <Feature1_icon_label>Register Yourself</Feature1_icon_label>
+
+                <feature2_icon></feature2_icon>
+
+                <Feature2_icon_label>Add Products</Feature2_icon_label>
+
+                <feature3_icon></feature3_icon>
+
+                <Feature3_icon_label>Start Selling</Feature3_icon_label>
+
+                <feature4_icon></feature4_icon>
+
+                <Feature4_icon_label>Generate Revenues</Feature4_icon_label>
+                <about_marketplace>
+                    <![CDATA[<div style="width: 100%; display: inline-block; padding-bottom: 30px;">
+                    </div><div style="width: 28%; float: left; padding-right: 10px;"><img style="width: 100%;" src="http://magento2.webkul.com/marketplace/pub/media/wysiwyg/landingpage/img-customize-seller-profile.png" alt=""></div>
+                    <div style="width: 70%; float: left; padding-right: 10px; text-align: justify;">
+                        <h1 style="color: #636363;">Easily Customize your seller profile</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p>&nbsp;</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                </div>
+                <div style="width: 100%; display: inline-block; padding-bottom: 30px;">
+                    <div style="width: 70%; float: left; padding-right: 10px; text-align: justify;">
+                        <h1 style="color: #636363;">Add Unlimited Products</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p>&nbsp;</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                    <div style="width: 28%; float: left; padding-right: 10px;"><img style="width: 100%;" src="http://magento2.webkul.com/marketplace/pub/media/wysiwyg/landingpage/img-add-unlimited-products.png" alt=""></div>
+                </div>
+                <div style="width: 100%; display: inline-block; padding-bottom: 30px;">
+                    <div style="width: 28%; float: left; padding-right: 10px;"><img style="width: 100%;" src="http://magento2.webkul.com/marketplace/pub/media/wysiwyg/landingpage/img-connect-to-your-social-profile.png" alt=""></div>
+                    <div style="width: 70%; float: left; padding-right: 10px; text-align: justify;">
+                        <h1 style="color: #636363;">Connect to your social profile</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p>&nbsp;</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                </div>
+                <div style="width: 100%; display: inline-block; padding-bottom: 30px;">
+                    <div style="width: 70%; float: left; padding-right: 10px; text-align: justify;">
+                        <h1 style="color: #636363;">Buyer can ask you a question</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p>&nbsp;</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                    <div style="width: 28%; float: left; padding-right: 10px;"><img style="width: 100%;" src="http://magento2.webkul.com/marketplace/pub/media/wysiwyg/landingpage/img-buyers-can-ask-a-question.png" alt=""></div>
+                </div>
+                <h1>Really Easy to Setup and Customize</h1>
+                <p><img style="width: 80%; margin: 0px 8%;" src="http://magento2.webkul.com/marketplace/pub/media/wysiwyg/landingpage/marketplace-flow.png" alt=""></p>
+                <h1 style="color: #636363; padding: 30px; text-align: center;">OPEN YOUR ONLINE SHOP WITH US &amp; GET EXPLORE THE NEW WORLD WITH MORE THEN MILLIONS OF SHOPPERS</h1>
+            ]]>
+                </about_marketplace>
+
+                <marketplace_seller_list_page_top_label>AWstreams Marketplace</marketplace_seller_list_page_top_label>
+
+                <marketplace_seller_list_page_bottom_label>AWstreams Marketplace
+                </marketplace_seller_list_page_bottom_label>
+            </landing_page_settings>
+            <marketplace_product_page_fields_hints>
+
+                <enable_product_hints>1</enable_product_hints>
+
+                <product_category>Product Category</product_category>
+
+                <product_name>Product Name</product_name>
+
+                <product_description></product_description>
+
+                <product_short_description></product_short_description>
+
+                <product_sku></product_sku>
+
+                <product_price></product_price>
+
+                <product_special_price></product_special_price>
+
+                <product_special_price_start_date></product_special_price_start_date>
+
+                <product_special_price_end_date></product_special_price_end_date>
+
+                <product_quantity></product_quantity>
+
+                <product_stock_availability></product_stock_availability>
+
+                <product_tax_types></product_tax_types>
+
+                <product_weight></product_weight>
+
+                <product_image></product_image>
+
+                <product_enable></product_enable>
+            </marketplace_product_page_fields_hints>
+            <marketplace_profile_page_fields_hints>
+                <enable_profile_hints>1</enable_profile_hints>
+                <do_you_want_to_becime_seller_vender>Do You Want To Become Seller/Vendor?
+                </do_you_want_to_becime_seller_vender>
+
+                <shop_url>Shop URL</shop_url>
+
+                <profile_twitter_id>Profile Twitter id</profile_twitter_id>
+
+                <profile_facebook_id>Profile Facebook id</profile_facebook_id>
+
+                <profile_contact_number>Profile Contact Number</profile_contact_number>
+
+                <profile_background_color>Profile Background Color</profile_background_color>
+
+                <profile_shop_name>Profile Shop Name</profile_shop_name>
+
+                <profile_shop_banner_image>Profile Shop Banner Image</profile_shop_banner_image>
+
+                <profile_company_logo>Profile Company Logo</profile_company_logo>
+
+                <profile_company_locality>Profile Company Locality</profile_company_locality>
+
+                <profile_company_description>Profile Company Description</profile_company_description>
+
+                <return_policy>Return Policy</return_policy>
+
+                <shipping_policy>Shipping Policy</shipping_policy>
+
+                <profile_country>Profile Country</profile_country>
+
+                <profile_meta_keywords>Profile Meta Keywords</profile_meta_keywords>
+
+                <profile_meta_description>Profile Meta Description</profile_meta_description>
+
+                <profile_payment_information>Profile Payment Information</profile_payment_information>
+            </marketplace_profile_page_fields_hints>
+            <marketplace_transactional_emails>
+                <seller_approved_template>0</seller_approved_template>
+                <seller_request_template>0</seller_request_template>
+                <seller_unsubscribe_template>0</seller_unsubscribe_template>
+                <seller_deny_by_admin_template>0</seller_deny_by_admin_template>
+                <product_deny_by_admin_template>0</product_deny_by_admin_template>
+                <product_approval_request_to_admin_template>0</product_approval_request_to_admin_template>
+                <product_edit_approval_request_to_admin_template>0</product_edit_approval_request_to_admin_template>
+
+                <ask_question_to_seller_regarding_product_template>0</ask_question_to_seller_regarding_product_template>
+
+                <ask_question_to_seller_template>0</ask_question_to_seller_template>
+                <ask_question_to_admin_by_seller_template>0</ask_question_to_admin_by_seller_template>
+                <product_approval_mail_to_seller_template>0</product_approval_mail_to_seller_template>
+                <product_disapproval_mail_to_seller_template>0</product_disapproval_mail_to_seller_template>
+
+                <seller_order_placed_notification_mail_template>0</seller_order_placed_notification_mail_template>
+
+                <seller_order_invoiced_notification_mail_template>0</seller_order_invoiced_notification_mail_template>
+
+                <seller_transaction_mail_template>0</seller_transaction_mail_template>
+
+                <seller_low_stock_notification_template>0</seller_low_stock_notification_template>
+            </marketplace_transactional_emails>
+
+
+        </marketplace>
+    </default>
+</config>
