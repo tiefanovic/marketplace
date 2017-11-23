@@ -1,0 +1,114 @@
+
+<?php
+ini_set('memory_limit', -1);
+
+$profile = $block->getCurrentProfile();
+
+?>
+
+<style>
+    input {margin-bottom: 20px}
+</style>
+
+<form action="<?php echo $block->getFormAction() ?>" method="post" enctype="multipart/form-data">
+
+    <label>Facebook ID</label>
+    <input name="facebook_id" type="text" placeholder="Facebook ID"
+            <?php
+            if(!empty($profile['facebook_id'])) echo "value='" .$profile['facebook_id'] ."'";
+            ?>
+    >
+    <label>Twitter ID</label>
+    <input name="twitter_id" type="text" placeholder="Twitter ID"
+        <?php
+        if(!empty($profile['twitter_id'])) echo "value='" .$profile['twitter_id'] ."'";
+        ?>
+    >
+    <label>Youtube ID</label>
+    <input name="youtube_id" type="text" placeholder="Youtube ID"
+        <?php
+        if(!empty($profile['youtube_id'])) echo "value='" .$profile['youtube_id'] ."'";
+        ?>
+    >
+    <label for="">Instagram ID</label>
+    <input name="instagram_id" type="text" placeholder="Instagram ID"
+        <?php
+        if(!empty($profile['instagram_id'])) echo "value='" .$profile['instagram_id'] ."'";
+        ?>
+    >
+    <label for="">Contact Number</label>
+    <input name="contact_number" type="text" placeholder="Contact Number"
+        <?php
+        if(!empty($profile['contact_number'])) echo "value='" .$profile['contact_number'] ."'";
+        ?>
+    >
+    <label for="">Tax Number</label>
+    <input name="tax_number" type="number" placeholder="Tax Number"
+        <?php
+        if(!empty($profile['tax_number'])) echo "value='" .$profile['tax_number'] ."'";
+        ?>
+    >
+    <label for="">Shop Title</label>
+    <input name="shop_title" type="text" placeholder="Shop Title"
+        <?php
+        if(!empty($profile['shop_title'])) echo "value='" .$profile['shop_title'] ."'";
+        ?>
+    >
+    <label for=""><b>Shop Banner</b></label><br>
+    <input type="file" name="shop_banner" id="shop_banner">
+    <p> Allow image type: jpg, jpeg, png</p>
+    <?php
+    if(isset($profile['shop_banner'])){
+        echo "<img src='". $block->getUrlImage().$profile['shop_banner']."' style='max-width:900px; max-height:200px'>";
+    }
+    ?>
+    <br><br>
+
+
+    <label for=""><b>Shop Logo</b></label><br>
+    <input type="file" name="shop_logo" >
+    <p> Allow image type: jpg, jpeg, png</p>
+
+    <?php
+    if(isset($profile['shop_logo'])){
+        echo "<img src='". $block->getUrlImage().$profile['shop_logo']."' style='max-width:100px; max-height:100px'>";
+    }
+    ?>
+    <br>
+
+    <label for="">Shop Description</label>
+    <input name="shop_description" type="text" placeholder="Shop Description"
+        <?php
+        if(!empty($profile['shop_description'])) echo "value='" .$profile['shop_description'] ."'";
+        ?>
+    >
+    <label for="">Return Policy</label>
+    <input name="return_policy" type="text" placeholder="Return Policy"
+        <?php
+        if(!empty($profile['return_policy'])) echo "value='" .$profile['return_policy'] ."'";
+        ?>
+    >
+    <label for="">Shipping Policy</label>
+    <input name="shipping_policy" type="text" placeholder="Shipping Policy"
+        <?php
+        if(!empty($profile['shipping_policy'])) echo "value='" .$profile['shipping_policy'] ."'";
+        ?>
+    >
+    <label for="">Country</label>
+    <input name="country" type="text" placeholder="Country"
+        <?php
+        if(!empty($profile['country'])) echo "value='" .$profile['country'] ."'";
+        ?>
+    >
+    <label for="">Shop Address</label>
+    <input name="shop_address" type="text" placeholder="Shop Address"
+        <?php
+        if(!empty($profile['shop_address'])) echo "value='" .$profile['shop_address'] ."'";
+        ?>
+    >
+
+
+
+
+    <input type="submit" value="Save Profile ">
+</form>
