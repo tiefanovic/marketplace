@@ -94,32 +94,7 @@ class InstallData implements InstallDataInterface
 
         $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
 
-        /**
-         *  remove vendor_id attribute
-         */
-        $eavSetup->removeAttribute(
-            \Magento\Catalog\Model\Product::ENTITY,
-            self::VENDOR_ID);
-        $eavSetup->removeAttribute(
-            Customer::ENTITY,
-            self::IS_VENDOR
-        );
-        $eavSetup->removeAttribute(
-            Customer::ENTITY,
-            self::APPROVED_ACCOUNT
-        );
-        $eavSetup->removeAttribute(
-            Customer::ENTITY,
-            self::PREMIUM_SELLER
-        );
-        $eavSetup->removeAttribute(
-            Customer::ENTITY,
-            self::COMMISTION
-        );
-        $eavSetup->removeAttribute(
-            Customer::ENTITY,
-            self::SHOP_URL
-        );
+     
         /**
          *  Create Vendor Id attribute
          */
