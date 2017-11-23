@@ -9,7 +9,6 @@ use Magento\Framework\App\Action\Context;
 use Magento\Customer\Model\CustomerFactory;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Image\AdapterFactory;
-use Magento\Framework\Message\ManagerInterface;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\MediaStorage\Model\File\UploaderFactory;
 use Magento\Framework\Filesystem;
@@ -21,7 +20,6 @@ class SaveProfile extends Action
      */
     protected $customerFactory;
     protected $customerSession;
-    protected $messageManager;
     protected $_customerRepositoryInterface;
     protected $_resultFactory;
     protected $_resources;
@@ -34,7 +32,6 @@ class SaveProfile extends Action
     public function __construct(Context $context,
                                 CustomerFactory $customerFactory,
                                 Session $customerSession,
-                                ManagerInterface $messageManager,
                                 Collection $profileCollection,
                                 AdapterFactory $adapterFactory,
                                 UploaderFactory $uploaderFactory,
@@ -46,7 +43,6 @@ class SaveProfile extends Action
         $this->customerFactory  = $customerFactory;
         $this->_resultFactory = $context->getResultFactory();
         $this->customerSession = $customerSession;
-        $this->_messageManager = $messageManager;
         $this->profileCollection= $profileCollection;
         $this->adapterFactory =$adapterFactory;
         $this->uploader = $uploaderFactory;
@@ -74,23 +70,23 @@ class SaveProfile extends Action
         else
             $model = $this->_objectManager->create('AWstreams\Marketplace\Model\Profile');
 
-       if(!empty($model->getShopTitle())) {
-           if ($model->getShopTitle() != $post['shop_title']) {
+        if(!empty($model->getShopTitle())) {
+            if ($model->getShopTitle() != $post['shop_title']) {
 
-               if ($this->profileCollection->addFieldToFilter('shop_title', $post['shop_title'])->getFirstItem()) {
-                   $this->messageManager->addErrorMessage('Your Shop Title is exists');
-                   $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
-                   $resultRedirect->setUrl($this->_redirect->getRefererUrl());
-                   return $resultRedirect;
-               }
-           }
-       }else{
-           if ($this->profileCollection->addFieldToFilter('shop_title', $post['shop_title'])->getFirstItem()) {
-               $this->messageManager->addErrorMessage('Your Shop Title is exists');
-               $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
-               $resultRedirect->setUrl($this->_redirect->getRefererUrl());
-               return $resultRedirect;
-           }
+                if ($this->profileCollection->addFieldToFilter('shop_title', $post['shop_title'])->getFirstItem()) {
+                    $this->messageManager->addErrorMessage('Your Shop Title is exists');
+                    $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
+                    $resultRedirect->setUrl($this->_redirect->getRefererUrl());
+                    return $resultRedirect;
+                }
+            }
+        }else{
+            if ($this->profileCollection->addFieldToFilter('shop_title', $post['shop_title'])->getFirstItem()) {
+                $this->messageManager->addErrorMessage('Your Shop Title is exists');
+                $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
+                $resultRedirect->setUrl($this->_redirect->getRefererUrl());
+                return $resultRedirect;
+            }
         }
 
 
@@ -168,7 +164,7 @@ class SaveProfile extends Action
         $profile = $this->profileCollection->addFieldToFilter('customer_id', $this->currentCustomer->getId());
         if ($profile->count() > 0)
             return true;
-       return false;
+        return false;
     }
 
     private function saveImage($banner,$basePath){
@@ -180,7 +176,7 @@ class SaveProfile extends Action
         $file_tmp =$banner['tmp_name'];
         $file_type = $banner['type'];
         $types = ['jpeg','jpg','png','PNG','JPEG','JPG'];
-         $file_type = str_replace("image/","",$file_type);
+        $file_type = str_replace("image/","",$file_type);
         if(!in_array($file_type,$types)){
             return false ;
         }
