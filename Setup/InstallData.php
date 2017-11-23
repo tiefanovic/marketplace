@@ -270,7 +270,7 @@ class InstallData implements InstallDataInterface
         /**
          * Create customer attribute account_approve
          */
-        $customerSetup->addAttribute(Customer::ENTITY, self::APPROVE_ACCOUNT,
+        $customerSetup->addAttribute(Customer::ENTITY, self::APPROVED_ACCOUNT,
             [
                 'type' => 'int',
                 'label' => 'Approve Account',
@@ -284,7 +284,7 @@ class InstallData implements InstallDataInterface
                 'position' => 215,
                 'system' => false,
             ]);
-        $approve_account = $customerSetup->getEavConfig()->getAttribute(Customer::ENTITY, self::APPROVE_ACCOUNT)
+        $approve_account = $customerSetup->getEavConfig()->getAttribute(Customer::ENTITY, self::APPROVED_ACCOUNT)
             ->addData([
                 'attribute_set_id' => $attributeSetId,
                 'attribute_group_id' => $attributeGroupId,
