@@ -7,5 +7,6 @@
             <css src="AWstreams_Marketplace::js/datatables-net/media/css/dataTables.bootstrap4.min.css" />
             <css src="AWstreams_Marketplace::js/datatables-net/extensions/buttons/css/buttons.bootstrap4.min.css" />
             <css src="AWstreams_Marketplace::css/datatables-net/datatables.min.css" />
+            <css src="AWstreams_Marketplace::css/main.css" />
         </head>
 </page>

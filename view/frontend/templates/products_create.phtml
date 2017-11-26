@@ -1,8 +1,11 @@
+<?php
+$helper = $this->helper('Magento\Search\Helper\Data');
+?>
 <div class="ks-page-content-body ks-form-steps-progress-page">
     <div class="ks-form-steps-progress">
         <div class="ks-form-steps-progress-header">
-            <h3>Create your account</h3>
-            <div class="ks-description">Get access to all templates</div>
+            <h3>Create new product</h3>
+            <div class="ks-description">Add new product to your store</div>
         </div>
         <div class="ks-form-steps-progress-body">
             <div class="progress">
@@ -10,52 +13,30 @@
             </div>
 
             <div class="ks-step-items">
-                <a href="#" class="ks-step-item ks-completed">Basic Information</a>
-                <a href="#" class="ks-step-item">Calendar &amp; Rates</a>
-                <a href="#" class="ks-step-item">Photos</a>
-                <a href="#" class="ks-step-item">Confirmation</a>
+                <a href="#" class="ks-step-item ks-completed">Product Name</a>
+                <a href="#" class="ks-step-item">Description</a>
+                <a href="#" class="ks-step-item">Upload Media</a>
+                <a href="#" class="ks-step-item">Finished</a>
             </div>
         </div>
     </div>
     <div class="ks-form-steps-progress-wrapper">
-        <div class="list-group ks-form-steps-progress-wrapper-steps">
-            <a href="#" class="ks-list-group-item ks-completed">
-                <span class="ks-point"><span>1</span></span>
-                <span class="ks-text">Payment Booking</span>
-                <span class="la la-info-circle ks-info"></span>
-            </a>
-            <a href="#" class="ks-list-group-item ks-list-group-item-action ks-current">
-                <span class="ks-point"><span>2</span></span>
-                <span class="ks-text">Payment Booking</span>
-                <span class="la la-info-circle ks-info"></span>
-            </a>
-            <a href="#" class="ks-list-group-item ks-list-group-item-action ks-invalid">
-                <span class="ks-point"><span>3</span></span>
-                <span class="ks-text">Payment Booking</span>
-                <span class="la la-info-circle ks-info"></span>
-            </a>
-            <a href="#" class="ks-list-group-item ks-list-group-item-action">
-                <span class="ks-point"><span>4</span></span>
-                <span class="ks-text">Payment Booking</span>
-                <span class="la la-info-circle ks-info"></span>
-            </a>
-        </div>
         <div class="ks-form-steps-progress-content">
             <div class="ks-form-steps-progress-content-wrapper ks-scrollable">
                 <div class="ks-scroll-wrapper">
-                    <form class="ks-step">
+                    <form class="ks-step" action="<?php echo $helper->getResultUrl() ?>" method="get">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Title</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Type</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter type">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Description</label>
-                            <textarea class="form-control" rows="10"></textarea>
+                            <label for="productname">Product Name</label>
+                            <input type="text" data-mage-init='{"quickSearch":{
+                                    "formSelector":"#search_mini_form",
+                                    "url":"<?php echo $this->getUrl('search/ajax/suggest'); ?>",
+                                    "destinationSelector":"#search_autocomplete"}
+                               }'
+                                   name="<?php echo $helper->getQueryParamName() ?>"
+                                   value="<?php echo $helper->getEscapedQueryText() ?>"
+                                   class="form-control" id="productname" aria-describedby="productnameHelp" placeholder="Enter Product Name">
+                            <small id="productnameHelp" class="form-text text-muted">Type your product name, Or select from Autocomplete list</small>
+                            <div id="search_autocomplete" class="search-autocomplete"></div>
                         </div>
                     </form>
                 </div>
