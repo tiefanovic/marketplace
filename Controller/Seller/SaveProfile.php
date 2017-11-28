@@ -25,6 +25,7 @@ class SaveProfile extends Action
     protected $_resources;
     protected $currentCustomer;
     protected $profileCollection;
+    protected $profileCollection2;
     protected $adapterFactory;
     protected $uploader;
     protected $filesystem ;
@@ -44,6 +45,7 @@ class SaveProfile extends Action
         $this->_resultFactory = $context->getResultFactory();
         $this->customerSession = $customerSession;
         $this->profileCollection= $profileCollection;
+        $this->profileCollection2= $profileCollection;
         $this->adapterFactory =$adapterFactory;
         $this->uploader = $uploaderFactory;
         $this->filesystem= $filesystem;
@@ -61,8 +63,14 @@ class SaveProfile extends Action
             return $this->_redirect('*/*/');
 
 
+        if (empty($post['shop_title']) ) {
+            $this->messageManager->addErrorMessage('Please Enter Your Shop Title.');
+            $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
+            $resultRedirect->setUrl($this->_redirect->getRefererUrl());
+            return $resultRedirect;
+        }
 
-
+        $shops = $this->profileCollection2->addFieldToSelect('*')->getData();/*getData();*///addFieldToFilter('shop_title', $post['shop_title'])->getFirstItem()->getData('shop_title');
 
         $customerId = $this->currentCustomer->getId();
         if($this->hasProfile())
@@ -70,10 +78,17 @@ class SaveProfile extends Action
         else
             $model = $this->_objectManager->create('AWstreams\Marketplace\Model\Profile');
 
+        $check =false;
+        foreach ($shops  as $shop)
+            if($shop['shop_title'] == $post['shop_title'])
+                $check =true;
+
+
+
         if(!empty($model->getShopTitle())) {
             if ($model->getShopTitle() != $post['shop_title']) {
 
-                if ($this->profileCollection->addFieldToFilter('shop_title', $post['shop_title'])->getFirstItem()) {
+                if ($check ) {
                     $this->messageManager->addErrorMessage('Your Shop Title is exists');
                     $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
                     $resultRedirect->setUrl($this->_redirect->getRefererUrl());
@@ -81,7 +96,7 @@ class SaveProfile extends Action
                 }
             }
         }else{
-            if ($this->profileCollection->addFieldToFilter('shop_title', $post['shop_title'])->getFirstItem()) {
+            if ($check) {
                 $this->messageManager->addErrorMessage('Your Shop Title is exists');
                 $resultRedirect = $this->_resultFactory->create(ResultFactory::TYPE_REDIRECT);
                 $resultRedirect->setUrl($this->_redirect->getRefererUrl());
@@ -91,11 +106,10 @@ class SaveProfile extends Action
 
 
         //save image
-        $basePath = "AWstreams/Marketplace/images";
 
         if (!empty($_FILES['shop_banner']['name'])) {
             $banner = $_FILES['shop_banner'];
-            $file_name = $this->saveImage($banner,$basePath);
+            $file_name = $this->saveImage($banner);
             if($file_name != false){
                 $model->setBanner($file_name);
             }else{
@@ -110,7 +124,7 @@ class SaveProfile extends Action
         if (!empty($_FILES['shop_logo']['name'])) {
 
             $logo =$_FILES['shop_logo'];
-            $file_name = $this->saveImage($logo,$basePath);
+            $file_name = $this->saveImage($logo);
             if($file_name != false){
                 $model->setLogo($file_name);
             }else{
@@ -167,7 +181,7 @@ class SaveProfile extends Action
         return false;
     }
 
-    private function saveImage($banner,$basePath){
+    private function saveImage($banner){
         $mediaPath = $this->filesystem->getDirectoryRead(\Magento\Framework\App\Filesystem\DirectoryList::MEDIA)->getAbsolutePath();
         $media = $mediaPath . 'shop/';
 
