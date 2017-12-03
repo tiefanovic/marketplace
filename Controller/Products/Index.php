@@ -50,9 +50,9 @@ class Index extends Action
     {
         $result = $this->pageFactory->create();
         $result->getConfig()->getTitle()->set(_('Products List'));
-        $this->productCollection->addFieldToSelect('*');
+        /*$this->productCollection->addFieldToSelect('*');
         $customerId = $this->_customerSession->getCustomer()->getId();
-        $this->productCollection->addAttributeToFilter(InstallData::VENDOR_ID, ['eq'=>$customerId]);
+        $this->productCollection->addAttributeToFilter('vendor_id', ['eq'=>$customerId]);
         /*$post = $this->getRequest()->getPost();
         if (!empty($post)) {
             $needle = $post['name'];
@@ -62,9 +62,9 @@ class Index extends Action
                 array('like' => $needle.' %') // starts with needle and space after
             ));
 
-        }*/
+        }
         $block = $result->getLayout()->getBlock('marketplace_products_list');
-        $block->setProductCollection($this->productCollection);
+        $block->setProductCollection($this->productCollection);*/
         return $result;
     }
 
