@@ -17,4 +17,7 @@ class Create extends Template
    public function getPostActionUrl(){
        return $this->getUrl('marketplace/products/save');
    }
+   public function getAjaxUrl(){
+       return $this->getUrl('marketplace/products/search');
+   }
 }

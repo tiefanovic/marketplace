@@ -13,10 +13,10 @@ $helper = $this->helper('Magento\Search\Helper\Data');
             </div>
 
             <div class="ks-step-items">
-                <a href="#" class="ks-step-item ks-completed">Product Name</a>
-                <a href="#" class="ks-step-item">Description</a>
-                <a href="#" class="ks-step-item">Upload Media</a>
-                <a href="#" class="ks-step-item">Finished</a>
+                <a id="first-item" href="#" class="ks-step-item ks-completed">Product Name</a>
+                <a id="second-item" href="#" class="ks-step-item">Description</a>
+                <a id="third-item" href="#" class="ks-step-item">Upload Media</a>
+                <a id="last-item" href="#" class="ks-step-item">Finished</a>
             </div>
         </div>
     </div>
@@ -24,7 +24,7 @@ $helper = $this->helper('Magento\Search\Helper\Data');
         <div class="ks-form-steps-progress-content">
             <div class="ks-form-steps-progress-content-wrapper ks-scrollable">
                 <div class="ks-scroll-wrapper">
-                    <form class="ks-step" action="<?php echo $helper->getResultUrl() ?>" method="get">
+                    <form id="form" class="ks-step">
                         <div class="form-group">
                             <label for="productname">Product Name</label>
                             <input type="text" data-mage-init='{"quickSearch":{
@@ -38,6 +38,7 @@ $helper = $this->helper('Magento\Search\Helper\Data');
                             <small id="productnameHelp" class="form-text text-muted">Type your product name, Or select from Autocomplete list</small>
                             <div id="search_autocomplete" class="search-autocomplete"></div>
                         </div>
+                        <input type="text" name="category_id" hidden="hidden" value="0">
                     </form>
                 </div>
             </div>
@@ -48,4 +49,55 @@ $helper = $this->helper('Magento\Search\Helper\Data');
         </div>
     </div>
 </div>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "searchsuiteautocomplete_form": {
+                    "component": "AWstreams_Marketplace/js/autocomplete"
+                },
+                "searchsuiteautocompleteBindEvents": {
+                    "component": "AWstreams_Marketplace/js/bindEvents",
+                    "config": {
+                        "searchFormSelector": "#search_mini_form",
+                        "searchButtonSelector": "button.search",
+                        "inputSelector": "#search, #mobile_search, .minisearch input[type=\"text\"]",
+                        "searchDelay": "<?php echo $block->getSearchDelay() ?>"
+                    }
+                },
+                "searchsuiteautocompleteDataProvider": {
+                    "component": "AWstreams_Marketplace/js/dataProvider",
+                    "config": {
+                        "url": "<?php echo $block->getSearchUrl() ?>"
+                    }
+                }
+            }
+        }
+    }
+}
+</script>
+<script type="text/javascript">
+    require(["jquery"],function($) {
+        $(document).ready(function() {
+            var ajaxUrl = "<?php echo $block->getAjaxUrl();?>";
+            $('.ks-next').on('click', function (e) {
+                $.ajax({
+                    url: ajaxUrl,
+                    type: 'POST',
+                    dataType: 'json',
+                    complete: function(response) {
+                        country = response.responseJSON.default_country;
+                        state = response.responseJSON.state;
+                        console.log('##### Step ' + parseInt(response.respnseJSON.step) - 1 + ' Finished' );
+                        console.log('##### Step ' + parseInt(response.respnseJSON.step)  + ' Started' );
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        console.log('Error happens. Try again.');
+                    }
+                });
 
+            })
+            });
+    });
+</script>
