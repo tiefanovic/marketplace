@@ -26,17 +26,59 @@ $helper = $this->helper('Magento\Search\Helper\Data');
                 <div class="ks-scroll-wrapper">
                     <form id="form" class="ks-step">
                         <div class="form-group">
-                            <label for="productname">Product Name</label>
-                            <input type="text" data-mage-init='{"quickSearch":{
-                                    "formSelector":"#search_mini_form",
-                                    "url":"<?php echo $this->getUrl('search/ajax/suggest'); ?>",
-                                    "destinationSelector":"#search_autocomplete"}
-                               }'
-                                   name="<?php echo $helper->getQueryParamName() ?>"
-                                   value="<?php echo $helper->getEscapedQueryText() ?>"
+                            <label for="productname">Product Name <span class="text-danger">*</span></label>
+                            <input type="text"
+                                   name="product_name"
+                                   value="<?= !empty($product['product_name']) ? $product['name'] : '';?>"
                                    class="form-control" id="productname" aria-describedby="productnameHelp" placeholder="Enter Product Name">
-                            <small id="productnameHelp" class="form-text text-muted">Type your product name, Or select from Autocomplete list</small>
-                            <div id="search_autocomplete" class="search-autocomplete"></div>
+                            <small id="productnameHelp" class="form-text text-muted">Type your product name</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category <span class="text-danger">*</span></label>
+                            <input type="text"
+                                   name="category[]"
+                                   value="<?= !empty($product['category']) ? $product['category'] : '';?>"
+                                   class="form-control" id="category" aria-describedby="categoryHelp" placeholder="Enter Product Name">
+                            <small id="categoryHelp" class="form-text text-muted">Select Category</small>
+                        </div>
+                        <!-- Description -->
+                        <div class="form-group">
+                            <label for="description">Description <span class="text-danger">*</span></label>
+                            <textarea name="description"
+                                      class="form-control" id="description" aria-describedby="descriptionHelp" placeholder="Type your product description"><?= !empty($product['description']) ? $product['description'] : '' ; ?></textarea>
+                            <small id="descriptionHelp" class="form-text text-muted">Product Description</small>
+                        </div>
+                        <!-- Short Description -->
+                        <div class="form-group">
+                            <label for="short-description">Short Description <span class="text-danger"></span></label>
+                            <textarea
+                                   name="short_description"
+                                   class="form-control" id="short-description" aria-describedby="shortDescriptionHelp" placeholder="Enter Product Name"><?= !empty($product['short_description']) ? $product['short_description'] : '' ; ?></textarea>
+                            <small id="shortDescriptionHelp" class="form-text text-muted">Short description for your product</small>
+                        </div>
+                         <div class="form-group">
+                            <label for="sku">SKU <span class="text-danger">*</span></label>
+                            <input type="text"
+                                   name="sku"
+                                   value="<?= !empty($product['sku']) ? $product['sku'] : '';?>"
+                                   class="form-control" id="sku" aria-describedby="skuHelp" placeholder="Enter Product SKU">
+                            <small id="skuHelp" class="form-text text-muted">Type your product SKU</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price <span class="text-danger">*</span></label>
+                            <input type="text"
+                                   name="price"
+                                   value="<?= !empty($product['price']) ? $product['price'] : '';?>"
+                                   class="form-control" id="price" aria-describedby="priceHelp" placeholder="Enter Product Price">
+                            <small id="priceHelp" class="form-text text-muted">Type your product Price</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="stock">Stock Quantity <span class="text-danger">*</span></label>
+                            <input type="text"
+                                   name="stock"
+                                   value="<?= !empty($product['stock']) ? $product['stock'] : '';?>"
+                                   class="form-control" id="stock" aria-describedby="priceHelp" placeholder="Enter Product Stock Quantity">
+                            <small id="priceHelp" class="form-text text-muted">Type your product Stock Quantity</small>
                         </div>
                         <input type="text" name="category_id" hidden="hidden" value="0">
                     </form>
@@ -49,55 +91,3 @@ $helper = $this->helper('Magento\Search\Helper\Data');
         </div>
     </div>
 </div>
-<script type="text/x-magento-init">
-{
-    "*": {
-        "Magento_Ui/js/core/app": {
-            "components": {
-                "searchsuiteautocomplete_form": {
-                    "component": "AWstreams_Marketplace/js/autocomplete"
-                },
-                "searchsuiteautocompleteBindEvents": {
-                    "component": "AWstreams_Marketplace/js/bindEvents",
-                    "config": {
-                        "searchFormSelector": "#search_mini_form",
-                        "searchButtonSelector": "button.search",
-                        "inputSelector": "#search, #mobile_search, .minisearch input[type=\"text\"]",
-                        "searchDelay": "<?php echo $block->getSearchDelay() ?>"
-                    }
-                },
-                "searchsuiteautocompleteDataProvider": {
-                    "component": "AWstreams_Marketplace/js/dataProvider",
-                    "config": {
-                        "url": "<?php echo $block->getSearchUrl() ?>"
-                    }
-                }
-            }
-        }
-    }
-}
-</script>
-<script type="text/javascript">
-    require(["jquery"],function($) {
-        $(document).ready(function() {
-            var ajaxUrl = "<?php echo $block->getAjaxUrl();?>";
-            $('.ks-next').on('click', function (e) {
-                $.ajax({
-                    url: ajaxUrl,
-                    type: 'POST',
-                    dataType: 'json',
-                    complete: function(response) {
-                        country = response.responseJSON.default_country;
-                        state = response.responseJSON.state;
-                        console.log('##### Step ' + parseInt(response.respnseJSON.step) - 1 + ' Finished' );
-                        console.log('##### Step ' + parseInt(response.respnseJSON.step)  + ' Started' );
-                    },
-                    error: function (xhr, status, errorThrown) {
-                        console.log('Error happens. Try again.');
-                    }
-                });
-
-            })
-            });
-    });
-</script>
