@@ -1,0 +1,38 @@
+<?php
+
+$contacts =  $block->getCurrentContact();
+
+
+?>
+<table class="table table-bordered table-responsive">
+
+    <thead>
+    <tr>
+        <td>Name</td>
+        <td>Email</td>
+        <td>Subject</td>
+        <td>Message</td>
+        <td>Delete</td>
+    </tr>
+    </thead>
+
+    <tbody>
+    <?php foreach ($contacts as $contact) { ?>
+        <tr>
+            <td><?php echo $contact['name'] ?></td>
+            <td><?php echo $contact['email'] ?></td>
+            <td><?php echo $contact['subject'] ?></td>
+            <td><?php echo $contact['message'] ?></td>
+            <td>
+                <form action="<?php echo $block->getFormAction("deletecontact") ?>" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name='id' value="<?php echo $contact['id']?>">
+                    <input type="submit" value="Delete" class="btn btn-danger">
+                </form>
+            </td>
+
+        </tr>
+   <?php }?>
+    </tbody>
+
+</table>
+

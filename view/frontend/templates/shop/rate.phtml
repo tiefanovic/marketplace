@@ -1,0 +1,180 @@
+<?php
+
+ include("header.php");
+
+
+
+
+
+
+?>
+
+
+
+
+
+<div class="rate" id="rating">
+    <div class="row">
+        <?php if($count >0 ){ ?>
+
+
+            <div class="col-md-3 ">
+            <div class="rate-cont text-center">
+                <h2><i class="fa fa-star star <?php echo $block->getStarColor($rate); ?>"></i> <?php echo $rate;   ?></h2>
+                <h5>Average Rating (<?php echo $count;?>)<br>
+                    <?php echo $ratee ;?>% positive feedback</h5>
+                <br>
+                <a href="#rate-form" class="btn btn-primary write" > Write Your Review</a>
+
+                <hr>
+
+
+                <h3><i class="fa fa-star star <?php echo $block->getStarColor($price); ?> "></i> <?php echo $price;   ?></h3>
+                <h5>Average Price <br>Rating (<?php echo $count;?>)</h5>
+
+                <br>
+                <h3><i class="fa fa-star star <?php echo $block->getStarColor($value); ?>"></i> <?php echo $value;   ?></h3>
+                <h5>Average Value <br>Rating (<?php echo $count;?>)</h5>
+
+                <br>
+                <h3><i class="fa fa-star star <?php echo $block->getStarColor($quality); ?>"></i> <?php echo $quality;   ?></h3>
+                <h5>Average Quality <br>Rating (<?php echo $count;?>)</h5>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-8">
+            <div class="reviews">
+                <?php foreach($rates as $v){?>
+
+
+                    <h4> <b><?php echo $v['summary'] ?> </b></h4>
+                    <p> By <?php echo $v['name'] ?>  </p>
+                    <h5> Rating:
+                        <b>Price</b>
+                        <i class="fa fa-star star <?php echo $block->getStarColor($v['price']); ?> "></i>
+                        <?php echo $v['price']; ?>
+
+                        <b>Value</b>
+                        <i class="fa fa-star star <?php echo $block->getStarColor($v['value']); ?>"></i>
+                        <?php echo $v['value']; ?>
+
+                        <b>Quality</b>
+                        <i class="fa fa-star star <?php echo $block->getStarColor($v['quality']); ?>"></i>
+                        <?php echo $v['quality']; ?>
+                    </h5>
+                    <p> <?php echo $v['review'] ?>  </p>
+
+                    <hr>
+                    <?php
+                }
+
+                ?>
+            </div>
+        </div>
+
+        <?php } else {?>
+            <div class="text-center">
+                <h3> No Rates </h3>
+                <a href="#rate-form" class="btn btn-primary write" > Write Your Review</a>
+
+            </div>
+        <?php } ?>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<hr>
+<!-- Form -->
+<div id="rate-form">
+ <div class="row">
+  <div class="col-md-10 col-md-offset-1">
+   <h3 class="text-center"> Write Your Own Feedback</h3>
+   <form action="<?php echo $block->getFormAction("saverating") ?>" method="post" enctype="multipart/form-data">
+
+       <table id="product-review-table" class="data-table">
+           <colgroup>
+               <col>
+               <col width="1">
+               <col width="1">
+               <col width="1">
+               <col width="1">
+               <col width="1">
+           </colgroup>
+           <thead>
+           <tr class="first last">
+               <th>&nbsp;</th>
+               <th><span class="nobr">1 star</span></th>
+               <th><span class="nobr">2 stars</span></th>
+               <th><span class="nobr">3 stars</span></th>
+               <th><span class="nobr">4 stars</span></th>
+               <th><span class="nobr">5 stars</span></th>
+           </tr>
+           </thead>
+           <tbody>
+           <tr class="first odd"><th>Price</th>
+               <td class="value"><input class="radio" value="1" id="Price_1" name="feed_price" checked="checked" type="radio"></td>
+               <td class="value"><input class="radio" value="2" id="Price_2" name="feed_price" type="radio"></td>
+               <td class="value"><input class="radio" value="3" id="Price_3" name="feed_price" type="radio"></td>
+               <td class="value"><input class="radio" value="4" id="Price_4" name="feed_price" type="radio"></td>
+               <td class="value last"><input class="radio" value="5" id="Price_5" name="feed_price" type="radio"></td>
+           </tr>
+           <tr class="even"><th>Value</th>
+               <td class="value"><input class="radio" value="1" id="Value_1" name="feed_value" checked="checked" type="radio"></td>
+               <td class="value"><input class="radio" value="2" id="Value_2" name="feed_value" type="radio"></td>
+               <td class="value"><input class="radio" value="3" id="Value_3" name="feed_value" type="radio"></td>
+               <td class="value"><input class="radio" value="4" id="Value_4" name="feed_value" type="radio"></td>
+               <td class="value last"><input class="radio" value="5" id="Value_5" name="feed_value" type="radio"></td>
+           </tr>
+           <tr class="last odd">
+               <th>Quality</th>
+               <td class="value"><input class="radio" value="1" id="Quality_1" name="feed_quality" checked="checked" type="radio"></td>
+               <td class="value"><input class="radio" value="2" id="Quality_2" name="feed_quality" type="radio"></td>
+               <td class="value"><input class="radio" value="3" id="Quality_3" name="feed_quality" type="radio"></td>
+               <td class="value"><input class="radio" value="4" id="Quality_4" name="feed_quality" type="radio"></td>
+               <td class="value last"><input class="radio" value="5" id="Quality_5" name="feed_quality" type="radio"></td>
+           </tr>
+           </tbody>
+       </table>
+    <label>Name:</label>
+    <input name="name" type="text" placeholder="Name">
+    <br><br>
+    <label>Summary:</label>
+    <input name="summary" type="text" placeholder="Summary">
+    <br><br>
+    <label>Review:</label>
+    <textarea name="review" id=""  rows="5" placeholder="Review"></textarea>
+    <br><br>
+    <input type="hidden" name="shop_id" value="<?php echo $id; ?>">
+
+    <input type="submit" value="Submit Review" >
+
+   </form>
+  </div>
+ </div>
+</div>
+
+
+
+
+
+
+<?php
+
+include "footer.php";
+?>
+
+

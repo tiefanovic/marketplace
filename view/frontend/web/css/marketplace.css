@@ -1,0 +1,112 @@
+
+
+/****** *****/
+hr {
+    border-color: #ccc !important;
+}
+
+
+/**********/
+.shop .cover{
+    height: 350px;
+    width: 100%;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+}
+
+/*navbar*/
+.shop .logo {
+    width: 116px ;
+    height: 111px;
+    margin-top: -68px;
+    margin-left: 50px;
+}
+.shop .title-cont{
+    padding: 8px;
+    margin: 0 27px;
+}
+.shop .title{
+    font-size: 24px;
+}
+.shop .country , .fa.fa-map-marker {
+    font-size: 14px !important;
+}
+.shop .nav .fa {
+     font-size: 20px;
+}
+
+/****** about *****/
+.shop .about {
+    border-left: 1px solid #aaa ;
+    padding-left: 15px;
+}
+.shop #about h4 ,.shop #about h2 {
+
+    padding: 0 !important;
+    margin:0 !important;
+}
+.shop .row { margin-bottom: 20px}
+
+/********** policy *********/
+.shop #policy .cont {
+    padding: 10px;
+    border: 1px solid #BBB;
+}
+.shop #policy .cont span{
+    font-size: 30px;
+}
+.shop #policy .cont .fa{
+    font-size: 48px;
+    padding-right: 18px;
+}
+.shop #policy p .cont {
+    padding-top: 15px;
+
+}
+
+
+
+/****** rating *****/
+.rate {
+    border-top: 1px solid #ccc;
+}
+.star.green {
+    color: #51ca51;
+}
+.star.gold {
+    color: #e8ae44;;
+}
+.star.red {
+    color: #f33729;
+}
+
+.rate .rate-cont{
+    background: #eee;
+    padding:15px 10px;
+}
+.rate .write{
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+}
+
+.rate h5 b{
+    padding-left: 30px;
+}
+.rate .reviews {
+    padding: 15px 10px;
+}
+.rate .review-cont {
+    border-bottom: 1px solid #ccc;
+}
+
+
+
+
+
+
+
+
+
+
