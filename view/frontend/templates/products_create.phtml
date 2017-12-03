@@ -80,9 +80,40 @@ $helper = $this->helper('Magento\Search\Helper\Data');
                                    class="form-control" id="stock" aria-describedby="priceHelp" placeholder="Enter Product Stock Quantity">
                             <small id="priceHelp" class="form-text text-muted">Type your product Stock Quantity</small>
                         </div>
+                        <div class="form-group">
+                            <label for="stock_availablity">Stock Availablity <span class="text-danger">*</span></label>
+                            <select name="stock_availablity"
+                                   class="form-control" id="stock_availablity" aria-describedby="stockAvailablity" >
+                                   <option <?= !empty($product['stock_availablity']) ? 'selected' : '' ; ?> value="1">In Stock</option>
+                                   <option <?= !empty($product['stock_availablity']) ? 'selected' : '' ; ?> value="2">Out Of Stock</option>
+                               </select>
+                            <small id="stockAvailablity" class="form-text text-muted">Select your product Stock Availablity Status</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="visibilty">Stock Visibilty <span class="text-danger">*</span></label>
+                            <select name="visibilty"
+                                   class="form-control" id="visibilty" aria-describedby="visibiltyHelp" >
+                                   <option value="0">Please Select ...</option>
+                                   <option <?= !empty($product['visibilty']) ? 'selected' : '' ; ?> value="1">Not Visible Individually</option>
+                                   <option <?= !empty($product['visibilty']) ? 'selected' : '' ; ?> value="2">Catalog</option>
+                                   <option <?= !empty($product['visibilty']) ? 'selected' : '' ; ?> value="2">Search</option>
+                                   <option <?= !empty($product['visibilty']) ? 'selected' : '' ; ?> value="2">Catalog, Search</option>
+
+                               </select>
+                            <small id="visibiltyHelp" class="form-text text-muted">Select your product Stock Visibilty</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="weight">Weight</label>
+                            <input type="text"
+                                   name="weight"
+                                   value="<?= !empty($product['weight']) ? $product['weight'] : '';?>"
+                                   class="form-control" id="weight" aria-describedby="weightHelp" placeholder="Enter Product Weight or 0 for downloadable products">
+                            <small id="weightHelp" class="form-text text-muted">Type your product weight or 0 for downloadable products</small>
+                        </div>
                         <input type="text" name="category_id" hidden="hidden" value="0">
                     </form>
                 </div>
+
             </div>
             <div class="ks-controls ks-flex-end">
                 <button class="btn btn-primary-outline ks-light ks-previous">Back</button>
