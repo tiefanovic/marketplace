@@ -1,0 +1,216 @@
+<?php
+
+
+
+    include ("header.php");
+
+if(!empty($shop->getData('shop_title'))) {
+
+?>
+
+
+        <!--products-->
+        <div id="products" style="height: 200px;">
+            <?php
+                $i = 1 ;
+                foreach ($products as $product){
+                    //echo $product['sku'];
+                    echo $product->getName()."-----";
+                    echo $product->getSku()."-----";
+                    echo $product->getImage()."-----";
+                    echo "<img src='" .($block->getImage($product, 'category_page_list'))."'>";
+                    echo "<br>";
+                }
+            ?>
+        </div>
+
+        <hr>
+        <!--about-us-->
+        <div id="about">
+            <div class="row">
+                <div class="col-md-2 col-md-offset-1">
+                    <h2>About Us</h2>
+                </div>
+                <div class="col-md-8">
+                    <p class="about"><?php echo $desc;?></p>
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-2 col-md-offset-1">
+                    <h4>Contact Number</h4>
+                </div>
+                <div class="col-md-8">
+                    <p class="about"><?php echo $contact;?></p>
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-2 col-md-offset-1">
+                    <h4>Address</h4>
+                </div>
+                <div class="col-md-8">
+                    <p class="about"><?php echo $address;?></p>
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-2 col-md-offset-1">
+                    <h4>Tax Number</h4>
+                </div>
+                <div class="col-md-8">
+                    <p class="about"><?php echo $tax;?></p>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!--rating-->
+        <div class="rate" id="rate">
+            <div class="row">
+        <?php if($count >0 ){ ?>
+
+                <div class="col-md-3 ">
+                    <div class="rate-cont text-center">
+                        <h2><i class="fa fa-star star <?php echo $block->getStarColor($rate); ?> "></i> <?php echo $rate;   ?></h2>
+                        <h5>Average Rating (<?php echo $count;?>)<br>
+                            <?php echo $ratee ;?>% positive feedback</h5>
+                        <br>
+                        <a href="<?php echo $block->getUrlRate(str_replace(" ","-",$shop_title)) . "#rate-form"; ?>" class="btn btn-primary write" > Write Your Review</a>
+
+                        <hr>
+
+
+                        <h3><i class="fa fa-star star <?php echo $block->getStarColor($price); ?> "></i> <?php echo $price;   ?></h3>
+                        <h5>Average Price <br>Rating (<?php echo $count;?>)</h5>
+
+                        <br>
+                        <h3><i class="fa fa-star star <?php echo $block->getStarColor($value); ?> "></i> <?php echo $value;   ?></h3>
+                        <h5>Average Value <br>Rating (<?php echo $count;?>)</h5>
+
+                        <br>
+                        <h3><i class="fa fa-star star <?php echo $block->getStarColor($quality); ?> "></i> <?php echo $quality;   ?></h3>
+                        <h5>Average Quality <br>Rating (<?php echo $count;?>)</h5>
+
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="reviews">
+                        <?php foreach($rates as $v){?>
+                            <div class="review-cont">
+                                <h4> <b><?php echo $v['summary'] ?> </b></h4>
+                                <p> By <?php echo $v['name'] ?>  </p>
+                                <h5> Rating:
+                                    <b>Price</b>
+                                    <i class="fa fa-star star <?php echo $block->getStarColor($v['price']); ?> "></i>
+                                    <?php echo $v['price']; ?>
+
+                                    <b>Value</b>
+                                    <i class="fa fa-star star <?php echo $block->getStarColor($v['value']); ?>"></i>
+                                    <?php echo $v['value']; ?>
+
+                                    <b>Quality</b>
+                                    <i class="fa fa-star star <?php echo $block->getStarColor($v['quality']); ?>"></i>
+                                    <?php echo $v['quality']; ?>
+                                </h5>
+                                <p> <?php echo $v['review'] ?>  </p>
+                            </div>
+
+                            <?php
+                        }
+
+                        ?>
+                        <br>
+                        <div class="text-center">
+
+                            <a href="<?php echo $block->getUrlRate(str_replace(" ","-",$shop_title)) . "#rating"; ?>" class="btn btn-primary write  " > Show All Reviews</a>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+        <?php } else {?>
+            <div class="text-center">
+                <h3> No Rates </h3>
+                <a href="<?php echo $block->getUrlRate(str_replace(" ","-",$shop_title)) . "#rate-form"; ?>" class="btn btn-primary write" > Write Your Review</a>
+
+            </div>
+             <?php } ?>
+            </div>
+        </div>
+        <hr>
+
+        <!--policy-->
+        <div id="policy">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="cont">
+                        <span class="pull-left">  Return Policy</span>
+                        <i class="fa fa-truck pull-right"></i>
+                        <div class="clearfix"></div>
+                        <p> <?php echo $return; ?></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="cont">
+                        <span class="pull-left">  Shipping Policy</span>
+                        <i class="fa fa-truck pull-right"></i>
+                        <div class="clearfix"></div>
+                        <p> <?php echo $shipping; ?></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+        <!--contact-->
+        <div id="contact">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <h3 class="text-center"> Contact US</h3>
+                    <form action="<?php echo $block->getFormAction("savecontact") ?>" method="post" enctype="multipart/form-data">
+
+                        <label>Name:</label>
+                        <input name="name" type="text" placeholder="Name">
+                        <br><br>
+                        <label>Eamil:</label>
+                        <input name="email" type="email" placeholder="Email">
+                        <br><br>
+                        <label>Subject:</label>
+                        <input name="subject" type="text" placeholder="Subject">
+                        <br><br>
+                        <label>Message:</label>
+                        <textarea name="message" id=""  rows="5" placeholder="Message"></textarea>
+                        <br><br>
+
+                        <input type="submit" value="Send" >
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+<?php }
+
+include("footer.php");?>
+
+
+
+
+
+
+
+
+
+

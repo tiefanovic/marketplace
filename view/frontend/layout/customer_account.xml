@@ -66,6 +66,18 @@
                             <argument name="sortOrder" xsi:type="number">800</argument>
                         </arguments>
                     </block>
+                    <block class="Magento\Framework\View\Element\Html\Link\Current" name="seller-contacts">
+                        <arguments>
+
+                            <argument name="path" xsi:type="string">marketplace/seller/contact</argument>
+
+                            <argument name="label" xsi:type="string"> Seller Contacts</argument>
+                            <argument name="sortOrder" xsi:type="number">900</argument>
+
+
+                        </arguments>
+
+                    </block>
 
                 </block>
             </block>

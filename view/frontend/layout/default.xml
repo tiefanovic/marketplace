@@ -8,5 +8,6 @@
             <css src="AWstreams_Marketplace::js/datatables-net/extensions/buttons/css/buttons.bootstrap4.min.css" />
             <css src="AWstreams_Marketplace::css/datatables-net/datatables.min.css" />
             <css src="AWstreams_Marketplace::css/main.css" />
+            <css src="AWstreams_Marketplace::css/font-awesome.min.css"/><css src="AWstreams_Marketplace::css/marketplace.css"/>
         </head>
 </page>
