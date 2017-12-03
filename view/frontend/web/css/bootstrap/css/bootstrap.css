@@ -3815,16 +3815,6 @@ tbody.collapse.show {
   content: "Browse";
 }
 
-.nav {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 0;
-  margin-bottom: 0;
-  list-style: none;
-}
-
 .nav-link {
   display: block;
   padding: 0.5em 1em;
