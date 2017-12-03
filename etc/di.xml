@@ -6,6 +6,6 @@
     <type name="Magento\Customer\Controller\Adminhtml\Index\Save">
         <plugin name="save_field" type="AWstreams\Marketplace\Plugin\Customer\Adminhtml\Index\Save"></plugin>
     </type>
-
+    <preference for="Magento\CatalogSearch\Model\Autocomplete\DataProvider" type="AWstreams\Marketplace\Model\Autocomplete\SearchDataProvider" />
 
 </config>
