@@ -70,8 +70,7 @@ class Profile extends Template
     public function getCurrentProfile()
     {
 
-        $profile = $this->profileCollection->addFieldToFilter('customer_id', $this->currentCustomer->getId());
-        return $profile->getFirstItem();
+        return $this->profileCollection->addFieldToFilter('customer_id', $this->currentCustomer->getId())->getFirstItem()   ;
     }
 
 

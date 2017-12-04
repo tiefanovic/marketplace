@@ -1,6 +1,6 @@
 <?php
 
-namespace AWstreams\Marketplace\Block\Shop;
+namespace AWstreams\Marketplace\Block\Frontend\Shop;
 
 
 use AWstreams\Marketplace\Model\ResourceModel\Profile\Collection;
@@ -36,9 +36,9 @@ class ShopView extends \Magento\Framework\View\Element\Template
 
     public function getShopView($key)
     {
-        $product = $this->productCollection->addFilter('sku',$key)->getFirstItem()->getData();
+        $product = $this->productCollection->addFilter('sku',$key)->getFirstItem();
 
-        $productId = $product['entity_id'];
+        $productId = $product->getID();
 
 
         $vendor = $this->productCollection->getAllAttributeValues('vendor_id');

@@ -1,5 +1,5 @@
 <?php
-namespace AWstreams\Marketplace\Block\Seller;
+namespace AWstreams\Marketplace\Block\Frontend\Seller;
 
 use AWstreams\Marketplace\Model\ResourceModel\Contact\Collection;
 use Magento\Customer\Model\Session;

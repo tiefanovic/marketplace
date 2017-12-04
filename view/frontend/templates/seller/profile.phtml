@@ -1,7 +1,6 @@
 
 <?php
 ini_set('memory_limit', -1);
-
 $profile = $block->getCurrentProfile();
 
 ?>
@@ -10,7 +9,7 @@ $profile = $block->getCurrentProfile();
     input {margin-bottom: 20px}
 </style>
 
-<form action="<?php echo $block->getFormAction() ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo $block->getFormAction("saveprofile") ?>" method="post" enctype="multipart/form-data">
 
     <label>Facebook ID</label>
     <input name="facebook_id" type="text" placeholder="Facebook ID"
@@ -75,25 +74,16 @@ $profile = $block->getCurrentProfile();
     }
     ?>
     <br>
-
+<br>
     <label for="">Shop Description</label>
-    <input name="shop_description" type="text" placeholder="Shop Description"
-        <?php
-        if(!empty($profile['shop_description'])) echo "value='" .$profile['shop_description'] ."'";
-        ?>
-    >
+    <textarea   name="shop_description"  placeholder="Shop Description" rows="5" ><?php if(!empty($profile['shop_description'])) echo $profile['shop_description']; ?></textarea>
+
     <label for="">Return Policy</label>
-    <input name="return_policy" type="text" placeholder="Return Policy"
-        <?php
-        if(!empty($profile['return_policy'])) echo "value='" .$profile['return_policy'] ."'";
-        ?>
-    >
+    <textarea name="return_policy" placeholder="Return Policy" rows="5"><?php if(!empty($profile['return_policy'])) echo $profile['return_policy']; ?></textarea>
+
     <label for="">Shipping Policy</label>
-    <input name="shipping_policy" type="text" placeholder="Shipping Policy"
-        <?php
-        if(!empty($profile['shipping_policy'])) echo "value='" .$profile['shipping_policy'] ."'";
-        ?>
-    >
+    <textarea name="shipping_policy" type="text" placeholder="Shipping Policy" rows="5"> <?php if(!empty($profile['shipping_policy'])) echo $profile['shipping_policy'] ; ?> </textarea>
+
     <label for="">Country</label>
     <input name="country" type="text" placeholder="Country"
         <?php
