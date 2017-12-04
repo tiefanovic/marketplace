@@ -5,10 +5,10 @@
     <body>
         <referenceContainer name="product.info.main">
 
-            <block class="AWstreams\Marketplace\Block\Shop\ShopView"
+            <block class="AWstreams\Marketplace\Block\Frontend\Shop\ShopView"
                    name="shop.url"
                    template="AWstreams_Marketplace::shop/shop-view.phtml"
-                   after="product.info"/>
+                   after="product.info"></block>
 
         </referenceContainer>
     </body>
