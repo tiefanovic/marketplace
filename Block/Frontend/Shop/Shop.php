@@ -1,6 +1,6 @@
 <?php
 
-namespace AWstreams\Marketplace\Block\Shop;
+namespace AWstreams\Marketplace\Block\Frontend\Shop;
 
 
 use AWstreams\Marketplace\Model\ResourceModel\Profile\Collection;
@@ -15,16 +15,19 @@ class Shop extends \Magento\Framework\View\Element\Template
     protected $rateCollection ;
     protected $productCollection ;
     protected $collectionFactory;
+    protected $listProductBlock;
 
     public function __construct(Template\Context  $context, array $data = [],
                                 Collection $profileCollection,
                                 Product $product,
                                 CollectionFactory $collectionFactory,
+                                \Magento\Catalog\Block\Product\ListProduct $listProductBlock,
                                 Rate $rateCollection)
     {
         $this->rateCollection = $rateCollection;
         $this->profileCollection = $profileCollection;
         $this->productCollection = $product ;
+        $this->listProductBlock = $listProductBlock;
         $this->collectionFactory = $collectionFactory;
         parent::__construct($context, $data);
 
@@ -101,8 +104,13 @@ class Shop extends \Magento\Framework\View\Element\Template
 
         $collection = $this->collectionFactory->create()->addIdFilter($productIds);
         $collection->addAttributeToSelect("*");
-
+        $collection->addAttributeToSort('entity_id','desc');
         return $collection;
+    }
+
+    public function getAddToCartPostParams($product)
+    {
+        return $this->listProductBlock->getAddToCartPostParams($product);
     }
 
 

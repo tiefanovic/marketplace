@@ -10,20 +10,66 @@ if(!empty($shop->getData('shop_title'))) {
 
 
         <!--products-->
-        <div id="products" style="height: 200px;">
+        <div id="products">
+            <div class="container">
+                <h3>Products</h3>
             <?php
-                $i = 1 ;
-                foreach ($products as $product){
-                    //echo $product['sku'];
-                    echo $product->getName()."-----";
-                    echo $product->getSku()."-----";
-                    echo $product->getImage()."-----";
-                    echo "<img src='" .($block->getImage($product, 'category_page_list'))."'>";
-                    echo "<br>";
+                $i = 0  ;
+                $j = 1 ;
+                $count = count($products);
+                foreach ($products as $product) {
+                    if($i == 0 )
+                        echo "<div class='row'>";
+
+                        echo "<div class='col-md-3'>";
+                             echo "<div class='text-center product-cont'>";
+                                if(!empty($product->getImage()))
+                                    echo "<img  src='" . $block->getUrl() . "pub/media/catalog/product" . $product->getImage() . "'>";
+                                else
+                                    echo '<img  src="'. $block->getUrl().'pub/static/version1512386094/frontend/Magento/luma/en_US/Magento_Catalog/images/product/placeholder/image.jpg">';
+
+                                 echo "<h3>". $product->getName()."</h3>";
+
+                                echo "<a class='btn view btn-primary' href='".$block->getUrl() . $product->getSku().".html'> view Detalis </a>";
+
+                             echo "</div>";
+                        /*echo  "<img src='". $block->getViewFileUrl($product->getImage()) ."' >";*/
+
+
+                        echo "</div>";
+
+
+                        $i++;
+
+                        //to close row div
+                        if($i == 4 ){
+                            echo "</div>";
+                            $i = 0 ;
+                        }
+
+                    // to show only 8 products
+                    $j++;
+                    if($j > 8)
+                        break;
+
                 }
+                // to close row div
+                if($count %4 != 0 )
+                    echo "</div>";
+
             ?>
+                <div class="clearfix"></div>
+
+               <div class="text-center">
+                   <?php
+                   if($count>1){
+                       echo "<a class='btn btn-primary' href='".$block->getUrl()."marketplace/shop/products/profile/".str_replace(" ","-",$shop_title)."'>View All Prodcuts (". $count .")</a>";
+                   }?>
+               </div>
+            </div>
         </div>
 
+        <div class="clearfix"></div>
         <hr>
         <!--about-us-->
         <div id="about">

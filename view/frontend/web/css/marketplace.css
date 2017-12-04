@@ -104,9 +104,30 @@ hr {
 
 
 
+/***** products ***/
+#products{
+    margin: 30px 10px ;  }
 
+#products h3 {  margin-bottom: 20px;  }
 
+#products img {  width:200px ;  height:200px  }
 
+#products a {  color: #fff;}
+
+#products h4 a {  color: #000;}
+
+#products .view { display: none ;}
+#products .product-cont {  height: 320px}
+#products .product-cont:hover .view { display: inline}
+#products .product-cont:hover {
+    background: #fff;
+    box-shadow: 3px 3px 4px 0 rgba(0,0,0,.3);
+    border: 1px solid #bbb;
+    margin: -10px;
+    padding: 9px;
+    position: relative;
+    z-index: 2;
+}
 
 
 

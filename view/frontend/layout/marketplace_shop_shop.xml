@@ -5,7 +5,7 @@
 
      <body>
         <referenceContainer name="content" >
-            <block class="AWstreams\Marketplace\Block\Shop\Shop"
+            <block class="AWstreams\Marketplace\Block\Frontend\Shop\Shop"
                    name="shop"
                    template="AWstreams_Marketplace::shop/shop.phtml">
             </block>

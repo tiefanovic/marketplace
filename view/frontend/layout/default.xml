@@ -3,11 +3,14 @@
     <update handle="customer_account"/>
 
         <head>
-            <css src="AWstreams_Marketplace::css/bootstrap/css/bootstrap.min.css" />
+            <css src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" src_type="url"/>
+            <css src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" src_type="url"/>            <css src="AWstreams_Marketplace::js/datatables-net/media/css/dataTables.bootstrap4.min.css" />
             <css src="AWstreams_Marketplace::js/datatables-net/media/css/dataTables.bootstrap4.min.css" />
             <css src="AWstreams_Marketplace::js/datatables-net/extensions/buttons/css/buttons.bootstrap4.min.css" />
             <css src="AWstreams_Marketplace::css/datatables-net/datatables.min.css" />
             <css src="AWstreams_Marketplace::css/main.css" />
-            <css src="AWstreams_Marketplace::css/font-awesome.min.css"/><css src="AWstreams_Marketplace::css/marketplace.css"/>
+            <css src="AWstreams_Marketplace::css/font-awesome.min.css"/>
+            <css src="AWstreams_Marketplace::css/marketplace.css"/>
+
         </head>
 </page>

@@ -56,7 +56,9 @@ class SaveProfile extends Action
 
     public function execute()
     {
-        //$post = (array) $this->getRequest()->getPost();
+
+
+
         $post = $this->getRequest()->getPostValue();
 
         if (!$post)
