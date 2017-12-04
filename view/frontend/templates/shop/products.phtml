@@ -1,0 +1,86 @@
+<?php
+
+
+
+include ("header.php");
+
+if(!empty($shop->getData('shop_title'))) {
+
+?>
+
+
+    <!--products-->
+    <div id="products">
+        <div class="container">
+            <h3>All Products</h3>
+            <?php
+            $i = 0  ;
+            $j = 1 ;
+            $count = count($products);
+            foreach ($products as $product) {
+                if($i == 0 )
+                    echo "<div class='row'>";
+
+                echo "<div class='col-md-3'>";
+                echo "<div class='text-center product-cont'>";
+                if(!empty($product->getImage()))
+                    echo "<img  src='" . $block->getUrl() . "pub/media/catalog/product" . $product->getImage() . "'>";
+                else
+                    echo '<img  src="'. $block->getUrl().'pub/static/version1512386094/frontend/Magento/luma/en_US/Magento_Catalog/images/product/placeholder/image.jpg">';
+
+                echo "<h4><a  href='".$block->getUrl() . $product->getSku().".html'>". $product->getName()."</a></h4>";
+                echo "<b>".$product->getPrice()."</b>";
+
+                $postParams = $block->getAddToCartPostParams($product);
+
+                ?>
+
+                <form data-role="tocart-form" action="<?php /* @escapeNotVerified */ echo $postParams['action']; ?>" method="post">
+                    <input type="hidden" name="product" value="<?php /* @escapeNotVerified */ echo $postParams['data']['product']; ?>">
+                    <?php echo $block->getBlockHtml('formkey')?>
+                    <?php $storeManager = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Store\Model\StoreManagerInterface'); ?>
+                    <button type="submit"
+                            title="<?php echo $block->escapeHtml(__('Add to Cart')); ?>"
+                            class="action tocart primary">
+                        <span><?php /* @escapeNotVerified */ echo __('Add to Cart') ?></span>
+                    </button>
+                </form>
+
+                <?php
+                echo "</div>";
+                /*echo  "<img src='". $block->getViewFileUrl($product->getImage()) ."' >";*/
+
+
+                echo "</div>";
+
+
+                $i++;
+
+                //to close row div
+                if($i == 4 ){
+                    echo "</div>";
+                    $i = 0 ;
+                }
+
+            }
+            // to close row div
+            if($count %4 != 0 )
+                echo "</div>";
+
+            ?>
+            <div class="clearfix"></div>
+
+
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+
+<?php }
+
+include("footer.php");?>
+
+
+
+
