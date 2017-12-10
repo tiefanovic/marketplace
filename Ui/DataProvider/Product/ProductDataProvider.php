@@ -48,7 +48,7 @@ class ProductDataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
     ) {
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
         $this->collection = $collectionFactory->create();
-        $this->_objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+       /* $this->_objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 
         $vendorAttributeId = $this->_objectManager->create('Magento\Eav\Model\Config')
             ->getAttribute(\Magento\Catalog\Model\Product::ENTITY, 'vendor_id')->getAttributeId();
@@ -62,7 +62,7 @@ class ProductDataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
             ['customer' => $this->collection->getTable('customer_entity')],
             "product_int.value = customer.entity_id",
             ['fullname' => 'concat(customer.firstname, " ", customer.lastname)']
-        );
+        );*/
 
         $this->addFieldStrategies = $addFieldStrategies;
         $this->addFilterStrategies = $addFilterStrategies;

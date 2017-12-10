@@ -1,13 +1,15 @@
 <?xml version="1.0"?>
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <update handle="customer_account"/>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>                
+    <!--<update handle="marketplace_product_form"/>-->
+
     <head>
         <css src="AWstreams_Marketplace::css/form-steps/progress.min.css" />
         <css src="AWstreams_Marketplace::css/form-steps/column.min.css" />
     </head>
-    <body>
+     <body>
         <referenceContainer name="content">
-            <block name="marketplace_products_create" class="AWstreams\Marketplace\Block\Frontend\Products\Index" template="AWstreams_Marketplace::products_create.phtml"/>
+           <block name="marketplace_products_create" class="AWstreams\Marketplace\Block\Frontend\Products\Create" template="AWstreams_Marketplace::products_create.phtml"/>
         </referenceContainer>
     </body>
 </page>

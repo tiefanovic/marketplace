@@ -1,5 +1,10 @@
 <?php
 $helper = $this->helper('Magento\Search\Helper\Data');
+
+//Generate Form Key
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+$FormKey = $objectManager->get('Magento\Framework\Data\Form\FormKey'); 
+
 ?>
 <div class="ks-page-content-body ks-form-steps-progress-page">
     <div class="ks-form-steps-progress">
@@ -21,11 +26,12 @@ $helper = $this->helper('Magento\Search\Helper\Data');
         </div>
     </div>
     <div class="ks-form-steps-progress-wrapper">
-        <div class="ks-form-steps-progress-content">
+        <div class="ks-form-steps-progress-content" style="max-width:100%">
             <div class="ks-form-steps-progress-content-wrapper ks-scrollable">
                 <div class="ks-scroll-wrapper">
-                    <form id="form" class="ks-step">
-                        <div class="form-group">
+                    <form id="form" method="post" action="<? echo $block->getPostActionUrl();?>" class="ks-step">
+                        <input name="form_key" type="hidden" value="<?php echo $block->getFormKey();?>">
+                        <div class="form-group row">
                             <label for="productname">Product Name <span class="text-danger">*</span></label>
                             <input type="text"
                                    name="product_name"
@@ -33,7 +39,7 @@ $helper = $this->helper('Magento\Search\Helper\Data');
                                    class="form-control" id="productname" aria-describedby="productnameHelp" placeholder="Enter Product Name">
                             <small id="productnameHelp" class="form-text text-muted">Type your product name</small>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group row">
                             <label for="category">Category <span class="text-danger">*</span></label>
                             <input type="text"
                                    name="category[]"
@@ -42,21 +48,21 @@ $helper = $this->helper('Magento\Search\Helper\Data');
                             <small id="categoryHelp" class="form-text text-muted">Select Category</small>
                         </div>
                         <!-- Description -->
-                        <div class="form-group">
+                        <div class="form-group row">
                             <label for="description">Description <span class="text-danger">*</span></label>
                             <textarea name="description"
                                       class="form-control" id="description" aria-describedby="descriptionHelp" placeholder="Type your product description"><?= !empty($product['description']) ? $product['description'] : '' ; ?></textarea>
                             <small id="descriptionHelp" class="form-text text-muted">Product Description</small>
                         </div>
                         <!-- Short Description -->
-                        <div class="form-group">
+                        <div class="form-group row">
                             <label for="short-description">Short Description <span class="text-danger"></span></label>
                             <textarea
                                    name="short_description"
                                    class="form-control" id="short-description" aria-describedby="shortDescriptionHelp" placeholder="Enter Product Name"><?= !empty($product['short_description']) ? $product['short_description'] : '' ; ?></textarea>
                             <small id="shortDescriptionHelp" class="form-text text-muted">Short description for your product</small>
                         </div>
-                         <div class="form-group">
+                         <div class="form-group row">
                             <label for="sku">SKU <span class="text-danger">*</span></label>
                             <input type="text"
                                    name="sku"
@@ -64,7 +70,7 @@ $helper = $this->helper('Magento\Search\Helper\Data');
                                    class="form-control" id="sku" aria-describedby="skuHelp" placeholder="Enter Product SKU">
                             <small id="skuHelp" class="form-text text-muted">Type your product SKU</small>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group row">
                             <label for="price">Price <span class="text-danger">*</span></label>
                             <input type="text"
                                    name="price"
@@ -72,7 +78,7 @@ $helper = $this->helper('Magento\Search\Helper\Data');
                                    class="form-control" id="price" aria-describedby="priceHelp" placeholder="Enter Product Price">
                             <small id="priceHelp" class="form-text text-muted">Type your product Price</small>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group row">
                             <label for="stock">Stock Quantity <span class="text-danger">*</span></label>
                             <input type="text"
                                    name="stock"
@@ -80,7 +86,7 @@ $helper = $this->helper('Magento\Search\Helper\Data');
                                    class="form-control" id="stock" aria-describedby="priceHelp" placeholder="Enter Product Stock Quantity">
                             <small id="priceHelp" class="form-text text-muted">Type your product Stock Quantity</small>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group row">
                             <label for="stock_availablity">Stock Availablity <span class="text-danger">*</span></label>
                             <select name="stock_availablity"
                                    class="form-control" id="stock_availablity" aria-describedby="stockAvailablity" >
@@ -89,7 +95,7 @@ $helper = $this->helper('Magento\Search\Helper\Data');
                                </select>
                             <small id="stockAvailablity" class="form-text text-muted">Select your product Stock Availablity Status</small>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group row">
                             <label for="visibilty">Stock Visibilty <span class="text-danger">*</span></label>
                             <select name="visibilty"
                                    class="form-control" id="visibilty" aria-describedby="visibiltyHelp" >
@@ -102,7 +108,7 @@ $helper = $this->helper('Magento\Search\Helper\Data');
                                </select>
                             <small id="visibiltyHelp" class="form-text text-muted">Select your product Stock Visibilty</small>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group row">
                             <label for="weight">Weight</label>
                             <input type="text"
                                    name="weight"
@@ -110,8 +116,7 @@ $helper = $this->helper('Magento\Search\Helper\Data');
                                    class="form-control" id="weight" aria-describedby="weightHelp" placeholder="Enter Product Weight or 0 for downloadable products">
                             <small id="weightHelp" class="form-text text-muted">Type your product weight or 0 for downloadable products</small>
                         </div>
-                        <input type="text" name="category_id" hidden="hidden" value="0">
-                    </form>
+                        <input name="category_id" type="hidden" value="0">
                 </div>
 
             </div>
@@ -119,6 +124,8 @@ $helper = $this->helper('Magento\Search\Helper\Data');
                 <button class="btn btn-primary-outline ks-light ks-previous">Back</button>
                 <button class="btn btn-primary ks-next">Next Step</button>
             </div>
+             </form>
+
         </div>
     </div>
 </div>

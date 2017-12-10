@@ -59,16 +59,17 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
                 </td>
                 <td>
                     <span>
-                        <?= /* @escapeNotVerified */
-                        $block->getProductPrice($_product) ?>
+                        <?= /* @escapeNotVerified */  $_product->getTypeId(); ?>
                     </span>
                 </td>
                 <td>
                     <span>
-                        <?= /* @escapeNotVerified */  $_product->getTypeId(); ?>
+                        <?= /* @escapeNotVerified */
+                        floatval($_product->getFinalPrice());?>
                     </span>
+                    
                 </td>
-                <td><span class="label pro-status">Enabled</span></td>
+                <td><span class="label <?= /* @escapeNotVerified */ $_product->getStatus() ? 'label-success' : 'label-danger'; ?>"><?= /* @escapeNotVerified */ $_product->getStatus() ? 'Enabled' : 'Disabled' ; ?></span></td>
                 <td ><span class="label qty">7</span></td>
                 <td ><span class="label qty"><a
                                 href="<?= $block->getSalesDetails($_product->getId()); ?>">10</a></span>
