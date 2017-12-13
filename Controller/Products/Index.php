@@ -34,7 +34,7 @@ class Index extends Action
     {
         $this->_customerSession = $session;
         $this->pageFactory = $pageFactory;
-        //$this->productCollection = $collectionFactory->create();
+        $this->productCollection = $collectionFactory->create();
         parent::__construct($context);
     }
 
