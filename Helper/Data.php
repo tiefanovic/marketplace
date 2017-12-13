@@ -118,6 +118,10 @@ class Data extends AbstractHelper
         return $this->_sellerReviewConfig;
     }
 
+    /*
+     *
+     * Image Upload Method for DropZonejs
+     */
 
 
 }

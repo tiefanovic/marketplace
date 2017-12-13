@@ -14,28 +14,22 @@ $FormKey = $objectManager->get('Magento\Framework\Data\Form\FormKey');
         </div>
         <div class="ks-form-steps-progress-body">
             <div class="progress">
-                <div class="progress-bar progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar progress-bar" role="progressbar" style="width: 25%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
 
-            <div class="ks-step-items">
-                <a id="first-item" href="#" class="ks-step-item ks-completed">Product Name</a>
-                <a id="second-item" href="#" class="ks-step-item">Description</a>
-                <a id="third-item" href="#" class="ks-step-item">Upload Media</a>
-                <a id="last-item" href="#" class="ks-step-item">Finished</a>
-            </div>
         </div>
     </div>
     <div class="ks-form-steps-progress-wrapper">
         <div class="ks-form-steps-progress-content" style="max-width:100%">
             <div class="ks-form-steps-progress-content-wrapper ks-scrollable">
                 <div class="ks-scroll-wrapper">
-                    <form id="form" method="post" action="<? echo $block->getPostActionUrl();?>" class="ks-step">
+                    <form id="form" method="post" action="<? echo $block->getPostActionUrl();?>" enctype="multipart/form-data" class="ks-step">
                         <input name="form_key" type="hidden" value="<?php echo $block->getFormKey();?>">
                         <div class="form-group row">
                             <label for="productname">Product Name <span class="text-danger">*</span></label>
                             <input type="text"
-                                   name="product_name"
-                                   value="<?= !empty($product['product_name']) ? $product['name'] : '';?>"
+                                   name="product[name]"
+                                   value="<?= !empty($product['name']) ? $product['name'] : '';?>"
                                    class="form-control" id="productname" aria-describedby="productnameHelp" placeholder="Enter Product Name">
                             <small id="productnameHelp" class="form-text text-muted">Type your product name</small>
                         </div>
@@ -50,7 +44,7 @@ $FormKey = $objectManager->get('Magento\Framework\Data\Form\FormKey');
                         <!-- Description -->
                         <div class="form-group row">
                             <label for="description">Description <span class="text-danger">*</span></label>
-                            <textarea name="description"
+                            <textarea name="product[description]"
                                       class="form-control" id="description" aria-describedby="descriptionHelp" placeholder="Type your product description"><?= !empty($product['description']) ? $product['description'] : '' ; ?></textarea>
                             <small id="descriptionHelp" class="form-text text-muted">Product Description</small>
                         </div>
@@ -58,14 +52,14 @@ $FormKey = $objectManager->get('Magento\Framework\Data\Form\FormKey');
                         <div class="form-group row">
                             <label for="short-description">Short Description <span class="text-danger"></span></label>
                             <textarea
-                                   name="short_description"
+                                   name="product[short_description]"
                                    class="form-control" id="short-description" aria-describedby="shortDescriptionHelp" placeholder="Enter Product Name"><?= !empty($product['short_description']) ? $product['short_description'] : '' ; ?></textarea>
                             <small id="shortDescriptionHelp" class="form-text text-muted">Short description for your product</small>
                         </div>
                          <div class="form-group row">
                             <label for="sku">SKU <span class="text-danger">*</span></label>
                             <input type="text"
-                                   name="sku"
+                                   name="product[sku]"
                                    value="<?= !empty($product['sku']) ? $product['sku'] : '';?>"
                                    class="form-control" id="sku" aria-describedby="skuHelp" placeholder="Enter Product SKU">
                             <small id="skuHelp" class="form-text text-muted">Type your product SKU</small>
@@ -73,7 +67,7 @@ $FormKey = $objectManager->get('Magento\Framework\Data\Form\FormKey');
                         <div class="form-group row">
                             <label for="price">Price <span class="text-danger">*</span></label>
                             <input type="text"
-                                   name="price"
+                                   name="product[price]"
                                    value="<?= !empty($product['price']) ? $product['price'] : '';?>"
                                    class="form-control" id="price" aria-describedby="priceHelp" placeholder="Enter Product Price">
                             <small id="priceHelp" class="form-text text-muted">Type your product Price</small>
@@ -81,14 +75,14 @@ $FormKey = $objectManager->get('Magento\Framework\Data\Form\FormKey');
                         <div class="form-group row">
                             <label for="stock">Stock Quantity <span class="text-danger">*</span></label>
                             <input type="text"
-                                   name="stock"
+                                   name="product[stock]"
                                    value="<?= !empty($product['stock']) ? $product['stock'] : '';?>"
                                    class="form-control" id="stock" aria-describedby="priceHelp" placeholder="Enter Product Stock Quantity">
                             <small id="priceHelp" class="form-text text-muted">Type your product Stock Quantity</small>
                         </div>
                         <div class="form-group row">
                             <label for="stock_availablity">Stock Availablity <span class="text-danger">*</span></label>
-                            <select name="stock_availablity"
+                            <select name="product[stock_availablity]"
                                    class="form-control" id="stock_availablity" aria-describedby="stockAvailablity" >
                                    <option <?= !empty($product['stock_availablity']) ? 'selected' : '' ; ?> value="1">In Stock</option>
                                    <option <?= !empty($product['stock_availablity']) ? 'selected' : '' ; ?> value="2">Out Of Stock</option>
@@ -97,13 +91,13 @@ $FormKey = $objectManager->get('Magento\Framework\Data\Form\FormKey');
                         </div>
                         <div class="form-group row">
                             <label for="visibilty">Stock Visibilty <span class="text-danger">*</span></label>
-                            <select name="visibilty"
+                            <select name="product[visibilty]"
                                    class="form-control" id="visibilty" aria-describedby="visibiltyHelp" >
                                    <option value="0">Please Select ...</option>
                                    <option <?= !empty($product['visibilty']) ? 'selected' : '' ; ?> value="1">Not Visible Individually</option>
                                    <option <?= !empty($product['visibilty']) ? 'selected' : '' ; ?> value="2">Catalog</option>
-                                   <option <?= !empty($product['visibilty']) ? 'selected' : '' ; ?> value="2">Search</option>
-                                   <option <?= !empty($product['visibilty']) ? 'selected' : '' ; ?> value="2">Catalog, Search</option>
+                                   <option <?= !empty($product['visibilty']) ? 'selected' : '' ; ?> value="3">Search</option>
+                                   <option <?= !empty($product['visibilty']) ? 'selected' : '' ; ?> value="4">Catalog, Search</option>
 
                                </select>
                             <small id="visibiltyHelp" class="form-text text-muted">Select your product Stock Visibilty</small>
@@ -111,11 +105,17 @@ $FormKey = $objectManager->get('Magento\Framework\Data\Form\FormKey');
                         <div class="form-group row">
                             <label for="weight">Weight</label>
                             <input type="text"
-                                   name="weight"
+                                   name="product[weight]"
                                    value="<?= !empty($product['weight']) ? $product['weight'] : '';?>"
                                    class="form-control" id="weight" aria-describedby="weightHelp" placeholder="Enter Product Weight or 0 for downloadable products">
                             <small id="weightHelp" class="form-text text-muted">Type your product weight or 0 for downloadable products</small>
                         </div>
+                      <div class="form-group row">
+                            <div id="product-images" class="dropzone">
+                            </div>
+                        </div>
+
+
                         <input name="category_id" type="hidden" value="0">
                 </div>
 
@@ -129,3 +129,49 @@ $FormKey = $objectManager->get('Magento\Framework\Data\Form\FormKey');
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    require(["jquery", "Dropzone"], function($) {
+
+
+        $(document).ready(function () {
+            var i = 0;
+            new Dropzone('#product-images', {
+                url: '<?=$block->getImageUploadAction();?>',
+                init: function () {
+                   var _this = this;
+                    this.on("success", function (file, result) {
+                        if(result.success == 200){
+                            $('#product-images').append('<input id="image-'+i+'" type="text" name="image[]" value="' + result.path + '" hidden="hidden"/>');
+                            $(".dz-remove").html("<div><span class='glyphicon glyphicon-trash' style='font-size: 1.5em'></span></div>");
+                            var removeButton = Dropzone.createElement("<button data-id ='" + i + "' data-dz-remove " +
+                                "class='del_thumbnail btn btn-default'><span class='glyphicon glyphicon-trash'></span></button>");
+                            i++;
+                            removeButton.addEventListener("click", function (e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+
+                                _this.removeFile(file);
+                                $('#image-'+$(this).data('id')).remove();
+                            });
+                            file.previewElement.appendChild(removeButton);
+                        }else{
+                            var node, _i, _len, _ref, _results;
+                            var message = response.msg // modify it to your error message
+                            file.previewElement.classList.add("dz-error");
+                            _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+                            _results = [];
+                            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                                node = _ref[_i];
+                                _results.push(node.textContent = message);
+                            }
+                            return _results;
+                        }
+                    });
+
+                },
+
+            });
+
+        });
+    });
+</script>

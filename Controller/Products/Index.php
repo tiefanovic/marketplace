@@ -16,6 +16,7 @@ use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\View\Result\PageFactory;
+
 class Index extends Action
 {
 
@@ -33,7 +34,7 @@ class Index extends Action
     {
         $this->_customerSession = $session;
         $this->pageFactory = $pageFactory;
-        $this->productCollection = $collectionFactory->create();
+        //$this->productCollection = $collectionFactory->create();
         parent::__construct($context);
     }
 
@@ -50,7 +51,7 @@ class Index extends Action
     {
         $result = $this->pageFactory->create();
         $result->getConfig()->getTitle()->set(_('Products List'));
-        /*$this->productCollection->addFieldToSelect('*');
+        $this->productCollection->addFieldToSelect('*');
         $customerId = $this->_customerSession->getCustomer()->getId();
         $this->productCollection->addAttributeToFilter('vendor_id', ['eq'=>$customerId]);
         /*$post = $this->getRequest()->getPost();
@@ -62,9 +63,9 @@ class Index extends Action
                 array('like' => $needle.' %') // starts with needle and space after
             ));
 
-        }
+        }*/
         $block = $result->getLayout()->getBlock('marketplace_products_list');
-        $block->setProductCollection($this->productCollection);*/
+        $block->setProductCollection($this->productCollection);
         return $result;
     }
 

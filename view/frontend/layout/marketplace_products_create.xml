@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <update handle="customer_account"/>                
-    <!--<update handle="marketplace_product_form"/>-->
+    <update handle="vendor_account"/>
 
     <head>
+        <css src="AWstreams_Marketplace::css/dropzone.css"/>
         <css src="AWstreams_Marketplace::css/form-steps/progress.min.css" />
         <css src="AWstreams_Marketplace::css/form-steps/column.min.css" />
     </head>

@@ -8,53 +8,66 @@
 
 namespace AWstreams\Marketplace\Controller\Products;
 
-use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\Action\Action;
-use Magento\Framework\App\Action\Context;
-use Magento\Framework\App\ResponseInterface;
+use Magento\Framework\App\Action\Context as ActionContext;
+use Magento\Catalog\Controller\Adminhtml\Product\Builder as ProductBuilder;
+use Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper as ProductInitializationHelper;
 use Magento\Framework\View\Result\PageFactory;
+
 class Save extends Action
 {
-    protected $pageFactory;
-    protected $productCollection;
-    protected $_customerSession;
 
+    protected $initializationHelper;
+
+    protected $productBuilder;
+
+    protected $productTypeManager;
+
+    protected $_session;
     public function __construct(
-        Context $context,
-        PageFactory $pageFactory,
-        CollectionFactory $collectionFactory,
-        Session $session
+        ActionContext $context,
+        ProductBuilder $productBuilder,
+        ProductInitializationHelper $initializationHelper,
+        PageFactory $resultPageFactory,
+        Session $session,
+        \Magento\Catalog\Model\Product\TypeTransitionManager $productTypeManager
     )
     {
-        $this->_customerSession = $session;
-        $this->pageFactory = $pageFactory;
-        $this->productCollection = $collectionFactory->create();
+        $this->_session = $session;
+        $this->initializationHelper = $initializationHelper;
+        $this->productBuilder = $productBuilder;
+        $this->productTypeManager = $productTypeManager;
         parent::__construct($context);
     }
-    
+
     public function execute()
     {
-        $result = $this->pageFactory->create();
-        $post = (array) $this->getRequest()->getPost();
-        var_dump($post);
-        //$result->getConfig()->getTitle()->set(_('Products List'));
-        /*$this->productCollection->addFieldToSelect('*');
-        $customerId = $this->_customerSession->getCustomer()->getId();
-        $this->productCollection->addAttributeToFilter('vendor_id', ['eq'=>$customerId]);
-        /*$post = $this->getRequest()->getPost();
-        if (!empty($post)) {
-            $needle = $post['name'];
-            $this->productCollection->addAttributeToFilter('name', array(
-                array('like' => '% '.$needle.' %'), //spaces on each side
-                array('like' => '% '.$needle), //space before and ends with $needle
-                array('like' => $needle.' %') // starts with needle and space after
-            ));
-
+        $resultRedirect = $this->resultRedirectFactory->create();
+        $request = $this->getRequest();
+        $post = $this->getRequest()->getPostValue();
+        if (!$post) {
+            $resultRedirect->setPath('*/*/');
+            return $resultRedirect;
         }
-        $block = $result->getLayout()->getBlock('marketplace_products_list');
-        $block->setProductCollection($this->productCollection);*/
-        return $result;
+        $product = $this->initializationHelper->initialize($this->productBuilder->build($request));
+        $this->productTypeManager->processProduct($product);
+        $imagePaths = $request->getParam('image');
+        if ($imagePaths) {
+            $isFirst = true;
+            foreach ($imagePaths as $path) {
+                $product->addImageToMediaGallery($path, $isFirst ? ['image', 'small_image', 'thumbnail'] : null, false, false);
+                $isFirst = false;
+            }
+        }
+        $product->setTypeId('simple'); // Simple.
+        $product->setAttributeSetId(4); // Default.
+        $product->setStatus(1); // 1 - Enable, 2 - Disable.
+        $product->setVisibility(4);
+        $product->setSku($product->getName());
+        $product->setVendorId($this->_session->getCustomerId());
+        $product->save();
+        $resultRedirect->setPath('marketplace/products');
+        return $resultRedirect;
     }
-
 }

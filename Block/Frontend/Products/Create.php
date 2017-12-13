@@ -14,10 +14,18 @@ use Magento\Framework\View\Element\Template;
 class Create extends Template
 {
 
-   public function getPostActionUrl(){
-       return $this->getUrl('marketplace/products/save');
-   }
-   public function getAjaxUrl(){
-       return $this->getUrl('marketplace/products/search');
-   }
+    public function getPostActionUrl()
+    {
+        return $this->getUrl('marketplace/products/save');
+    }
+
+    public function getAjaxUrl()
+    {
+        return $this->getUrl('marketplace/products/search');
+    }
+
+    public function getImageUploadAction()
+    {
+        return $this->_urlBuilder->getUrl('marketplace/products/image');
+    }
 }
