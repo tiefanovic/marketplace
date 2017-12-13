@@ -8,7 +8,8 @@ var config = {
             'datatables.net-bs4': 'AWstreams_Marketplace/js/datatables-net/media/js/dataTables.bootstrap4.min',
             'JSZip': 'AWstreams_Marketplace/js/jszip/jszip.min',
             'pdfMake': 'AWstreams_Marketplace/js/pdfmake/pdfmake.min',
-            'quickSearch':'AWstreams_Marketplace/js/form-mini'
+            'quickSearch':'AWstreams_Marketplace/js/form-mini',
+            'Dropzone': 'AWstreams_Marketplace/js/dropzone'
         }
 
     },
