@@ -16,11 +16,15 @@ use AWstreams\Marketplace\Helper\Config\SellerOrderConfig;
 use AWstreams\Marketplace\Helper\Config\SellerProductConfig;
 use AWstreams\Marketplace\Helper\Config\SellerProfilePageConfig;
 use AWstreams\Marketplace\Helper\Config\SellerReviewConfig;
+use Magento\Catalog\Model\Product;
+use Magento\Eav\Model\AttributeManagement;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\ObjectManagerInterface;
 
 class Data extends AbstractHelper
 {
+    protected $attributeManagement;
+    protected $productAttributeRepository;
     /**
      * the GlobalConfig object
      * @var GlobalConfig
@@ -56,7 +60,11 @@ class Data extends AbstractHelper
         InventoryConfig $inventoryConfig,
         SellerOrderConfig $sellerOrderConfig,
         SellerProfilePageConfig $sellerProfilePageConfig,
-        SellerReviewConfig $sellerReviewConfig)
+        SellerReviewConfig $sellerReviewConfig,
+        AttributeManagement $attributeManagement,
+        Product\Attribute\Repository $productAttributeRepository
+
+    )
     {
         $this->_generalConfig = $generalConfig;
         $this->_sellerProductConfig = $sellerProductConfig;
@@ -66,6 +74,9 @@ class Data extends AbstractHelper
         $this->_sellerReviewConfig = $sellerReviewConfig;
 
         parent::__construct($context, $objectManager);
+        $this->attributeManagement = $attributeManagement;
+        $this->productAttributeRepository = $productAttributeRepository;
+
     }
 
     /**
@@ -118,10 +129,32 @@ class Data extends AbstractHelper
         return $this->_sellerReviewConfig;
     }
 
-    /*
-     *
-     * Image Upload Method for DropZonejs
-     */
+    public function getCustomAttributes($attributeSetId)
+    {
+        try{
+            $groups = $this->attributeManagement->getAttributes(
+                Product::ENTITY, // entity type
+                $attributeSetId // this will contain your attribute set ID
+            );
+            $result = [];
+            foreach ($groups as $node) {
+                $result[] =  $node->getData(); // in this you will get particular attribute data
+            }
+            return $result;
+        }catch(\Exception $e){
+            return false;
+        }
+    }
+
+    public function getCatalogResourceEavAttribute($attrCode)
+    {
+        // $attrCode will be attribute code, i.e. 'manufacturer'
+        try{
+            return $this->productAttributeRepository->get($attrCode)->getOptions();
+        }catch(\Exception $e){
+            return false;
+        }
+    }
 
 
 }

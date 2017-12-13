@@ -3,7 +3,8 @@ $helper = $this->helper('Magento\Search\Helper\Data');
 
 //Generate Form Key
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
-$FormKey = $objectManager->get('Magento\Framework\Data\Form\FormKey'); 
+$FormKey = $objectManager->get('Magento\Framework\Data\Form\FormKey');
+$helper = $objectManager->get('AWstreams\Marketplace\Helper\Data');
 
 ?>
 <div class="ks-page-content-body ks-form-steps-progress-page">
@@ -33,14 +34,14 @@ $FormKey = $objectManager->get('Magento\Framework\Data\Form\FormKey');
                                    class="form-control" id="productname" aria-describedby="productnameHelp" placeholder="Enter Product Name">
                             <small id="productnameHelp" class="form-text text-muted">Type your product name</small>
                         </div>
-                        <div class="form-group row">
+                        <!--<div class="form-group row">
                             <label for="category">Category <span class="text-danger">*</span></label>
                             <input type="text"
                                    name="category[]"
-                                   value="<?= !empty($product['category']) ? $product['category'] : '';?>"
+                                   value="<?/*= !empty($product['category']) ? $product['category'] : '';*/?>"
                                    class="form-control" id="category" aria-describedby="categoryHelp" placeholder="Enter Product Name">
                             <small id="categoryHelp" class="form-text text-muted">Select Category</small>
-                        </div>
+                        </div>-->
                         <!-- Description -->
                         <div class="form-group row">
                             <label for="description">Description <span class="text-danger">*</span></label>
@@ -75,17 +76,17 @@ $FormKey = $objectManager->get('Magento\Framework\Data\Form\FormKey');
                         <div class="form-group row">
                             <label for="stock">Stock Quantity <span class="text-danger">*</span></label>
                             <input type="text"
-                                   name="product[stock]"
-                                   value="<?= !empty($product['stock']) ? $product['stock'] : '';?>"
+                                   name="product[quantity_and_stock_status][qty]"
+                                   value="<?= !empty($product['quantity_and_stock_status']['qty']) ? $product['quantity_and_stock_status']['qty'] : '1';?>"
                                    class="form-control" id="stock" aria-describedby="priceHelp" placeholder="Enter Product Stock Quantity">
                             <small id="priceHelp" class="form-text text-muted">Type your product Stock Quantity</small>
                         </div>
                         <div class="form-group row">
                             <label for="stock_availablity">Stock Availablity <span class="text-danger">*</span></label>
-                            <select name="product[stock_availablity]"
+                            <select name="product[quantity_and_stock_status][is_in_stock]"
                                    class="form-control" id="stock_availablity" aria-describedby="stockAvailablity" >
-                                   <option <?= !empty($product['stock_availablity']) ? 'selected' : '' ; ?> value="1">In Stock</option>
-                                   <option <?= !empty($product['stock_availablity']) ? 'selected' : '' ; ?> value="2">Out Of Stock</option>
+                                   <option <?= (!empty($product['quantity_and_stock_status']['is_in_stock']) && $product['quantity_and_stock_status']['is_in_stock'] == 1 ) ? 'selected' : '' ; ?> value="1">In Stock</option>
+                                   <option <?= (!empty($product['quantity_and_stock_status']['is_in_stock']) && $product['quantity_and_stock_status']['is_in_stock'] == 1 ) ? 'selected' : '' ; ?> value="0">Out Of Stock</option>
                                </select>
                             <small id="stockAvailablity" class="form-text text-muted">Select your product Stock Availablity Status</small>
                         </div>
@@ -103,7 +104,15 @@ $FormKey = $objectManager->get('Magento\Framework\Data\Form\FormKey');
                             <small id="visibiltyHelp" class="form-text text-muted">Select your product Stock Visibilty</small>
                         </div>
                         <div class="form-group row">
-                            <label for="weight">Weight</label>
+                            <label for="product_purchase_limit">Weight</label>
+                            <input type="text"
+                                   name="product[product_purchase_limit]"
+                                   value="<?= !empty($product['product_purchase_limit']) ? $product['product_purchase_limit'] : '';?>"
+                                   class="form-control" id="product_purchase_limit" aria-describedby="product_purchase_limitHelp" placeholder="Type Maximum number that  a single customer can purchase">
+                            <small id="product_purchase_limitHelp" class="form-text text-muted">Type Maximum number that  a single customer can purchase</small>
+                        </div>
+                        <div class="form-group row">
+                            <label for="weight">Product Purchase limit per customer</label>
                             <input type="text"
                                    name="product[weight]"
                                    value="<?= !empty($product['weight']) ? $product['weight'] : '';?>"
@@ -114,9 +123,30 @@ $FormKey = $objectManager->get('Magento\Framework\Data\Form\FormKey');
                             <div id="product-images" class="dropzone">
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="meta_title">Meta Title<span class="text-danger">*</span></label>
+                            <input type="text"
+                                   name="product[meta_title]"
+                                   value="<?= !empty($product['meta_title']) ? $product['meta_title'] : '';?>"
+                                   class="form-control" id="meta_title" aria-describedby="metaTitleHelp" placeholder="Enter Product Meta Title">
+                            <small id="metaTitleHelp" class="form-text text-muted">Type your product meta title</small>
+                        </div>
+                        <div class="form-group row">
+                            <label for="meta_keyword">Meta Keywords<span class="text-danger">*</span></label>
+                            <input type="text"
+                                   name="product[meta_keyword]"
+                                   value="<?= !empty($product['meta_keyword']) ? $product['meta_keyword'] : '';?>"
+                                   class="form-control" id="meta_keyword" aria-describedby="metaKeywordHelp" placeholder="Enter Product Meta Keywords">
+                            <small id="metaKeywordHelp" class="form-text text-muted">Type your product meta keywords</small>
+                        </div>
+                        <!-- Description -->
+                        <div class="form-group row">
+                            <label for="meta_description">Meta Description <span class="text-danger">*</span></label>
+                            <textarea name="product[meta_description]"
+                                      class="form-control" id="meta_description" aria-describedby="metaDescriptionHelp" placeholder="Type your product meta description"><?= !empty($product['meta_description']) ? $product['meta_description'] : '' ; ?></textarea>
+                            <small id="metaDescriptionHelp" class="form-text text-muted">Product MetaDescription</small>
+                        </div>
 
-
-                        <input name="category_id" type="hidden" value="0">
                 </div>
 
             </div>

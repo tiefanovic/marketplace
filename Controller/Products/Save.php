@@ -63,8 +63,7 @@ class Save extends Action
         $product->setTypeId('simple'); // Simple.
         $product->setAttributeSetId(4); // Default.
         $product->setStatus(1); // 1 - Enable, 2 - Disable.
-        $product->setVisibility(4);
-        $product->setSku($product->getName());
+        $product->setTaxClassId(0);
         $product->setVendorId($this->_session->getCustomerId());
         $product->save();
         $resultRedirect->setPath('marketplace/products');
