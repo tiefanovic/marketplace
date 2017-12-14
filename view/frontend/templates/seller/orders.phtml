@@ -1,0 +1,70 @@
+<?php
+
+?>
+<h1>Orders</h1>
+
+    <div class="table-wrapper orders-history">
+        <table class="data table table-order-items history" id="my-orders-table">
+            <caption class="table-caption"><?php /* @escapeNotVerified */ echo __('Orders') ?></caption>
+            <!--<thead>
+                <tr>
+                    <th scope="col" class="col id">Order#</th>
+                    <th scope="col" class="col date">Date</th>
+                    <th scope="col" class="col shipping">Ship To</th>
+                    <th scope="col" class="col total">Order Total</th>
+                    <th scope="col" class="col status">Status</th>
+                    <th scope="col" class="col actions">&nbsp;</th>
+                </tr>
+            </thead>-->
+            <tbody>
+             <?php
+             foreach ($block->getSalesOrderCollection() as  $order){
+                 $orderProducts = $block->getAllItems($order['entity_id'],$block->getProductCollection());
+
+                 $status = $block->getStatus($orderProducts);
+
+                    if($orderProducts['total'] != 0){
+                        $products ='';
+                        $total = $orderProducts['total'];
+                        unset($orderProducts['total']);
+                        foreach ($orderProducts as $prodcut){
+                           $products .=  '<a href="'. $this->getUrl().$prodcut['sku'] . '.html">'.$prodcut['name'].'</a> &nbsp;X'.'&nbsp;'. floor($prodcut['quantity']).'&nbsp;';
+                        }
+                        $url = 'marketplace/seller/order/id/'. $order['entity_id'];
+                       /* echo "<tr>";
+                            echo '<td class="col">'. $order['increment_id'] .'</td>';
+                            echo '<td class="col">'. $order['created_at'] .'</td>';
+                            echo '<td class="col">'. $order['customer_firstname'] .' '.$order['customer_lastname'] .'</td>';
+                            echo '<td class="col">'. $orderpProdcuts['total'] .'</td>';
+                            echo '<td class="col"><a href="'.$this->getUrl($url).'">View Order</a></td>';
+
+                        echo "</tr>";*/
+
+
+                        echo "<tr>";
+                        echo '<td class="col " colspan="3" >'.
+                            ' # '.$order['increment_id'] .'<br>'.
+                            $products. "<br>".
+                            '<a class="btn btn-default"href="'.$this->getUrl($url).'">View Order</a>'."<br><br>".
+                            'Customer:'.$order['customer_firstname'] .' '.$order['customer_lastname'].
+                            '&nbsp; Date:'.$order['created_at'] .
+                            '</td>';
+                        echo '<td class="col text-center" colspan="3" >'.
+                            '<div class="'.$status.'">'.$status.'</div>'.
+                            '<br>'.
+                             'Total:' .$total.
+                            '</td>';
+                    ;
+
+                        echo "</tr>";
+
+                    }
+             }
+             ?>
+
+            </tbody>
+        </table>
+    </div>
+
+
+

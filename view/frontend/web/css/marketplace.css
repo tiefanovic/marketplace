@@ -1,5 +1,4 @@
 
-
 /****** *****/
 hr {
     border-color: #ccc !important;
@@ -32,7 +31,7 @@ hr {
     font-size: 14px !important;
 }
 .shop .nav .fa {
-     font-size: 20px;
+    font-size: 20px;
 }
 
 /****** about *****/
@@ -128,6 +127,41 @@ hr {
     position: relative;
     z-index: 2;
 }
+
+table th {
+    text-align: left !important;
+}
+
+
+.complete{    margin: 28px 20px 0 0;  background: #5aca5a;  padding: 6px 36px;  color: #fff;  border-radius: 5px;  font-weight: bold;}
+.pending{    margin: 28px 20px 0 0;  background: #f8af2e;  padding: 6px 36px;  color: #fff;  border-radius: 5px;  font-weight: bold;}
+.cancel{    margin: 28px 20px 0 0;  background: #dd4c4c;  padding: 6px 36px;  color: #fff;  border-radius: 5px;  font-weight: bold;}
+.processing{    margin: 28px 20px 0 0;  background: #ddce4c;  padding: 6px 36px;  color: #fff;  border-radius: 5px;  font-weight: bold;}
+
+
+.wk-box {width: 48% !important;}
+.status {
+    border: 1px solid #AAA;
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    margin: 0;
+    position: absolute;
+    left: 350px;
+    top: -51px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
