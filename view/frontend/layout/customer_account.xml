@@ -62,7 +62,7 @@
                     <block class="Magento\Framework\View\Element\Html\Link\Current" name="marketplace_seller_navigation-orders-list-link">
                         <arguments>
                             <argument name="label" xsi:type="string" translate="true">My Orders History</argument>
-                            <argument name="path" xsi:type="string">marketplace/transactions/orders</argument>
+                            <argument name="path" xsi:type="string">marketplace/seller/orders</argument>
                             <argument name="sortOrder" xsi:type="number">800</argument>
                         </arguments>
                     </block>

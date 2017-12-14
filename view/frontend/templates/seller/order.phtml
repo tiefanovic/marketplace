@@ -1,0 +1,195 @@
+<?php
+
+$order =$block->test();
+
+$orderId= $order['id'];
+
+$order = $block->getSpcificOrder($orderId);
+
+$invoice = $order->getInvoiceCollection();
+$ship = $order->getShipmentsCollection();
+$orderProducts = $block->getAllItems($orderId,$block->getProductCollection());
+
+$total = $orderProducts['total'];
+unset($orderProducts['total']);
+
+
+$productIds  =array();
+foreach ($orderProducts as $pid){
+    $productIds[] = $pid['id'];
+}
+
+
+//////////////---------invoice
+$invoiceItemIds = array();
+$i = 0 ;
+$invoiceIds = array();
+foreach ($invoice as $inv) {
+    $invo = $inv->getData();
+    $invoiceIds[$i] = $invo['entity_id'];
+    foreach ($inv->getAllItems() as $item) {
+        $invoiceItemIds[$i][] = $item->getProductId();
+    }
+    $i++;
+}
+$hasInvoice=  $order->hasInvoices();
+$canInvoice = $order->canInvoice();
+$checkInvoice = false ;
+$j = 0 ;
+$invoiceId= 0;
+if($hasInvoice){
+    foreach ($invoiceItemIds as $item){
+        if($item === $productIds){
+            $checkInvoice =true;
+            $invoiceId = $invoiceIds[$j];
+            break;
+        }else{
+            $checkInvoice =false;
+        }
+        $j++;
+    }
+}
+
+///////////////-----------ship
+$shipItemIds = array();
+$i = 0 ;
+$shipIds = array();
+foreach ($ship  as $inv) {
+    $invo = $inv->getData();
+    $shipIds[$i] = $invo['entity_id'];
+    foreach ($inv->getAllItems() as $item) {
+        $shipItemIds[$i][] = $item->getProductId();
+    }
+    $i++;
+}
+
+$hasShip = $order->hasShipments();
+$canShip = $order->canShip();
+$checkShip = false ;
+$j = 0 ;
+$shipId= 0;
+if($hasShip){
+    foreach ($shipItemIds as $item){
+        if($item === $productIds){
+            $checkShip =true;
+            $shipId = $shipIds[$j];
+            break;
+        }else{
+            $checkShip =false;
+        }
+        $j++;
+    }
+}
+
+
+$status = $block->getStatus($orderProducts);
+
+?>
+
+
+<div style="position: relative">
+    <div class="pull-left">
+        <div class="status <?php echo $status;?>" ><b><?php echo $status; ?></b></div>
+        <h4><?php echo $block->formatDate($order['created_at']);  ?></h4>
+    </div>
+    <div class="pull-right">
+        <?php
+        if($status != "cancel"):
+            if(!$checkInvoice && $canInvoice)
+                echo '<a class="btn btn-default" href="' .$this->getUrl("marketplace/seller/saveinvoice/id/".$orderId).'">Invoice</a>';
+            if(!$checkShip && $canShip)
+                echo '<a class="btn btn-default" href="' .$this->getUrl("marketplace/seller/saveship/id/".$orderId).'">Ship</a>';
+            if($status != "complete")
+                echo '<a class="btn btn-default" href="' .$this->getUrl("marketplace/seller/cancel/id/".$orderId).'">Cancel</a>';
+        endif;
+        ?>
+    </div>
+</div>
+<div class="clearfix"></div>
+<ul class="nav nav-tabs">
+    <li class="active"><a href="<?php echo $this->getUrl("marketplace/seller/order/id/".$orderId) ?>">Item Ordered</a></li>
+
+    <?php
+        if($status != "cancel"):
+    if($checkInvoice): ?>
+    <li><a href="<?php echo $this->getUrl("marketplace/seller/invoice/order_id/".$orderId."/invoice_id/".$invoiceId) ?>">Invoice</a></li>
+    <?php endif;?>
+
+    <?php if($checkShip): ?>
+    <li><a href="<?php echo $this->getUrl("marketplace/seller/ship/order_id/".$orderId."/ship_id/".$shipId) ?>">Shipment</a></li>
+    <?php endif;
+        endif;
+    ?>
+
+</ul>
+
+<div class="table-wrapper order-items">
+    <table class="data table table-order-items history" id="my-orders-table">
+        <caption class="table-caption"><?php /* @escapeNotVerified */ echo __('Orders') ?></caption>
+        <thead>
+        <tr>
+            <th scope="col" class="col name">Product Name</th>
+            <th scope="col" class="col price">Price</th>
+            <th scope="col" class="col qty">Qty</th>
+            <th scope="col" class="col subtotal">SubTotal</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+
+        foreach ($orderProducts as  $orderProduct){
+            echo "<tr>";
+            echo '<td>'. $orderProduct['name'] .'</td>';
+            echo '<td>'. $orderProduct['price'] .'</td>';
+            echo '<td>';
+
+                echo 'Qty Ordered:' . floor($orderProduct['quantity']) ."<br>";
+
+            if($orderProduct['qtyInvoiced'] == $orderProduct['quantity'] )
+                echo 'Qty Invoiced:' . floor($orderProduct['qtyInvoiced']) ."<br>";
+
+            if($orderProduct['qtyShipped'] == $orderProduct['quantity'] )
+                echo 'Qty Shipped:' . floor($orderProduct['qtyShipped']) ."<br>";
+
+            if($orderProduct['qtyCancel'] == $orderProduct['quantity'] )
+                echo 'Qty Canceled:' . floor($orderProduct['qtyCancel']) ."<br>";
+
+
+            echo'</td>';
+            echo '<td>'. $orderProduct['quantity'] * $orderProduct['price'].'</td>';
+
+            echo "</tr>";
+
+        }
+
+
+        ?>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Subtotal</td>
+            <td><?php echo $total;?></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td> Shipping & Handling </td>
+            <td><?php echo $order['shipping_amount'];?></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Grand Total</td>
+            <td><?php echo $total + $order['shipping_amount'];?></td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <?php
+
+    ?>
+</div>
+
+
+

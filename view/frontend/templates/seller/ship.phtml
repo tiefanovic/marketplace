@@ -1,0 +1,214 @@
+<?php
+
+$order =$block->test();
+
+$orderId= $order['order_id'];
+$shipid= $order['ship_id'];
+
+$order = $block->getSpcificOrder($orderId);
+$_order = $order->getData();
+$url = 'marketplace/seller/order/id/'. $_order['entity_id'];
+$urlShip = 'marketplace/seller/printship/ship_id/'. $shipid;
+
+$orderProducts = $block->getAllItems($orderId,$block->getProductCollection());
+$total = $orderProducts['total'];
+unset($orderProducts['total']);
+
+
+$shipping = $order->getShippingAddress()->getData();
+
+$billing = $order->getBillingAddress()->getData();
+
+$payment = $order->getPayment();
+$method = $payment->getMethodInstance();
+$methodTitle = $method->getTitle();
+
+
+/*//shipping cost
+$shippingCost = $order->getShippingAmount();
+
+//shipping cost in base currency
+$shippingBaseCost = $order->getBaseShippingAmount();
+//shipping tax
+$shippingTax = $order->getShippingTaxAmount();
+//shipping tax in base currenty
+$shippingBaseTax = $order->getBaseShippingTaxAmount();
+//shipping cost including tax
+$shippingCostIncludingTax = $order->getShippingInclTax();
+//shipping cost including tax in base currency
+$shippingBaseCostIncludingTax = $order->getBaseShippingInclTax();*/
+?>
+<div class="print">
+    <a class="btn btn-default pull-right" href="<?php echo $block->getUrl($urlShip);?>" class="btn">Print</a>
+</div>
+<div class="clearfix"></div>
+
+
+<div class="block block-order-details-view">
+
+    <div class="block-title">
+        <strong> Order Information </strong>
+    </div>
+    <div class="block-content">
+
+        <div class="box box-order-information wk-box">
+            <strong class="box-title"><span>
+                    <a class=""href="<?php echo $this->getUrl($url);?>">Order #<?php echo $_order['increment_id']; ?></a>
+                </span></strong>
+            <div class="box-content">
+                <div class="wk-row"><?php echo $_order['status']; ?></div>
+                <div class="wk-row"><?php echo $_order['created_at']; ?></div>
+            </div>
+        </div>
+
+        <div class="box box-order-information wk-box">
+            <strong class="box-title"><span>Buyer Information</span></strong>
+            <div class="box-content">
+                <div class="wk-row">Customer: <?php echo $_order['customer_firstname'].' '. $_order['customer_lastname']; ?></div>
+                <div class="wk-row">Email: <?php echo $_order['customer_email']; ?></div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+<div class="block block-order-details-view">
+
+    <div class="block-title">
+        <strong> Address Information </strong>
+    </div>
+    <div class="block-content">
+
+        <div class="box box-order-information wk-box">
+            <strong class="box-title"><span>Shipping Address</span></strong>
+            <div class="box-content">
+                <address>
+                    <?php
+                    echo $shipping['firstname'] .' ' .$shipping['lastname'].'<br>';
+                    echo $shipping['street'] . '<br>';
+                    echo $shipping['city'] .',' . $shipping['region']. ','. $shipping['postcode']. '<br>';
+                    echo $block->getCountryname($shipping['country_id']) . '<br>';
+                    echo $shipping['telephone'] . '<br>';
+                    ?>
+                </address>
+            </div>
+        </div>
+
+        <div class="box box-order-information wk-box">
+            <strong class="box-title">
+                <span>Billing Address</span>
+            </strong>
+            <div class="box-content">
+                <address>
+                    <?php
+                    echo $billing['firstname'] .' ' .$billing['lastname'].'<br>';
+                    echo $billing['street'] . '<br>';
+                    echo $billing['city'] .',' . $billing['region']. ','. $billing['postcode']. '<br>';
+                    echo $block->getCountryname($billing['country_id']) . '<br>';
+                    echo $billing['telephone'] . '<br>';
+                    ?>
+                </address>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="block block-order-details-view">
+
+    <div class="block-title">
+        <strong> Payment & Shipping Method</strong>
+    </div>
+    <div class="block-content">
+
+        <div class="box box-order-information wk-box">
+            <strong class="box-title"><span>Payment Information</span></strong>
+            <div class="box-content">
+                <div class="wk-row"><?php echo $methodTitle ; ?></div>
+            </div>
+        </div>
+
+        <div class="box box-order-information wk-box">
+            <strong class="box-title">
+                <span>Shipping and Tracking Informations</span>
+            </strong>
+            <div class="box-content">
+                <div class="wk-row"> <?php echo $_order['shipping_description']; ?></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<div class="table-wrapper order-items">
+    <table class="data table table-order-items history" id="my-orders-table">
+        <caption class="table-caption">Orders </caption>
+        <thead>
+        <tr>
+            <th scope="col" class="col name">Product Name</th>
+            <th scope="col" class="col price">Price</th>
+            <th scope="col" class="col qty">Qty</th>
+            <th scope="col" class="col subtotal">SubTotal</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+
+        foreach ($orderProducts as  $orderProduct){
+            echo "<tr>";
+            echo '<td>'. $orderProduct['name'] .'</td>';
+            echo '<td>'. $orderProduct['price'] .'</td>';
+            echo '<td>'.
+                        'Qty Ordered:'. floor($orderProduct['quantity']).'<br>'.
+                        'Qty Shipped:'. floor($orderProduct['qtyShipped']).
+
+                '</td>';
+            echo '<td>'. $orderProduct['quantity'] * $orderProduct['price'].'</td>';
+
+            echo "</tr>";
+
+        }
+
+
+        ?>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Subtotal</td>
+            <td><?php echo $total;?></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td> Shipping & Handling </td>
+            <td><?php echo $order['shipping_amount'];?></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Grand Total</td>
+            <td><?php echo $total + $order['shipping_amount'];?></td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <?php
+
+    ?>
+</div>
+<a class=""href="<?php echo $this->getUrl($url);?>"><< back</a>
+
+
+
+
+
+
+
+

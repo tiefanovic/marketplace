@@ -1,0 +1,93 @@
+<?php
+
+$order =$block->test();
+
+$orderId= $order['id'];
+
+$order = $block->getSpcificOrder($orderId);
+$_order = $order->getData();
+
+$shipping = $order->getShippingAddress()->getData();
+
+$billing = $order->getBillingAddress()->getData();
+
+$payment = $order->getPayment();
+$method = $payment->getMethodInstance();
+$methodTitle = $method->getTitle();
+
+/*//shipping cost
+$shippingCost = $order->getShippingAmount();
+
+//shipping cost in base currency
+$shippingBaseCost = $order->getBaseShippingAmount();
+//shipping tax
+$shippingTax = $order->getShippingTaxAmount();
+//shipping tax in base currenty
+$shippingBaseTax = $order->getBaseShippingTaxAmount();
+//shipping cost including tax
+$shippingCostIncludingTax = $order->getShippingInclTax();
+//shipping cost including tax in base currency
+$shippingBaseCostIncludingTax = $order->getBaseShippingInclTax();*/
+?>
+<div class="block block-order-details-view">
+    <div class="block-title">
+        <strong><?php /* @escapeNotVerified */ echo __('InvoiceRepository Information') ?></strong>
+    </div>
+    <div class="block-content">
+        <?php if (!$_order['is_virtual']): ?>
+            <div class="box box-order-shipping-address">
+                <strong class="box-title"><span><?php  echo __('Shipping Address') ?></span></strong>
+                <div class="box-content">
+                    <address>
+                        <?php
+                            echo $shipping['firstname'] .' ' .$shipping['lastname'].'<br>';
+                            echo $shipping['street'] . '<br>';
+                            echo $shipping['city'] .',' . $shipping['region']. ','. $shipping['postcode']. '<br>';
+                            echo $block->getCountryname($shipping['country_id']) . '<br>';
+                            echo $shipping['telephone'] . '<br>';
+                        ?>
+                    </address>
+                </div>
+            </div>
+
+            <div class="box box-order-shipping-method">
+                <strong class="box-title">
+                    <span><?php echo __('Shipping Method') ?></span>
+                </strong>
+                <div class="box-content">
+                    <?php if ($_order['shipping_description']): ?>
+                        <?php echo $_order['shipping_description']; ?>
+                    <?php else: ?>
+                        <?php echo __('No shipping information available'); ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <div class="box box-order-billing-address">
+            <strong class="box-title">
+                <span><?php  echo __('Billing Address') ?></span>
+            </strong>
+            <div class="box-content">
+                <address>
+                    <?php
+                    echo $billing['firstname'] .' ' .$billing['lastname'].'<br>';
+                    echo $billing['street'] . '<br>';
+                    echo $billing['city'] .',' . $billing['region']. ','. $billing['postcode']. '<br>';
+                    echo $block->getCountryname($billing['country_id']) . '<br>';
+                    echo $billing['telephone'] . '<br>';
+                    ?>
+                </address>
+            </div>
+        </div>
+        <div class="box box-order-billing-method">
+            <strong class="box-title">
+                <span><?php echo __('Payment Method') ?></span>
+            </strong>
+            <div class="box-content">
+                <?php echo $methodTitle ; ?>
+            </div>
+        </div>
+    </div>
+</div>
+<a class=""href="<?php echo $this->getUrl("marketplace/seller/orders");?>"><< back</a>
