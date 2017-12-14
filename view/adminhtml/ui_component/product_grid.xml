@@ -130,20 +130,19 @@
                 </item>
             </argument>
         </column>
-        <column name="is_approved" component="Magento_Ui/js/grid/columns/select">
+        <column name="is_approved" >
             <argument name="data" xsi:type="array">
                 <item name="options" xsi:type="object">AWstreams\Marketplace\Model\Attributes\Backend\Product\Source\Status</item>
                 <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
                     <item name="addField" xsi:type="boolean">true</item>
                     <item name="altField" xsi:type="string">approve</item>
                     <item name="dataType" xsi:type="string">select</item>
-                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
                     <item name="label" xsi:type="string" translate="true">Approve</item>
                     <item name="sortOrder" xsi:type="number">40</item>
                 </item>
             </argument>
         </column>
-
         <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">

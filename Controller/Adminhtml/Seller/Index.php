@@ -38,6 +38,7 @@ class Index extends \Magento\Backend\App\Action
      */
     public function execute()
     {
+        ini_set('display_errors', 1);
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('AWstreams_Marketplace::products');

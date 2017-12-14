@@ -2,8 +2,8 @@
 
 namespace AWstreams\Marketplace\Ui\DataProvider\Seller;
 
-use Magento\Customer\Model\ResourceModel\Customer\CollectionFactory;
-
+use AWstreams\Marketplace\Setup\InstallData;
+use Magento\Customer\Model\ResourceModel\Customer\CollectionFactory as CustomerCollectionFactory;
 class SellerDataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 {
     /**
@@ -23,7 +23,6 @@ class SellerDataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
      */
     protected $addFilterStrategies;
 
-    protected $_objectManager;
 
     /**
      * Construct
@@ -31,7 +30,7 @@ class SellerDataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
      * @param string $name
      * @param string $primaryFieldName
      * @param string $requestFieldName
-     * @param CollectionFactory $collectionFactory
+     * @param CustomerCollectionFactory $collectionFactory
      * @param \Magento\Ui\DataProvider\AddFieldToCollectionInterface[] $addFieldStrategies
      * @param \Magento\Ui\DataProvider\AddFilterToCollectionInterface[] $addFilterStrategies
      * @param array $meta
@@ -41,7 +40,8 @@ class SellerDataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         $name,
         $primaryFieldName,
         $requestFieldName,
-        CollectionFactory $collectionFactory,
+        CustomerCollectionFactory $collectionFactory,
+
         array $addFieldStrategies = [],
         array $addFilterStrategies = [],
         array $meta = [],
@@ -49,22 +49,13 @@ class SellerDataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
     ) {
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
         $this->collection = $collectionFactory->create();
-        //$this->_objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $this->collection->addAttributeToFilter(InstallData::IS_VENDOR, 1);
+        $this->collection->addAttributeToSelect([
+            '*',
+            InstallData::APPROVED_ACCOUNT,
+            'group_id','telephone','postcode','city', 'region'
 
-        /*$vendorAttributeId = $this->_objectManager->create('Magento\Eav\Model\Config')
-            ->getAttribute(\Magento\Catalog\Model\Product::ENTITY, 'vendor_id')->getAttributeId();
-
-        $this->collection->getSelect()->join([
-            'product_int' => $this->collection->getTable('catalog_product_entity_int')
-        ],
-
-            "product_int.entity_id = e.entity_id AND product_int.attribute_id = $vendorAttributeId ");
-        $this->collection->getSelect()->joinLeft(
-            ['customer' => $this->collection->getTable('customer_entity')],
-            "product_int.value = customer.entity_id",
-            ['fullname' => 'concat(customer.firstname, " ", customer.lastname)']
-        );*/
-
+        ]);
         $this->addFieldStrategies = $addFieldStrategies;
         $this->addFilterStrategies = $addFilterStrategies;
     }
@@ -80,9 +71,15 @@ class SellerDataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
             $this->getCollection()->load();
         }
         $items = $this->getCollection()->toArray();
+        $result = [];
+        foreach ($items as $item){
+            $item['name'] = $item['firstname'] . " " . $item['middlename'] . " " . $item['lastname'];
+            $item['name'] = $item['firstname'] . " " . $item['middlename'] . " " . $item['lastname'];
+            $result[] = $item;
+        }
         return [
             'totalRecords' => $this->getCollection()->getSize(),
-            'items' => array_values($items),
+            'items' => array_values($result)
         ];
     }
 
