@@ -59,11 +59,10 @@ class ProductDataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 
             "product_int.entity_id = e.entity_id AND product_int.attribute_id = $vendorAttributeId ");
         $this->collection->getSelect()->joinLeft(
-            ['customer' => $this->collection->getTable('customer_entity')],
+            ['customer' => $this->collection->getTable('customer_entity'), 'vendor_id' => 'product_int.value'],
             "product_int.value = customer.entity_id",
             ['fullname' => 'concat(customer.firstname, " ", customer.lastname)']
         );
-
         $this->addFieldStrategies = $addFieldStrategies;
         $this->addFilterStrategies = $addFilterStrategies;
     }
