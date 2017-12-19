@@ -116,7 +116,7 @@ hr {
 #products h4 a {  color: #000;}
 
 #products .view { display: none ;}
-#products .product-cont {  height: 320px}
+#products .product-cont {  height: 343px}
 #products .product-cont:hover .view { display: inline}
 #products .product-cont:hover {
     background: #fff;

@@ -16,6 +16,7 @@ if(empty($shop->getData('shop_title'))) {
 
     $title = $shop->getData('shop_title');
     $id = $shop->getData('shop_id');
+    $customerID = $shop->getData('customer_id');
     $banner = $block->getUrlImage() . $shop->getData('shop_banner');
     $logo = $block->getUrlImage() . $shop->getData('shop_logo');
     $facebook = $shop->getData('facebook_id');
@@ -30,7 +31,7 @@ if(empty($shop->getData('shop_title'))) {
     $address = $shop->getData('shop_address');
     $desc = $shop->getData('shop_description');
 
-    $products =$block->getProducts($id);
+    $products =$block->getProducts($customerID);
 
 // for rates
     $rates = $block->getRates($id);

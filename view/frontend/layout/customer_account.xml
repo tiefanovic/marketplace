@@ -24,13 +24,7 @@
                             <argument name="sortOrder" xsi:type="number">200</argument>
                         </arguments>
                     </block>
-                    <block class="Magento\Framework\View\Element\Html\Link\Current" name="marketplace_seller_navigation-attribute-create-link">
-                        <arguments>
-                            <argument name="label" xsi:type="string" translate="true">Create Attribute</argument>
-                            <argument name="path" xsi:type="string">marketplace/attributes/create</argument>
-                            <argument name="sortOrder" xsi:type="number">300</argument>
-                        </arguments>
-                    </block>
+                    
                     <block class="Magento\Framework\View\Element\Html\Link\Current" name="marketplace_seller_navigation-new-product-link">
                         <arguments>
                             <argument name="label" xsi:type="string" translate="true">New Product</argument>
@@ -52,13 +46,7 @@
                             <argument name="sortOrder" xsi:type="number">600</argument>
                         </arguments>
                     </block>
-                    <block class="Magento\Framework\View\Element\Html\Link\Current" name="marketplace_seller_navigation-pdf-header-link">
-                        <arguments>
-                            <argument name="label" xsi:type="string" translate="true">Manage Print PDF Header Info</argument>
-                            <argument name="path" xsi:type="string">marketplace/transactions/pdf</argument>
-                            <argument name="sortOrder" xsi:type="number">700</argument>
-                        </arguments>
-                    </block>
+                    
                     <block class="Magento\Framework\View\Element\Html\Link\Current" name="marketplace_seller_navigation-orders-list-link">
                         <arguments>
                             <argument name="label" xsi:type="string" translate="true">My Orders History</argument>

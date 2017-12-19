@@ -31,11 +31,11 @@ $shippingBaseCostIncludingTax = $order->getBaseShippingInclTax();*/
 ?>
 <div class="block block-order-details-view">
     <div class="block-title">
-        <strong><?php /* @escapeNotVerified */ echo __('InvoiceRepository Information') ?></strong>
+        <strong><?php /* @escapeNotVerified */ echo __('Order Information') ?></strong>
     </div>
-    <div class="block-content">
+    <div class="block-content row" style="margin:0 !important">
         <?php if (!$_order['is_virtual']): ?>
-            <div class="box box-order-shipping-address">
+            <div class="box col-md-3 box-order-shipping-address">
                 <strong class="box-title"><span><?php  echo __('Shipping Address') ?></span></strong>
                 <div class="box-content">
                     <address>
@@ -50,7 +50,7 @@ $shippingBaseCostIncludingTax = $order->getBaseShippingInclTax();*/
                 </div>
             </div>
 
-            <div class="box box-order-shipping-method">
+            <div class="box col-md-3 box-order-shipping-method">
                 <strong class="box-title">
                     <span><?php echo __('Shipping Method') ?></span>
                 </strong>
@@ -64,7 +64,7 @@ $shippingBaseCostIncludingTax = $order->getBaseShippingInclTax();*/
             </div>
         <?php endif; ?>
 
-        <div class="box box-order-billing-address">
+        <div class="box col-md-3 box-order-billing-address">
             <strong class="box-title">
                 <span><?php  echo __('Billing Address') ?></span>
             </strong>
@@ -80,7 +80,7 @@ $shippingBaseCostIncludingTax = $order->getBaseShippingInclTax();*/
                 </address>
             </div>
         </div>
-        <div class="box box-order-billing-method">
+        <div class="box col-md-3 box-order-billing-method">
             <strong class="box-title">
                 <span><?php echo __('Payment Method') ?></span>
             </strong>
