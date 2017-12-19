@@ -13,6 +13,7 @@ $urlShip = 'marketplace/seller/printship/ship_id/'. $shipid;
 $orderProducts = $block->getAllItems($orderId,$block->getProductCollection());
 $total = $orderProducts['total'];
 unset($orderProducts['total']);
+$status = $block->getStatus($orderProducts);
 
 
 $shipping = $order->getShippingAddress()->getData();
@@ -51,26 +52,23 @@ $shippingBaseCostIncludingTax = $order->getBaseShippingInclTax();*/
     </div>
     <div class="block-content">
 
-        <div class="box box-order-information wk-box">
+        <div class="box col-md-6 box-order-information wk-box">
             <strong class="box-title"><span>
                     <a class=""href="<?php echo $this->getUrl($url);?>">Order #<?php echo $_order['increment_id']; ?></a>
                 </span></strong>
             <div class="box-content">
-                <div class="wk-row"><?php echo $_order['status']; ?></div>
+                <div class="wk-row"><?php echo $status; ?></div>
                 <div class="wk-row"><?php echo $_order['created_at']; ?></div>
             </div>
         </div>
 
-        <div class="box box-order-information wk-box">
+        <div class="box col-md-6 box-order-information wk-box">
             <strong class="box-title"><span>Buyer Information</span></strong>
             <div class="box-content">
                 <div class="wk-row">Customer: <?php echo $_order['customer_firstname'].' '. $_order['customer_lastname']; ?></div>
                 <div class="wk-row">Email: <?php echo $_order['customer_email']; ?></div>
             </div>
         </div>
-
-
-
 
     </div>
 </div>
@@ -82,7 +80,7 @@ $shippingBaseCostIncludingTax = $order->getBaseShippingInclTax();*/
     </div>
     <div class="block-content">
 
-        <div class="box box-order-information wk-box">
+        <div class="box col-md-6 box-order-information wk-box">
             <strong class="box-title"><span>Shipping Address</span></strong>
             <div class="box-content">
                 <address>
@@ -97,7 +95,7 @@ $shippingBaseCostIncludingTax = $order->getBaseShippingInclTax();*/
             </div>
         </div>
 
-        <div class="box box-order-information wk-box">
+        <div class="box col-md-6 box-order-information wk-box">
             <strong class="box-title">
                 <span>Billing Address</span>
             </strong>
@@ -124,14 +122,14 @@ $shippingBaseCostIncludingTax = $order->getBaseShippingInclTax();*/
     </div>
     <div class="block-content">
 
-        <div class="box box-order-information wk-box">
+        <div class="box col-md-6 box-order-information wk-box">
             <strong class="box-title"><span>Payment Information</span></strong>
             <div class="box-content">
                 <div class="wk-row"><?php echo $methodTitle ; ?></div>
             </div>
         </div>
 
-        <div class="box box-order-information wk-box">
+        <div class="box col-md-6 box-order-information wk-box">
             <strong class="box-title">
                 <span>Shipping and Tracking Informations</span>
             </strong>

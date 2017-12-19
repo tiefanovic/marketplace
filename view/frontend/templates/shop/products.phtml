@@ -28,7 +28,7 @@ if(!empty($shop->getData('shop_title'))) {
                 else
                     echo '<img  src="'. $block->getUrl().'pub/static/version1512386094/frontend/Magento/luma/en_US/Magento_Catalog/images/product/placeholder/image.jpg">';
 
-                echo "<h4><a  href='".$block->getUrl() . $product->getSku().".html'>". $product->getName()."</a></h4>";
+                echo "<h4><a  href='".$block->getUrl() . rtrim(strtolower(str_replace(' ' ,'-' ,$product->getSku())),'-').".html'>". $product->getName()."</a></h4>";
                 echo "<b>".$product->getPrice()."</b>";
 
                 $postParams = $block->getAddToCartPostParams($product);
@@ -39,7 +39,7 @@ if(!empty($shop->getData('shop_title'))) {
                     <input type="hidden" name="product" value="<?php /* @escapeNotVerified */ echo $postParams['data']['product']; ?>">
                     <?php echo $block->getBlockHtml('formkey')?>
                     <?php $storeManager = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Store\Model\StoreManagerInterface'); ?>
-                    <button type="submit"
+                    <button type="submit" style="padding:10px !important; border:1px solid #000; "
                             title="<?php echo $block->escapeHtml(__('Add to Cart')); ?>"
                             class="action tocart primary">
                         <span><?php /* @escapeNotVerified */ echo __('Add to Cart') ?></span>

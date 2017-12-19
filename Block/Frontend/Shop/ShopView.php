@@ -37,10 +37,8 @@ class ShopView extends \Magento\Framework\View\Element\Template
     public function getShopView($key)
     {
         $product = $this->productCollection->addFilter('sku',$key)->getFirstItem();
-
-        $productId = $product->getID();
-
-
+        $productId = $product->getId();
+        
         $vendor = $this->productCollection->getAllAttributeValues('vendor_id');
 
         if(!array_key_exists($productId,$vendor))

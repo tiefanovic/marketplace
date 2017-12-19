@@ -16,7 +16,8 @@ if(!empty($shop->getData('shop_title'))) {
             <?php
                 $i = 0  ;
                 $j = 1 ;
-                $count = count($products);
+                $countPro = count($products);
+                //echo "------------".$count;
                 foreach ($products as $product) {
                     if($i == 0 )
                         echo "<div class='row'>";
@@ -28,9 +29,9 @@ if(!empty($shop->getData('shop_title'))) {
                                 else
                                     echo '<img  src="'. $block->getUrl().'pub/static/version1512386094/frontend/Magento/luma/en_US/Magento_Catalog/images/product/placeholder/image.jpg">';
 
-                                 echo "<h3>". $product->getName()."</h3>";
+                                 echo "<h4>". $product->getName()."</h4>";
 
-                                echo "<a class='btn view btn-primary' href='".$block->getUrl() . $product->getSku().".html'> view Detalis </a>";
+                                echo "<a class='btn view btn-primary' href='".$block->getUrl() .  rtrim(strtolower(str_replace(' ' ,'-' ,$product->getSku())),'-').".html'> view Detalis </a>";
 
                              echo "</div>";
                         /*echo  "<img src='". $block->getViewFileUrl($product->getImage()) ."' >";*/
@@ -54,7 +55,7 @@ if(!empty($shop->getData('shop_title'))) {
 
                 }
                 // to close row div
-                if($count %4 != 0 )
+                if($countPro %4 != 0 )
                     echo "</div>";
 
             ?>
@@ -62,7 +63,7 @@ if(!empty($shop->getData('shop_title'))) {
 
                <div class="text-center">
                    <?php
-                   if($count>1){
+                   if($countPro>1){
                        echo "<a class='btn btn-primary' href='".$block->getUrl()."marketplace/shop/products/profile/".str_replace(" ","-",$shop_title)."'>View All Prodcuts (". $count .")</a>";
                    }?>
                </div>

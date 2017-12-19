@@ -93,6 +93,7 @@ class Shop extends \Magento\Framework\View\Element\Template
     {
 
         $vendor = $this->productCollection->getAllAttributeValues('vendor_id');
+        //echo $customer_id . "<br>";print_r(($vendor)) ;die();
 
         $productIds = array() ;
         foreach ($vendor as $k =>$v){

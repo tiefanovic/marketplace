@@ -9,7 +9,7 @@
                    name="seller.orders"
                    template="AWstreams_Marketplace::seller/order.phtml">
             </block>
-            <block class="AWstreams\Marketplace\Block\Seller\Orders" as="info" template="AWstreams_Marketplace::seller/info.phtml" name="sales.order.info" after="-"/>
+            <block class="AWstreams\Marketplace\Block\Frontend\Seller\Orders" as="info" template="AWstreams_Marketplace::seller/info.phtml" name="sales.order.info" after="-"/>
 
         </referenceContainer>
     </body>
