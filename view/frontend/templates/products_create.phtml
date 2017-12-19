@@ -104,7 +104,7 @@ $helper = $objectManager->get('AWstreams\Marketplace\Helper\Data');
                             <small id="visibiltyHelp" class="form-text text-muted">Select your product Stock Visibilty</small>
                         </div>
                         <div class="form-group row">
-                            <label for="product_purchase_limit">Weight</label>
+                            <label for="weight">Product Purchase limit per customer</label>
                             <input type="text"
                                    name="product[product_purchase_limit]"
                                    value="<?= !empty($product['product_purchase_limit']) ? $product['product_purchase_limit'] : '';?>"
@@ -112,13 +112,41 @@ $helper = $objectManager->get('AWstreams\Marketplace\Helper\Data');
                             <small id="product_purchase_limitHelp" class="form-text text-muted">Type Maximum number that  a single customer can purchase</small>
                         </div>
                         <div class="form-group row">
-                            <label for="weight">Product Purchase limit per customer</label>
+                            <label for="product_purchase_limit">Weight</label>
                             <input type="text"
                                    name="product[weight]"
                                    value="<?= !empty($product['weight']) ? $product['weight'] : '';?>"
                                    class="form-control" id="weight" aria-describedby="weightHelp" placeholder="Enter Product Weight or 0 for downloadable products">
                             <small id="weightHelp" class="form-text text-muted">Type your product weight or 0 for downloadable products</small>
                         </div>
+                        <!-- YMM Fields -->
+                        <?php if($block->isYMMInstalled()) :?>
+                        <div class="form-group row">
+                            <label for="product_year">Year</label>
+                            <input type="text"
+                                   name="product[ymm_year]"
+                                   value="<?= !empty($product['ymm_year']) ? $product['ymm_year'] : '';?>"
+                                   class="form-control" id="product_year" aria-describedby="productYearHelp" placeholder="Enter Product Year">
+                            <small id="productYearHelp" class="form-text text-muted">Enter Product Year</small>
+                        </div>
+                        <div class="form-group row">
+                            <label for="product_make">Make</label>
+                            <input type="text"
+                                   name="product[ymm_make]"
+                                   value="<?= !empty($product['ymm_make']) ? $product['ymm_make'] : '';?>"
+                                   class="form-control" id="product_make" aria-describedby="productMakeHelp" placeholder="Enter Product Make">
+                            <small id="productMakeHelp" class="form-text text-muted">Enter Product Make</small>
+                        </div>
+                        <div class="form-group row">
+                            <label for="product_model">Model</label>
+                            <input type="text"
+                                   name="product[ymm_model]"
+                                   value="<?= !empty($product['ymm_model']) ? $product['ymm_model'] : '';?>"
+                                   class="form-control" id="product_model" aria-describedby="productModelHelp" placeholder="Enter Product Model">
+                            <small id="productModelHelp" class="form-text text-muted">Type your product weight or 0 for downloadable products</small>
+                        </div>
+                        <?php endif; ?>
+
                       <div class="form-group row">
                             <div id="product-images" class="dropzone">
                             </div>
@@ -131,6 +159,7 @@ $helper = $objectManager->get('AWstreams\Marketplace\Helper\Data');
                                    class="form-control" id="meta_title" aria-describedby="metaTitleHelp" placeholder="Enter Product Meta Title">
                             <small id="metaTitleHelp" class="form-text text-muted">Type your product meta title</small>
                         </div>
+                        <!-- Meta Keywords -->
                         <div class="form-group row">
                             <label for="meta_keyword">Meta Keywords<span class="text-danger">*</span></label>
                             <input type="text"
@@ -139,7 +168,7 @@ $helper = $objectManager->get('AWstreams\Marketplace\Helper\Data');
                                    class="form-control" id="meta_keyword" aria-describedby="metaKeywordHelp" placeholder="Enter Product Meta Keywords">
                             <small id="metaKeywordHelp" class="form-text text-muted">Type your product meta keywords</small>
                         </div>
-                        <!-- Description -->
+                        <!-- MetaDescription -->
                         <div class="form-group row">
                             <label for="meta_description">Meta Description <span class="text-danger">*</span></label>
                             <textarea name="product[meta_description]"
