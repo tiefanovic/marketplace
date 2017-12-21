@@ -2,127 +2,129 @@
 
 
 
-    include ("header.php");
+include ("header.php");
 
 if(!empty($shop->getData('shop_title'))) {
 
-?>
+    ?>
 
 
-        <!--products-->
-        <div id="products">
-            <div class="container">
-                <h3>Products</h3>
+    <!--products-->
+    <div id="products">
+        <div class="container">
+            <h3>Products</h3>
             <?php
-                $i = 0  ;
-                $j = 1 ;
-                $countPro = count($products);
-                //echo "------------".$count;
-                foreach ($products as $product) {
-                    if($i == 0 )
-                        echo "<div class='row'>";
 
-                        echo "<div class='col-md-3'>";
-                             echo "<div class='text-center product-cont'>";
-                                if(!empty($product->getImage()))
-                                    echo "<img  src='" . $block->getUrl() . "pub/media/catalog/product" . $product->getImage() . "'>";
-                                else
-                                    echo '<img  src="'. $block->getUrl().'pub/static/version1512386094/frontend/Magento/luma/en_US/Magento_Catalog/images/product/placeholder/image.jpg">';
+            $i = 0  ;
+            $j = 1 ;
+            $countPro = count($products);
 
-                                 echo "<h4>". $product->getName()."</h4>";
+            foreach ($products as $product) {
+                if($i == 0 )
+                    echo "<div class='row'>";
 
-                                echo "<a class='btn view btn-primary' href='".$block->getUrl() .  rtrim(strtolower(str_replace(' ' ,'-' ,$product->getSku())),'-').".html'> view Detalis </a>";
+                echo "<div class='col-md-3'>";
+                echo "<div class='text-center product-cont'>";
+                if(!empty($product->getImage()))
+                    echo "<img  src='" . $block->getUrl() . "pub/media/catalog/product" . $product->getImage() . "'>";
+                else
+                    echo '<img  src="'. $block->getUrl().'pub/static/version1512386094/frontend/Magento/luma/en_US/Magento_Catalog/images/product/placeholder/image.jpg">';
 
-                             echo "</div>";
-                        /*echo  "<img src='". $block->getViewFileUrl($product->getImage()) ."' >";*/
+                echo "<h3>". $product->getName()."</h3>";
 
+                echo "<a class='btn view btn-primary' href='".$block->getUrl() . strtolower(str_replace(' ' ,'-' ,$product->getName())).".html'> view Detalis </a>";
 
-                        echo "</div>";
+                echo "</div>";
+                /*echo  "<img src='". $block->getViewFileUrl($product->getImage()) ."' >";*/
 
 
-                        $i++;
+                echo "</div>";
 
-                        //to close row div
-                        if($i == 4 ){
-                            echo "</div>";
-                            $i = 0 ;
-                        }
 
-                    // to show only 8 products
-                    $j++;
-                    if($j > 8)
-                        break;
+                $i++;
 
-                }
-                // to close row div
-                if($countPro %4 != 0 )
+                //to close row div
+                if($i == 4 ){
                     echo "</div>";
+                    $i = 0 ;
+                }
+
+                // to show only 8 products
+                $j++;
+                if($j > 8)
+                    break;
+
+            }
+            // to close row div
+            if($countPro %4 != 0 )
+                echo "</div>";
 
             ?>
-                <div class="clearfix"></div>
+            <div class="clearfix"></div>
 
-               <div class="text-center">
-                   <?php
-                   if($countPro>1){
-                       echo "<a class='btn btn-primary' href='".$block->getUrl()."marketplace/shop/products/profile/".str_replace(" ","-",$shop_title)."'>View All Prodcuts (". $count .")</a>";
-                   }?>
-               </div>
+            <div class="text-center">
+                <?php
+                if($countPro>1){
+                    echo "<a class='btn btn-primary' href='".$block->getUrl()."marketplace/shop/products/profile/".str_replace(" ","-",$shop_title)."'>View All Prodcuts (". $count .")</a>";
+                }?>
             </div>
         </div>
+    </div>
 
+    <div class="clearfix"></div>
+    <hr>
+    <!--about-us-->
+    <div id="about">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1">
+                <h2>About Us</h2>
+            </div>
+            <div class="col-md-8">
+                <p class="about"><?php echo $desc;?></p>
+            </div>
+
+        </div>
         <div class="clearfix"></div>
-        <hr>
-        <!--about-us-->
-        <div id="about">
-            <div class="row">
-                <div class="col-md-2 col-md-offset-1">
-                    <h2>About Us</h2>
-                </div>
-                <div class="col-md-8">
-                    <p class="about"><?php echo $desc;?></p>
-                </div>
-
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1">
+                <h4>Contact Number</h4>
             </div>
-            <div class="clearfix"></div>
-            <div class="row">
-                <div class="col-md-2 col-md-offset-1">
-                    <h4>Contact Number</h4>
-                </div>
-                <div class="col-md-8">
-                    <p class="about"><?php echo $contact;?></p>
-                </div>
-
-            </div>
-            <div class="clearfix"></div>
-            <div class="row">
-                <div class="col-md-2 col-md-offset-1">
-                    <h4>Address</h4>
-                </div>
-                <div class="col-md-8">
-                    <p class="about"><?php echo $address;?></p>
-                </div>
-
-            </div>
-            <div class="clearfix"></div>
-            <div class="row">
-                <div class="col-md-2 col-md-offset-1">
-                    <h4>Tax Number</h4>
-                </div>
-                <div class="col-md-8">
-                    <p class="about"><?php echo $tax;?></p>
-                </div>
-
+            <div class="col-md-8">
+                <p class="about"><?php echo $contact;?></p>
             </div>
 
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1">
+                <h4>Address</h4>
+            </div>
+            <div class="col-md-8">
+                <p class="about"><?php echo $address;?></p>
+            </div>
+
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1">
+                <h4>Tax Number</h4>
+            </div>
+            <div class="col-md-8">
+                <p class="about"><?php echo $tax;?></p>
+            </div>
 
         </div>
 
 
+    </div>
 
-        <!--rating-->
-        <div class="rate" id="rate">
-            <div class="row">
-        <?php if($count >0 ){ ?>
+
+
+    <!--rating-->
+    <div class="rate" id="rate">
+        <div class="row">
+            <?php if($count >0 ){
+                ?>
 
                 <div class="col-md-3 ">
                     <div class="rate-cont text-center">
@@ -154,7 +156,7 @@ if(!empty($shop->getData('shop_title'))) {
                         <?php foreach($rates as $v){?>
                             <div class="review-cont">
                                 <h4> <b><?php echo $v['summary'] ?> </b></h4>
-                                <p> By <?php echo $v['name'] ?>  </p>
+                                <p> By: <?php echo $v['name'] ?>  &nbsp; Date: <?php echo $v['created_at'] ?>   </p>
                                 <h5> Rating:
                                     <b>Price</b>
                                     <i class="fa fa-star star <?php echo $block->getStarColor($v['price']); ?> "></i>
@@ -186,67 +188,67 @@ if(!empty($shop->getData('shop_title'))) {
                 </div>
 
 
-        <?php } else {?>
-            <div class="text-center">
-                <h3> No Rates </h3>
-                <a href="<?php echo $block->getUrlRate(str_replace(" ","-",$shop_title)) . "#rate-form"; ?>" class="btn btn-primary write" > Write Your Review</a>
+            <?php } else {?>
+                <div class="text-center">
+                    <h3> No Rates </h3>
+                    <a href="<?php echo $block->getUrlRate(str_replace(" ","-",$shop_title)) . "#rate-form"; ?>" class="btn btn-primary write" > Write Your Review</a>
 
-            </div>
-             <?php } ?>
-            </div>
-        </div>
-        <hr>
-
-        <!--policy-->
-        <div id="policy">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="cont">
-                        <span class="pull-left">  Return Policy</span>
-                        <i class="fa fa-truck pull-right"></i>
-                        <div class="clearfix"></div>
-                        <p> <?php echo $return; ?></p>
-                    </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="cont">
-                        <span class="pull-left">  Shipping Policy</span>
-                        <i class="fa fa-truck pull-right"></i>
-                        <div class="clearfix"></div>
-                        <p> <?php echo $shipping; ?></p>
-                    </div>
+            <?php } ?>
+        </div>
+    </div>
+    <hr>
+
+    <!--policy-->
+    <div id="policy">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="cont">
+                    <span class="pull-left">  Return Policy</span>
+                    <i class="fa fa-truck pull-right"></i>
+                    <div class="clearfix"></div>
+                    <p> <?php echo $return; ?></p>
                 </div>
             </div>
-
-        </div>
-
-        <hr>
-        <!--contact-->
-        <div id="contact">
-            <div class="row">
-                <div class="col-md-6 col-md-offset-3">
-                    <h3 class="text-center"> Contact US</h3>
-                    <form action="<?php echo $block->getFormAction("savecontact") ?>" method="post" enctype="multipart/form-data">
-
-                        <label>Name:</label>
-                        <input name="name" type="text" placeholder="Name">
-                        <br><br>
-                        <label>Eamil:</label>
-                        <input name="email" type="email" placeholder="Email">
-                        <br><br>
-                        <label>Subject:</label>
-                        <input name="subject" type="text" placeholder="Subject">
-                        <br><br>
-                        <label>Message:</label>
-                        <textarea name="message" id=""  rows="5" placeholder="Message"></textarea>
-                        <br><br>
-
-                        <input type="submit" value="Send" >
-
-                    </form>
+            <div class="col-md-6">
+                <div class="cont">
+                    <span class="pull-left">  Shipping Policy</span>
+                    <i class="fa fa-truck pull-right"></i>
+                    <div class="clearfix"></div>
+                    <p> <?php echo $shipping; ?></p>
                 </div>
             </div>
         </div>
+
+    </div>
+
+    <hr>
+    <!--contact-->
+    <div id="contact">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <h3 class="text-center"> Contact US</h3>
+                <form action="<?php echo $block->getFormAction("savecontact") ?>" method="post" enctype="multipart/form-data">
+
+                    <label>Name:</label>
+                    <input name="name" type="text" placeholder="Name">
+                    <br><br>
+                    <label>Eamil:</label>
+                    <input name="email" type="email" placeholder="Email">
+                    <br><br>
+                    <label>Subject:</label>
+                    <input name="subject" type="text" placeholder="Subject">
+                    <br><br>
+                    <label>Message:</label>
+                    <textarea name="message" id=""  rows="5" placeholder="Message"></textarea>
+                    <br><br>
+
+                    <input type="submit" value="Send" >
+
+                </form>
+            </div>
+        </div>
+    </div>
 
 <?php }
 

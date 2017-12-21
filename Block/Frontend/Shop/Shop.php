@@ -22,8 +22,8 @@ class Shop extends \Magento\Framework\View\Element\Template
                                 Product $product,
                                 CollectionFactory $collectionFactory,
                                 \Magento\Catalog\Block\Product\ListProduct $listProductBlock,
-                                Rate $rateCollection)
-    {
+                                Rate $rateCollection
+    ){
         $this->rateCollection = $rateCollection;
         $this->profileCollection = $profileCollection;
         $this->productCollection = $product ;
@@ -55,7 +55,10 @@ class Shop extends \Magento\Framework\View\Element\Template
     public function getRates($shop_id)
     {
 
-        return $this->rateCollection->addFieldToFilter('shop_id', $shop_id)->getData();
+        return $this->rateCollection->addFieldToFilter('shop_id', $shop_id)
+            ->setOrder('created_at','desc')
+            ->addFilter('approve','1')
+            ->getData();
     }
 
     public function getFormAction($url)
@@ -80,20 +83,19 @@ class Shop extends \Magento\Framework\View\Element\Template
     public function getStarColor($star){
 
         $star =intval($star);
-            
+
         if($star == 1 )
             return  "red";
         elseif (in_array( $star,[2,3]))
             return "gold";
         else
-           return "green";
+            return "green";
     }
 
     public function getProducts($customer_id)
     {
 
         $vendor = $this->productCollection->getAllAttributeValues('vendor_id');
-        //echo $customer_id . "<br>";print_r(($vendor)) ;die();
 
         $productIds = array() ;
         foreach ($vendor as $k =>$v){
