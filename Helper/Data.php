@@ -156,5 +156,32 @@ class Data extends AbstractHelper
         }
     }
 
+    public function getSoldQtyByProductId($producID=null){
+        $SoldProducts= $this->_reportCollectionFactory->create();
+        $SoldProdudctCOl=$SoldProducts->addOrderedQty()->addAttributeToFilter('product_id', $producID);
+        /* If does have any product id
+         * then return false
+         */
+        if(!$SoldProdudctCOl->count()):
+            return false;
+        endif;
+        echo $SoldProdudctCOl->getSelect()->__toString();
+
+        $product = $SoldProdudctCOl
+            ->getFirstItem();
+
+        return (int)$product->getData('ordered_qty');
+    }
+
+
+    /**
+     * @return LandingPageConfig
+     */
+    public function getLandingPageConfig()
+    {
+        return $this->_landingPageConfig;
+    }
+
+
 
 }

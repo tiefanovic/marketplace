@@ -1,0 +1,87 @@
+<?php
+
+$data           = $block->getData1();
+$data           = $data['landing_page_settings'];
+
+//banner
+$isBanner       = $data['display_banner'];
+$bannerImage    = $this->getUrl()."pub/media/marketplace/".$data['banner_image'];
+$bannerContent  = $data['banner_content'];
+
+
+
+//products
+$label2         = $data['marketplace_landing_page_label2'];
+
+$shops          = $block->getShops();
+$countShops     = count($shops);
+
+
+
+
+?>
+
+    <!--banner-->
+<? if($isBanner):?>
+    <div class="am-banner">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cont text-center">
+                    <div class="image" style="background: url('<?= $bannerImage?>')" >
+                        <h1>Open a Marketplace Shop</h1>
+                        <p><?= $bannerContent ?></p>
+                        <a href="<?= $block->getUrl(). 'customer/account/login/' ?>" class="btn btn-default">Open a Marketplace Shop</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?endif;?>
+
+<hr>
+<!--products-->
+<div class="am-products">
+    <h1 class="text-center">All Sellers</h1>
+    <div class="row">
+
+        <?php
+        $i = 0 ;
+        foreach ($shops as $shop):
+            $products = $block->getProducts($shop['customer_id']);
+            ?>
+            <div class="col-md-3">
+                <div class="cont " style="height: 140px ; margin-bottom:20px; border: 1px solid #ccc;padding: 10px">
+
+                    <div class="col3" >
+                        <div class="pull-left" style="width: 40%">
+                            <img  class="img-responsive img-thumbnail"  style="width: 75%;height: 100px;"  src='<?= $block->getUrl() . "pub/media/shop/" . $shop['shop_logo']; ?>' alt="logo">
+                        </div>
+                        <div class="pull-left" style="width: 58%">
+                            <h5><a  href="<?= $block->getUrl().'marketplace/shop/shop/profile/'. strtolower(str_replace(' ' ,'-' , $shop['shop_title'] ));?>"><?= $shop['shop_title'] ?></a></h5>
+                            <h6><span><?= $products['total']?> Products  </span></h6>
+                            <a class="btn btn-default" href="<?= $block->getUrl().'marketplace/shop/products/profile/'. strtolower(str_replace(' ' ,'-' , $shop['shop_title'] ));?>">View All</a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+
+
+       <?php endforeach;?>
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

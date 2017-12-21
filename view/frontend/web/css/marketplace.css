@@ -1,4 +1,4 @@
-
+a {color: blue !important;}
 /****** *****/
 hr {
     border-color: #ccc !important;
@@ -100,6 +100,10 @@ hr {
     border-bottom: 1px solid #ccc;
 }
 
+.rate .review-cont:last-child {
+    border-bottom: none;
+}
+
 
 
 
@@ -116,7 +120,7 @@ hr {
 #products h4 a {  color: #000;}
 
 #products .view { display: none ;}
-#products .product-cont {  height: 343px}
+#products .product-cont {  height: 320px}
 #products .product-cont:hover .view { display: inline}
 #products .product-cont:hover {
     background: #fff;
@@ -127,7 +131,7 @@ hr {
     position: relative;
     z-index: 2;
 }
-
+/*** orders   ***/
 table th {
     text-align: left !important;
 }
@@ -152,16 +156,36 @@ table th {
 }
 
 
+/*****  dashboard *******/
 
+.am-second .cont{
+    border: 1px solid #EEE;
+    padding: 0px 25px 15px;
+}
 
+.am-second .cont h4{
 
+    color: green;
+    margin: 0 !important;
+}
 
+.am-second .cont span{
 
+    font-size: 16px;
+    margin-bottom: 10px;
+    display: block;
+}
 
+/********* sell page****/
+.am-banner  {color: #FFF; margin: 50px 0; }
 
+.am-banner .cont {  padding:15px; border: 1px solid #cccbca;  }
 
+.am-banner .image{padding:60px;background-size: cover !important;  }
 
-
+.am-icons { margin: 50px 0 ;}
+.am-icons h1 { margin-bottom: 50px}
+.am-icons img {width: 180px !important;height: 180px !important;  }
 
 
 
