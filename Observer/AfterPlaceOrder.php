@@ -41,9 +41,16 @@ class AfterPlaceOrder implements ObserverInterface
 
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
-        $order = $observer->getOrder();
-        echo $orderId = $order->getId();
-        //$comment = $this->getRequest()->getParam('comment');
-        print_r("Catched event succssfully !"); exit;
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/test.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info('Obeserved');
+
+        $orderIds = $observer->getEvent()->getOrder();
+        $lastorderId = $orderIds->getId();
+
+        $logger->info('Order Id =>' . $lastorderId);
+        /*$order = $this->orderFactory->load($lastorderId);
+        $this->helper->getProductSalesCalculation($order);*/
     }
 }

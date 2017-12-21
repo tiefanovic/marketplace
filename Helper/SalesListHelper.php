@@ -10,10 +10,14 @@ namespace AWstreams\Marketplace\Helper;
 
 
 use AWstreams\Marketplace\Model\ResourceModel\SalesList\Collection;
+use AWstreams\Marketplace\Model\SalesListFactory;
+use AWstreams\Marketplace\Model\SalePerPartnerFactory;
+use Magento\Catalog\Model\ProductFactory;
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\App\Helper\AbstractHelper as Helper;
 use Magento\Framework\App\ObjectManager;
+use Magento\Framework\Event\ManagerInterface;
 use Magento\Store\Model\StoreManagerInterface;
 
 class SalesListHelper extends Helper
@@ -22,23 +26,33 @@ class SalesListHelper extends Helper
     protected $helper;
     protected $objectManager;
     protected $session;
+    protected $salesListFactory;
     protected $storeManager;
+    protected $productFactory;
+    protected $mangerInterface;
+    protected $salesPerPartnerFactory;
     public function __construct(
         Context $context,
         Collection $collection,
         Data $helper,
         StoreManagerInterface $storeManager,
         Session $session,
-        ObjectManager $objectManager
+        ObjectManager $objectManager,
+        SalesListFactory $salesListFactory,
+        SalePerPartnerFactory $salePerPartnerFactory,
+        ManagerInterface $managerInterface,
+        ProductFactory $productFactory
     )
     {
         parent::__construct($context);
         $this->collection = $collection;
         $this->helper = $helper;
         $this->session = $session;
+        $this->salesListFactory = $salesListFactory;
         $this->storeManager = $storeManager;
         $this->objectManager = $objectManager;
-
+        $this->productFactory = $productFactory;
+        $this->mangerInterface = $managerInterface;
         $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/test.log');
         $logger = new \Zend\Log\Logger();
         $logger->addWriter($writer);
@@ -117,7 +131,7 @@ class SalesListHelper extends Helper
                 }
             }*/
             if($seller_id==''){$seller_id=0;}
-            $collection1 = ($this->objectManager->create('AWstreams\Marketplace\Model\SalePerPartner'))->getCollection();
+            $collection1 = $this->salesPerPartnerFactory->create()->getCollection();
             $collection1->addFieldToFilter('vendor_id',array('eq'=>$seller_id));
             $qty=$item->getQtyOrdered();
             $totalamount=$qty*$price;
@@ -149,7 +163,7 @@ class SalesListHelper extends Helper
             }*/
 
             $actparterprocost=$totalamount-$commision;
-            $collectionsave = $this->objectManager->create('AWstreams\Marketplace\Model\SalesList');
+            $collectionsave = $this->salesListFactory->create();
             $collectionsave->setProductId($item->getProductId());
             $collectionsave->setOrderId($lastOrderId);
             $collectionsave->setRealOrderId($order->getIncrementId());
@@ -173,7 +187,7 @@ class SalesListHelper extends Helper
         }
     }
 
-    /*public function getSalesdetail($mageproid){
+    public function getSalesdetail($mageproid){
         $data = array(
             'quantitysoldconfirmed'=>0,
             'quantitysoldpending'=>0,
@@ -183,24 +197,24 @@ class SalesListHelper extends Helper
         );
         $sum=0;
         $arr=array();
-        $quantity = Mage::getModel('marketplace/saleslist')->getCollection()
-            ->addFieldToFilter('mageproid',array('eq'=>$mageproid));
+        $quantity = $this->salesListFactory->create()->getCollection()
+            ->addFieldToFilter('product_id',array('eq'=>$mageproid));
 
         foreach($quantity as $rec){
-            $status=$rec->getCpprostatus();
-            $data['quantitysold']=$data['quantitysold']+$rec->getMagequantity();
+            $status=$rec->gerProductStatus();
+            $data['quantitysold']=$data['quantitysold']+$rec->getQuantity();
             if($status==1){
-                $data['quantitysoldconfirmed']=$data['quantitysoldconfirmed']+$rec->getMagequantity();
+                $data['quantitysoldconfirmed']=$data['quantitysoldconfirmed']+$rec->getQuantity();
             }else{
-                $data['quantitysoldpending']=$data['quantitysoldpending']+$rec->getMagequantity();
+                $data['quantitysoldpending']=$data['quantitysoldpending']+$rec->getQuantity();
             }
         }
 
-        $amountearned = Mage::getModel('marketplace/saleslist')->getCollection()
-            ->addFieldToFilter('cpprostatus',array('eq'=>1));
-        $amountearned->getSelect()->where('mageproid ='.$mageproid);
+        $amountearned = $this->salesListFactory->create()->getCollection()
+            ->addFieldToFilter('product_status',array('eq'=>1));
+        $amountearned->getSelect()->where('product_id ='.$mageproid);
         foreach($amountearned as $rec) {
-            $data['amountearned']=$data['amountearned']+$rec->getactualparterprocost();
+            $data['amountearned']=$data['amountearned']+$rec->getActualparterprocost();
             $arr[]=$rec->getClearedAt();
         }
         $data['clearedat']=$arr;
@@ -208,7 +222,7 @@ class SalesListHelper extends Helper
     }
     public function createdAt($mageproid){
         $arr=array();
-        $collection = Mage::getModel('catalog/product')->getCollection();
+        $collection = $this->productFactory->create()->getCollection();
         $collection->addFieldToFilter('entity_id',array('eq' => $mageproid));
         foreach($collection as $rec) {
             $arr[]=$rec->getCreatedAt();
@@ -216,17 +230,16 @@ class SalesListHelper extends Helper
         return $arr;
     }
     public function getDateDetail(){
-        $session = Mage::getSingleton('customer/session');
-        $cidvar = $session->getId();
-        $collection1 = Mage::getModel('marketplace/saleslist')->getCollection()
-            ->addFieldToFilter('mageproownerid',array('eq'=>$cidvar))
-            ->addFieldToFilter('mageorderid',array('neq'=>0));
-        $collection2= Mage::getModel('marketplace/saleslist')->getCollection()
-            ->addFieldToFilter('mageproownerid',array('eq'=>$cidvar))
-            ->addFieldToFilter('mageorderid',array('neq'=>0));
-        $collection3 = Mage::getModel('marketplace/saleslist')->getCollection()
-            ->addFieldToFilter('mageproownerid',array('eq'=>$cidvar))
-            ->addFieldToFilter('mageorderid',array('neq'=>0));
+        $cidvar = $this->session->getCustomer()->getId();
+        $collection1 = $this->salesListFactory->create()->getCollection()
+            ->addFieldToFilter('vendor_id',array('eq'=>$cidvar))
+            ->addFieldToFilter('order_id',array('neq'=>0));
+        $collection2= $this->salesListFactory->create()->getCollection()
+            ->addFieldToFilter('vendor_id',array('eq'=>$cidvar))
+            ->addFieldToFilter('order_id',array('neq'=>0));
+        $collection3 =$this->salesListFactory->create()->getCollection()
+            ->addFieldToFilter('vendor_id',array('eq'=>$cidvar))
+            ->addFieldToFilter('order_id',array('neq'=>0));
         $first_day_of_week = date('Y-m-d', strtotime('Last Monday', time()));
         $last_day_of_week = date('Y-m-d', strtotime('Next Sunday', time()));
         $month=$collection1->addFieldToFilter('cleared_at', array('datetime' => true,'from' =>  date('Y-m').'-01 00:00:00','to' =>  date('Y-m').'-31 23:59:59'));
@@ -237,12 +250,12 @@ class SalesListHelper extends Helper
         $data1['year']=$sale;
         $sale1=0;
         foreach($day as $record1) {
-            $sale1=$sale1+$record1->gettotalamount();
+            $sale1=$sale1+$record1->getTotalAmount();
         }
         $data1['day']=$sale1;
         $sale2=0;
         foreach($month as $record2) {
-            $sale2=$sale2+$record2->gettotalamount();
+            $sale2=$sale2+$record2->getTotalAmount();
         }
         $data1['month']=$sale2;
         $sale3=0;
@@ -253,31 +266,31 @@ class SalesListHelper extends Helper
         return $data1;
     }
     public function getMonthlysale(){
-        $customerid = Mage::getSingleton('customer/session')->getId();
+        $customerid = $this->session->getCustomer()->getId();
         $data=array();
         $curryear = date('Y');
         for($i=1;$i<=12;$i++){
             $date1=$curryear."-".$i."-01 00:00:00";
             $date2=$curryear."-".$i."-31 23:59:59";
-            $collection = Mage::getModel('marketplace/saleslist')->getCollection();
-            $collection=$collection->addFieldToFilter('mageproownerid',array('eq'=>$customerid));
+            $collection = $this->salesListFactory->create()->getCollection();
+            $collection=$collection->addFieldToFilter('vendor_id',array('eq'=>$customerid));
             $collection=$collection->addFieldToFilter('cleared_at', array('datetime' =>true,'from' =>  $date1,'to' =>  $date2));
             $sum=array();
             $temp=0;
             foreach ($collection as $record) {
-                $temp = $temp+$record->getactualparterprocost();
+                $temp = $temp+$record->getActualparterprocost();
             }
-            $baseCurrencyCode = Mage::app()->getStore()->getBaseCurrencyCode();
+            $baseCurrencyCode = $this->storeManager->getStore()->getBaseCurrencyCode();
             $currentCurrencyCode = Mage::app()->getStore()->getCurrentCurrencyCode();
-            $price = Mage::helper('directory')->currencyConvert($temp, $baseCurrencyCode, $currentCurrencyCode);
+            $price = $temp/$this->storeManager->getStore()->getCurrentCurrencyRate();
             $data[$i]=$price;
         }
         return json_encode($data);
     }
-    public function getOrderdetails(){
-        $customerid = Mage::getSingleton('customer/session')->getId();
-        $collection = Mage::getModel('marketplace/saleslist')->getCollection();
-        $collection->addFieldToFilter('mageproownerid',array('eq'=>$customerid))->setOrder('autoid','DESC');
+    /*public function getOrderdetails(){
+        $customerid = $this->session->getCustomer()->getId();
+        $collection = $this->salesListFactory->create()->getCollection();
+        $collection->addFieldToFilter('vendor_id',array('eq'=>$customerid))->setOrder('list_id','DESC');
         $userorder=array();
         $gropoid=array();
         $groporderid=array();
@@ -286,9 +299,9 @@ class SalesListHelper extends Helper
         foreach ($collection as $record) {
             $i++;
             if($i<=5){
-                if(count($gropoid) && $record->getmagerealorderid()==$gropoid[$i-1]){
+                if(count($gropoid) && $record->getRealOrderId()==$gropoid[$i-1]){
                     $i--;
-                    $productid=$productid.",".$record->getmageproid();
+                    $productid = $productid.",".$record->getmageproid();
                     $productname=$productname.",".$record->getmageproname()." X ".$record->getmagequantity();
                     $pprice=$pprice+$record->getactualparterprocost();
                     $userorder[$i]=array('mageproid'=>$productid,
@@ -318,39 +331,39 @@ class SalesListHelper extends Helper
         return $userorder;
     }
     public function getPaymentDetailById(){
-        $customerid = Mage::getSingleton('customer/session')->getId();
+        $customerid = $this->session->getCustomer()->getId();
         $collection = Mage::getModel('marketplace/userprofile')->getCollection();
         $collection->addFieldToFilter('mageuserid',array('eq'=>$customerid));
         foreach($collection as $row){
             $paymentsource=$row->getPaymentsource();
         }
         return $paymentsource;
-    }
+    }*/
 
     public function getpronamebyorder($mageorderid){
-        $customerid=Mage::getSingleton('customer/session')->getCustomerId();
+        $customerid=$this->session->getCustomerId();
         $name='';
-        $_collection = Mage::getModel('marketplace/saleslist')->getCollection();
-        $_collection->addFieldToFilter('mageorderid',$mageorderid);
-        $_collection->addFieldToFilter('mageproownerid',$customerid);
+        $_collection = $this->salesListFactory->create()->getCollection();
+        $_collection->addFieldToFilter('order_id',$mageorderid);
+        $_collection->addFieldToFilter('vendor_id',$customerid);
         foreach($_collection as $res){
-            $name = $name."<p style='color:silver;float:left;'>".$res['mageproname']." X ".$res['magequantity']."&nbsp;</p>";
+            $name = $name."<p style='color:silver;float:left;'>".$res['product_name']." X ".$res['quantity']."&nbsp;</p>";
         }
         return $name;
     }
 
     public function getPricebyorder($mageorderid){
-        $customerid=Mage::getSingleton('customer/session')->getCustomerId();
-        $_collection = Mage::getModel('marketplace/saleslist')->getCollection();
+        $customerid= $this->session->getCustomerId();
+        $_collection = $this->salesListFactory->create()->getCollection();
         $_collection->getSelect()
-            ->where('mageproownerid ='.$customerid)
+            ->where('vendor_id ='.$customerid)
             ->columns('SUM(actualparterprocost) AS qty')
-            ->group('mageorderid');
+            ->group('order_id');
         foreach($_collection as $coll){
-            if($coll->getMageorderid() == $mageorderid){
+            if($coll->getOrderId() == $mageorderid){
                 return $coll->getQty();
             }
         }
     }
-    */
+
 }
