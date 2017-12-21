@@ -1,0 +1,256 @@
+<?php
+
+$shop = $block->getShop()->getData();
+
+$views = $block->getMostViews();
+$sales =$block->getTopSelling();
+$chart = $block->getOrdersChart();
+
+$rates = $block->getRates($shop['shop_id']);
+$count = count($rates);
+if ($count > 0) {
+    $price = 0;
+    $value = 0;
+    $quality = 0;
+    foreach ($rates as $v) {
+        $price += $v['price'];
+        $value += $v['value'];
+        $quality += $v['quality'];
+    }
+    $price = round($price / $count, 1);
+    $value = round($value / $count, 1);
+    $quality = round($quality / $count, 1);
+    $rate = round(($price + $value + $quality) / 3, 1);
+    $ratee = ($rate / 5) * 100;
+}
+
+
+?>
+
+
+<!--first-row-->
+<div class="am-first">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="con">
+                <h4>Lifetime Sales</h4>
+                <h2>$ <?= $block->getTotal(); ?></h2>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="con">
+                <h4>Total Payout </h4>
+                <h2>$25000</h2>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="con">
+                <h4>Remaining Amount</h4>
+                <h2>$25000</h2>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<hr>
+<!--second-row-->
+<div class="am-second">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Sales Chart </h3>
+            <div id="chart"></div>
+            <div id="chart-download"></div>
+
+
+        </div>
+
+    </div>
+</div>
+<hr>
+<div class="am-second">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="cont" >
+                <h3>Top Selling Products</h3>
+                <div class="">
+                    <?php foreach ( $sales as $key => $sale):?>
+                        <h4 style="color:green"><?= $sale ?> Sales</h4>
+                        <span><a href="<?= $block->getUrl() . strtolower(str_replace(' ' ,'-' ,$key)).'.html' ?>"> <?= $key ?> </a></span>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <div class="cont">
+                <h3> Most Product Views </h3>
+                <div class="">
+                    <?php foreach ( $views as $view):?>
+                        <h4 style="color:green"><?= $view['views']?> Views</h4>
+                        <span><a href="<?= $block->getUrl() . strtolower(str_replace(' ' ,'-' ,$view['name'])).'.html' ?>"> <?= $view['name']?> </a></span>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+
+
+
+
+<!--latest orders-->
+<div class="latest-orders">
+    <div class="row">
+    <h3>Latest Orders</h3>
+
+    <div class="table-wrapper orders-history">
+        <table class="data table table-order-items history" id="my-orders-table">
+            <caption class="table-caption"><?php /* @escapeNotVerified */ echo __('Orders') ?></caption>
+
+            <tbody>
+             <?php
+             $i= 0 ;
+             foreach ($block->getSalesOrderCollection() as  $order){
+                 $orderProducts = $block->getAllItems($order['entity_id'],$block->getProductCollection());
+
+                 $status = $block->getStatus($orderProducts);
+
+                    if($orderProducts['total'] != 0){
+                        $products ='';
+                        $total = $orderProducts['total'];
+                        unset($orderProducts['total']);
+                        foreach ($orderProducts as $prodcut){
+                           $products .=  '<a href="'. $this->getUrl().$prodcut['sku'] . '.html">'.$prodcut['name'].'</a> &nbsp;X'.'&nbsp;'. floor($prodcut['quantity']).'&nbsp;';
+                        }
+                        $url = 'marketplace/seller/order/id/'. $order['entity_id'];
+
+                        echo "<tr>";
+                        echo '<td class="col " colspan="3" >'.
+                            ' # '.$order['increment_id'] .'<br>'.
+                            $products. "<br>".
+                            '<a class="btn btn-default"href="'.$this->getUrl($url).'">View Order</a>'."<br><br>".
+                            'Customer:'.$order['customer_firstname'] .' '.$order['customer_lastname'].
+                            '&nbsp; Date:'.$order['created_at'] .
+                            '</td>';
+                        echo '<td class="col text-center" colspan="3" >'.
+                            '<div class="'.$status.'">'.$status.'</div>'.
+                            '<br>'.
+                             'Total:' .$total.
+                            '</td>';
+                    ;
+
+                        echo "</tr>";
+
+                    }
+                    if($i == 4 )
+                        break;
+                    else
+                        $i++;
+             }
+             ?>
+
+            </tbody>
+        </table>
+    </div>
+    </div>
+</div>
+
+
+
+<!--rating-->
+<h3>Latest Comments & Reviews</h3>
+<div class="rate" id="rate">
+    <div class="row">
+        <?php if($count >0 ){
+            ?>
+
+            <div class="col-md-12">
+                <div class="reviews">
+                    <?php
+                    $i=0 ;
+                    foreach($rates as $v){
+                        ?>
+                        <div class="review-cont">
+                            <h4> <b><?php echo $v['summary'] ?> </b></h4>
+                            <p> Customer: <?php echo $v['name'] ?>   &nbsp; Date: <?php echo  $v['created_at']; ?> </p>
+                            <h5> Rating:
+                                <b>Price</b>
+                                <i class="fa fa-star star <?php echo $block->getStarColor($v['price']); ?> "></i>
+                                <?php echo $v['price']; ?>
+
+                                <b>Value</b>
+                                <i class="fa fa-star star <?php echo $block->getStarColor($v['value']); ?>"></i>
+                                <?php echo $v['value']; ?>
+
+                                <b>Quality</b>
+                                <i class="fa fa-star star <?php echo $block->getStarColor($v['quality']); ?>"></i>
+                                <?php echo $v['quality']; ?>
+                            </h5>
+                            <p> <?php echo $v['review'] ?>  </p>
+                        </div>
+
+                        <?php
+                        if($i == 4 )
+                            break;
+                        else
+                            $i++;
+                    }
+
+                    ?>
+                    <br>
+
+                </div>
+            </div>
+
+
+        <?php } else {?>
+            <div class="text-center">
+                <h3> No Rates </h3>
+            </div>
+        <?php } ?>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+    // Load google charts
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    // Draw the chart and set the chart values
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Task', 'Orders per Day',{ role: 'annotation' }],
+            <?php
+            foreach ($chart as $key => $value){
+                echo '["'. date('l', strtotime($key)).'\n'. $key.'",'.$value.','.$value .'],';
+            }
+            ?>
+
+        ]);
+
+        // Optional; add a title and set the width and height of the chart
+        var options = { 'height':400};
+
+
+
+        // Display the chart inside the <div> element with id="piechart"
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart'));
+
+
+        // Wait for the chart to finish drawing before calling the getImageURI() method.
+        google.visualization.events.addListener(chart, 'ready', function () {
+            document.getElementById('chart-download').innerHTML = '<a  class="btn btn-primary" href="' + chart.getImageURI() + '"download>'+'Download The Graph';
+
+        });
+
+        chart.draw(data, options);
+    }
+</script>
+
+
+
