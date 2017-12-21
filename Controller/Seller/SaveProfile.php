@@ -75,8 +75,11 @@ class SaveProfile extends Action
         $shops = $this->profileCollection2->addFieldToSelect('*')->getData();/*getData();*///addFieldToFilter('shop_title', $post['shop_title'])->getFirstItem()->getData('shop_title');
 
         $customerId = $this->currentCustomer->getId();
-        if($this->hasProfile())
-            $model = $this->profileCollection->addFieldToFilter('customer_id', $customerId)->getFirstItem();
+        echo $customerId ."====";
+
+        $shopId =$this->hasProfile($customerId);
+        if($shopId != 0 )
+            $model = $this->_objectManager->create('AWstreams\Marketplace\Model\Profile')->load($shopId);
         else
             $model = $this->_objectManager->create('AWstreams\Marketplace\Model\Profile');
 
@@ -175,12 +178,15 @@ class SaveProfile extends Action
 
     }
 
-    private function hasProfile()
+    private function hasProfile($customerId)
     {
-        $profile = $this->profileCollection->addFieldToFilter('customer_id', $this->currentCustomer->getId());
-        if ($profile->count() > 0)
-            return true;
-        return false;
+        $profiles = $this->profileCollection->getData();
+        foreach ($profiles as $profile){
+            if ($profile['customer_id'] ==  $customerId)
+                return $profile['shop_id'];
+        }
+        return 0;
+
     }
 
     private function saveImage($banner){
@@ -202,6 +208,5 @@ class SaveProfile extends Action
 
     }
 }
-
 
 
