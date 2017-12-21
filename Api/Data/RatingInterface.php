@@ -14,6 +14,8 @@ interface RatingInterface
     const NAME         = 'name';
     const SUMMARY      = 'summary';
     const REVIEW       = 'review' ;
+    const APPROVE      = 'approve' ;
+    const CREATEDAT    = 'create_at' ;
     const SHOP_ID      = 'shop_id';
 
 
@@ -44,6 +46,14 @@ interface RatingInterface
     //review
     public function getReview();
     public function setReview($review);
+
+    //approve
+    public function getApprove();
+    public function setApprove($approve);
+
+    //created_at
+    public function getDate();
+    public function setDate($date);
 
     //shop id
     public function getShopId();

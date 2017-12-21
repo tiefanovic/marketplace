@@ -88,6 +88,8 @@ class InstallSchema implements InstallSchemaInterface
                 ->addColumn('name', Table::TYPE_TEXT, null, ['nullable' => false, 'default' => ''], 'name ')
                 ->addColumn('summary', Table::TYPE_TEXT, null, ['nullable' => false, 'default' => ''], 'summary')
                 ->addColumn('review', Table::TYPE_TEXT, null, ['nullable' => false, 'default' => ''], 'review')
+                ->addColumn('approve', Table::TYPE_SMALLINT, null, ['nullable' => false, 'default' => '0'], 'approve')
+                ->addColumn('created_at', Table::TYPE_TIMESTAMP, null, ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT], 'review')
                 ->addColumn('shop_id', \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER, null, ['nullable' => false, 'unsigned' =>  true], 'shop_id')
 
                 ->addIndex($installer->getIdxName('shop_rate',  ['shop_id']), ['shop_id'])

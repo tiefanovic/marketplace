@@ -99,6 +99,24 @@ class Rating  extends \Magento\Framework\Model\AbstractModel implements RatingIn
         return $this->setData(self::REVIEW, $review);
 
     }
+    //Created_at
+    public function getDate(){
+        return $this->getData(self::CREATEDAT);
+
+    }
+    public function setDate($date){
+        return $this->setData(self::REVIEW, $date);
+
+    }
+    //Created_at
+    public function getApprove(){
+        return $this->getData(self::APPROVE);
+
+    }
+    public function setApprove($approve){
+        return $this->setData(self::APPROVE, $approve);
+
+    }
     //shop id
     public function getShopId(){
         return $this->getData(self::SHOP_ID);
