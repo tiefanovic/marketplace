@@ -1,0 +1,113 @@
+<?php
+$helper = $this->helper('AWstreams\Marketplace\Helper\Data');
+?>
+
+<?php
+$isPartner= $block->isPartner();
+if($isPartner){
+    ?>
+    <script type="text/javascript">
+        if (typeof jQuery == 'undefined'){
+            document.write(unescape("%3Cscript src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+        }
+    </script>
+    <style>
+
+    </style>
+    <?php if(count($this->getCollection())==0){ ?>
+        <div class="fieldset">
+            <h2 class="legend"><?php echo __('Transactions') ?></h2>
+            <div class="wk_emptymsg">
+                <?php echo __('No Transaction Available') ?>
+            </div>
+        </div>
+    <?php }
+    else{ ?>
+
+        <?php
+        $total=0;
+
+        foreach($this->getcollection() as $key){
+            $total=$total + $key->getActualparterprocost();
+        }
+        if($total<0)
+        {
+            $total=0;
+        }
+        ?>
+        <div>
+            <div class="page-title">
+                <h1><?php echo __('Transactions') ?></h1>
+            </div>
+            <div class="fieldset">
+                <h2 class="legend"><?php echo __('Transaction List') ?></h2>
+                <b><?php echo __('Remaining Transactions:') ?></b> &nbsp <?php echo $this->helper('Magento\Framework\Pricing\Helper\Data')->currency(number_format($total, 2), true, false);?>
+                <?php echo $this->getChildHtml('mpstripe_seller_pay'); ?>
+                <?php echo $this->getChildHtml('mpmangopay_seller_pay'); ?>
+                <?php echo $this->getPagerHtml(); ?>
+                <div class="wk_content">
+                    <div class="head">
+
+                <span class="label qty adds">
+					<?php echo __('Date')?>
+				</span>
+                        <span class="label name adds">
+					<?php echo __('Description')?>
+				</span>
+                        <span class="label price adds">
+					<?php echo __('Price')?>
+				</span>
+
+
+                    </div>
+                    <div class="wk_clear"></div>
+                    <div class="wk_seller_product">
+                        <?php
+                        foreach($this->getCollection() as $products){
+
+                            ?>
+                            <div class="wk_row_view adds">
+						<span class="label adds">
+							<?php echo  Mage::helper('core')->formatDate($products->getClearedAt(), 'medium', false)  ; ?>
+						</span>
+
+                                <div class="add" title="<?php echo "payment_method" ; ?>">
+                                    <?php
+
+                                    if($products->getOrderId()!=0)
+                                    {
+                                        $commission =round(100-($products->getActualparterprocost() * 100)/$products->getTotalAmount(),2);
+
+                                        echo "<span class='bol'>". $products->getProductName(). "</span>" . ' ' .'Sale:' . ' '. $this->helper('Magento\Framework\Pricing\Helper\Data')->currency(number_format($products->getTotalAmount(),2), true, false) . '('. '-'.$commission .'%'.')' ;
+                                    }
+                                    else
+                                    {
+                                        echo "<span class='bol'>". $products->getProductName(). "</span>" ;
+                                    }
+                                    ?>
+                                </div>
+                                <span class="label adds">
+							<?php if($products->getOrderId()==0) echo $this->helper('Magento\Framework\Pricing\Helper\Data')->currency(number_format($products->getActualparterprocost(), 2), true, false);
+                            else
+                            {
+                                echo '+'. $this->helper('Magento\Framework\Pricing\Helper\Data')->currency(number_format($products->getActualparterprocost(),2), true, false);
+                            } ?>
+						</span>
+                            </div>
+                            <div class="wk_clear"></div>
+                        <?php } ?>
+                    </div>
+                </div>
+                <?php echo $this->getPagerHtml(); ?>
+            </div>
+            <div class="buttons-set">
+                <p class="back-link">
+                    <a href="javascript:;" onclick="javascript: window.history.back();" class="left">&laquo; <?php echo __('Back') ?></a>
+                </p>
+            </div>
+        </div>
+
+    <?php }
+}else{
+    echo __("<h2 class='wk_new_msg'>FOR BECOME SELLER CONTACT TO ADMIN..</h2>");
+}?>
